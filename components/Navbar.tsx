@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
+import ShoppingCartIcon from '../icons/ShoppingCart'
+import SearchIcon from '../icons/Search'
 
 const Navbar = () => (
   <Nav>
@@ -17,6 +19,10 @@ const Navbar = () => (
           <Link href="/support">Help &amp; Support</Link>
         </li>
       </Menu>
+      <NavTail>
+        <SearchIcon width={20} />
+        <ShoppingCartIcon />
+      </NavTail>
     </Container>
   </Nav>
 )
@@ -37,6 +43,7 @@ const Container = styled.div`
   padding: 0 24px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
 `
@@ -51,6 +58,22 @@ const Menu = styled.ul`
     cursor: pointer;
     &:not(:last-child) {
       margin-right: 20px;
+    }
+  }
+`
+
+const NavTail = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+    path {
+      fill: #777;
     }
   }
 `
