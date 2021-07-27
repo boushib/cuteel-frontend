@@ -70,7 +70,7 @@ const NavTail = styled.div`
     height: 24px;
     cursor: pointer;
     &:not(:last-child) {
-      margin-right: 16px;
+      margin-right: 20px;
     }
     path {
       fill: #777;
