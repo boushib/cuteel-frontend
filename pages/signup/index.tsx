@@ -2,14 +2,24 @@ import { Button } from '../../components/Button'
 import styled from 'styled-components'
 import { useState } from 'react'
 import Link from 'next/link'
+import api from '../../api'
+
+export const getServerSideProps = async () => {
+  return { props: {} }
+}
 
 const Signup = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = () => {
-    console.log('Submitting form: ', { email, password })
+  const handleSubmit = async () => {
+    try {
+      const { data } = await api.post('/auth/signup', { name, email, password })
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -36,7 +46,7 @@ const Signup = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button onClick={handleSubmit}>Signup</Button>
         <LoginLink>
           Already have an account? <Link href="/login">Login</Link>
         </LoginLink>

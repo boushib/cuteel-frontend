@@ -2,13 +2,20 @@ import { Button } from '../../components/Button'
 import styled from 'styled-components'
 import { useState } from 'react'
 import Link from 'next/link'
+import api from '../../api'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = () => {
-    console.log('Submitting form: ', { email, password })
+  const handleSubmit = async () => {
+    try {
+      const { data } = await api.post('/auth/signin', { email, password })
+      const { token, user } = data
+      console.log({ token, user })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -30,7 +37,7 @@ const Login = () => {
         />
         <Button onClick={handleSubmit}>Login</Button>
         <SignupLink>
-          Don't have an account? <Link href="/signup">Signup</Link>
+          {"Don't have an account? "} <Link href="/signup">Signup</Link>
         </SignupLink>
       </FormContainer>
     </div>
