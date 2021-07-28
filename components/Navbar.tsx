@@ -3,29 +3,47 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import ShoppingCartIcon from '../icons/ShoppingCart'
 import SearchIcon from '../icons/Search'
+import { useRouter } from 'next/router'
 
-const Navbar = () => (
-  <Nav>
-    <Container>
-      <Image src="/img/logo.png" width="200" height="66" alt="Logo" />
-      <Menu>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/catalog">Catalog</Link>
-        </li>
-        <li>
-          <Link href="/support">Help &amp; Support</Link>
-        </li>
-      </Menu>
-      <NavTail>
-        <SearchIcon width={20} />
-        <ShoppingCartIcon />
-      </NavTail>
-    </Container>
-  </Nav>
-)
+const ROUTES = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  {
+    name: 'Catalog',
+    path: '/catalog',
+  },
+  {
+    name: 'Help & Support',
+    path: '/support',
+  },
+]
+
+const Navbar = () => {
+  const router = useRouter()
+  return (
+    <Nav>
+      <Container>
+        <Image src="/img/logo.png" width="200" height="66" alt="Logo" />
+        <Menu>
+          {ROUTES.map((route) => (
+            <li
+              className={router.pathname === route.path ? 'active' : ''}
+              key={route.path}
+            >
+              <Link href={route.path}>{route.name}</Link>
+            </li>
+          ))}
+        </Menu>
+        <NavTail>
+          <SearchIcon width={20} />
+          <ShoppingCartIcon />
+        </NavTail>
+      </Container>
+    </Nav>
+  )
+}
 
 export default Navbar
 
@@ -55,7 +73,12 @@ const Menu = styled.ul`
   li {
     font-size: 16px;
     list-style-type: none;
+    opacity: 0.6;
+    transition: color 0.3s ease-in-out;
     cursor: pointer;
+    &.active {
+      opacity: 1;
+    }
     &:not(:last-child) {
       margin-right: 20px;
     }
