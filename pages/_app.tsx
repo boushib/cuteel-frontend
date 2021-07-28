@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import Navbar from '../components/Navbar'
+import { useState, useEffect } from 'react'
+import router from 'next/router'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -64,12 +66,32 @@ const theme = {
 }
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const [isLoading, setIsLoading] = useState(false)
+  useEffect(() => {
+    const start = () => setIsLoading(true)
+    const stop = () => setIsLoading(false)
+
+    router.events.on('routeChangeStart', start)
+    router.events.on('routeChangeComplete', stop)
+    router.events.on('routeChangeError', stop)
+
+    return () => {
+      router.events.off('routeChangeStart', start)
+      router.events.off('routeChangeComplete', stop)
+      router.events.off('routeChangeError', stop)
+    }
+  }, [])
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Navbar />
-        <Component {...pageProps} />
+        {isLoading && (
+          <div className="page">
+            <div className="container">Loading...</div>
+          </div>
+        )}
+        {!isLoading && <Component {...pageProps} />}
       </ThemeProvider>
     </>
   )
