@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import Link from 'next/link'
 
-const Login = () => {
+const Signup = () => {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -12,9 +13,16 @@ const Login = () => {
   }
 
   return (
-    <div className="login page">
+    <div className="signup page">
       <FormContainer>
-        <h1>Login</h1>
+        <h1>Signup</h1>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Name"
+          autoFocus={true}
+          onChange={(e) => setName(e.target.value)}
+        />
         <input
           type="text"
           className="form-control"
@@ -29,22 +37,22 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button onClick={handleSubmit}>Login</Button>
-        <SignupLink>
-          Don't have an account? <Link href="/signup">Signup</Link>
-        </SignupLink>
+        <LoginLink>
+          Already have an account? <Link href="/login">Login</Link>
+        </LoginLink>
       </FormContainer>
     </div>
   )
 }
 
-export default Login
+export default Signup
 
 const FormContainer = styled.div`
   width: 320px;
   margin: 0 auto;
 `
 
-const SignupLink = styled.div`
+const LoginLink = styled.div`
   font-size: 15px;
   opacity: 0.7;
   cursor: pointer;
