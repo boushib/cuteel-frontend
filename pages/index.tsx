@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Navbar from '../components/Navbar'
 import Head from '../components/Head'
+import { Button, ButtonSecondary } from '../components/Button'
 
 const Home = () => (
   <div className="home page">
@@ -8,12 +9,14 @@ const Home = () => (
       <Head title="Home" />
       <h1>Home</h1>
       <div>
-        <Link href="/catalog">Browse catalog</Link>
+        <Link href="/catalog" passHref={true}>
+          <Button>Browse catalog</Button>
+        </Link>
       </div>
       <div>
         <Link href="//google.com">
           <a target="_blank" rel="noreferrer noopener">
-            Google
+            <ButtonSecondary>Google</ButtonSecondary>
           </a>
         </Link>
       </div>
