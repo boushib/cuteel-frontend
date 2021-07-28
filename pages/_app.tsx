@@ -43,6 +43,16 @@ const GlobalStyle = createGlobalStyle`
   .page {
     padding: 130px 0 40px;
   }
+
+  .form-control {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    margin-bottom: 16px;
+  }
 `
 
 const theme = {

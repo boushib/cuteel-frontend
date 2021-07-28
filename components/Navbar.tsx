@@ -39,6 +39,7 @@ const Navbar = () => {
         <NavTail>
           <SearchIcon width={20} />
           <ShoppingCartIcon />
+          <Link href="/login">Login</Link>
         </NavTail>
       </Container>
     </Nav>
