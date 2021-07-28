@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   h1, h2, h3 {
     color: #666;
     margin-bottom: 16px;
+    font-weight: 600;
   }
   
   .container {
