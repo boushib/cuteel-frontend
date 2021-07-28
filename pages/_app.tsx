@@ -52,6 +52,8 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     display: block;
     margin-bottom: 16px;
+    color: #666;
+    font-size: 15px;
   }
 `
 
