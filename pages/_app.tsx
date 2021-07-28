@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Poppins', sans-serif;
   }
 
+  body {
+    background-color: #f5f6f7;
+  }
+
   div, p, li, span {
     color: #777;
   }
@@ -24,6 +28,15 @@ const GlobalStyle = createGlobalStyle`
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+  }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -20px;
+    & > div {
+      margin: 20px
+    }
   }
 
   .page {
