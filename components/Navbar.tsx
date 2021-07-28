@@ -74,7 +74,7 @@ const Menu = styled.ul`
     font-size: 16px;
     list-style-type: none;
     opacity: 0.6;
-    transition: color 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     cursor: pointer;
     &.active {
       opacity: 1;
@@ -91,7 +91,12 @@ const NavTail = styled.div`
   svg {
     width: 24px;
     height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
     cursor: pointer;
+    &.active {
+      opacity: 1;
+    }
     &:not(:last-child) {
       margin-right: 20px;
     }
