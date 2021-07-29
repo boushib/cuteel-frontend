@@ -4,6 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import Navbar from '../components/Navbar'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
+import Head from 'next/head'
 
 const GlobalStyle = createGlobalStyle`
   * {
