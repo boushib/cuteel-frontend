@@ -58,7 +58,8 @@ const Signup = () => {
 export default Signup
 
 const FormContainer = styled.div`
-  width: 320px;
+  width: 360px;
+  max-width: 100%;
   margin: 0 auto;
 `
 
