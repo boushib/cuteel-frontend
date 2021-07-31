@@ -23,8 +23,8 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         <ProductImg img={image} />
         <ProductBody>
           <ProductTitle>{name}</ProductTitle>
-          <ProductPrice>${price}</ProductPrice>
-          <ProductQuantity>Quantity: {quantity}</ProductQuantity>
+          <ProductPrice>${price.toFixed(2)}</ProductPrice>
+          <ProductQuantity>{quantity} in stock</ProductQuantity>
           <Button onClick={handleAddToCart}>Add to Cart</Button>
         </ProductBody>
       </ProductContainer>
@@ -61,13 +61,12 @@ const ProductTitle = styled.div`
 `
 
 const ProductQuantity = styled.div`
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
   margin-bottom: 12px;
 `
 
 const ProductPrice = styled.div`
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   color: #89b24a;
 `
