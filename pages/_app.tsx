@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
-import { AuthProvider } from '../store'
+import { AuthProvider, CartProvider } from '../store'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -88,15 +88,17 @@ const App = ({ Component, pageProps }: AppProps) => {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <AuthProvider>
-          <Navbar />
-          {isLoading && (
-            <div className="page">
-              <div className="container">
-                <Spinner />
+          <CartProvider>
+            <Navbar />
+            {isLoading && (
+              <div className="page">
+                <div className="container">
+                  <Spinner />
+                </div>
               </div>
-            </div>
-          )}
-          {!isLoading && <Component {...pageProps} />}
+            )}
+            {!isLoading && <Component {...pageProps} />}
+          </CartProvider>
         </AuthProvider>
       </ThemeProvider>
     </>

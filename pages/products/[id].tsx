@@ -3,6 +3,9 @@ import api from '../../api'
 import { Product } from '../../models'
 import { Button } from '../../components/Button'
 import styled from 'styled-components'
+import { useContext } from 'react'
+import { CartContext } from '../../store'
+import { CartAT } from '../../store/actions'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -19,18 +22,24 @@ type Props = {
   product: Product
 }
 
-const ProductPage: React.FC<Props> = ({ product }) => (
-  <div className="product page">
-    <Head title={product.name ?? 'Product'} />
-    <div className="container">
-      <h1>{product.name}</h1>
-      <ProductImage img={product.image} />
-      <ProductDescription>{product.description}</ProductDescription>
-      <ProductPrice>${product.price}</ProductPrice>
-      <Button>Add to Cart</Button>
+const ProductPage: React.FC<Props> = ({ product }) => {
+  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const handleAddToCart = () => {
+    dispatch({ type: CartAT.ADD, payload: product })
+  }
+  return (
+    <div className="product page">
+      <Head title={product.name ?? 'Product'} />
+      <div className="container">
+        <h1>{product.name}</h1>
+        <ProductImage img={product.image} />
+        <ProductDescription>{product.description}</ProductDescription>
+        <ProductPrice>${product.price}</ProductPrice>
+        <Button onClick={handleAddToCart}>Add to Cart</Button>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default ProductPage
 

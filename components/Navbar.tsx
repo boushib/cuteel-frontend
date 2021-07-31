@@ -4,9 +4,9 @@ import Link from 'next/link'
 import ShoppingCartIcon from '../icons/ShoppingCart'
 import SearchIcon from '../icons/Search'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
-import { AuthState } from '../models'
-import { AuthContext } from '../store'
+import React, { useContext } from 'react'
+import { AuthState, CartState } from '../models'
+import { AuthContext, CartContext } from '../store'
 
 const ROUTES = [
   {
@@ -25,9 +25,10 @@ const ROUTES = [
 
 const Navbar = () => {
   const router = useRouter()
-  const { state } = useContext(AuthContext) as { state: AuthState }
-  const { user } = state
-  console.log(user)
+  const { state: authState } = useContext(AuthContext) as { state: AuthState }
+  const { state: cartState } = useContext(CartContext) as { state: CartState }
+  const { user } = authState
+  const { products } = cartState
   const DEFAULT_AVATAR =
     'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
   return (
@@ -46,7 +47,7 @@ const Navbar = () => {
         </Menu>
         <NavTail>
           <SearchIcon width={20} />
-          <ShoppingCartIcon />
+          <ShoppingCart count={products.length ?? 0} />
           {!user && <Link href="/login">Login</Link>}
           {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>
@@ -56,6 +57,44 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+type ShoppingCartProps = {
+  count: number
+}
+
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
+  <ShoppingCartContainer>
+    {count > 0 && <span>{count}</span>}
+    <ShoppingCartIcon />
+  </ShoppingCartContainer>
+)
+
+const ShoppingCartContainer = styled.div`
+  position: relative;
+  margin-right: 16px;
+  span {
+    font-size: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #f44336;
+    position: absolute;
+    right: 0;
+    top: 0;
+    flex-shrink: 0;
+    padding: 4px;
+    z-index: 2;
+    height: 18px;
+    min-width: 18px;
+    transform: translate(50%, -50%);
+  }
+
+  svg {
+    margin: 0;
+  }
+`
 
 const Nav = styled.nav`
   background-color: #fff;
