@@ -50,7 +50,7 @@ const ProductImg = styled.div`
   height: 200px;
   background-size: cover;
   background-position: center;
-  background-image: url(${(props: any) => props.img});
+  background-image: url(${(props: { img: string }) => props.img});
 `
 
 const ProductBody = styled.div`
