@@ -23,3 +23,8 @@ export type AuthState = {
   user?: User
   error?: string
 }
+
+export type CartState = {
+  products: Array<Product>
+  total: number
+}

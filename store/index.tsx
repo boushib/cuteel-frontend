@@ -1,10 +1,10 @@
 import { createContext, useReducer, useEffect } from 'react'
 import { AuthAT } from './actions'
-import { authReducer } from './reducers'
+import { authReducer, cartReducer } from './reducers'
 
-const initialAuthState = {
-  loading: true,
-}
+// Auth Context
+
+const initialAuthState = { loading: true }
 
 export const AuthContext = createContext({})
 
@@ -22,5 +22,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
+  )
+}
+
+// Cart Context
+
+const initialCartState = { products: [], total: 0 }
+
+export const CartContext = createContext({})
+
+// Context provider
+export const CartProvider: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialCartState)
+  return (
+    <CartContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CartContext.Provider>
   )
 }
