@@ -63,10 +63,12 @@ type ShoppingCartProps = {
 }
 
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
-  <ShoppingCartContainer>
-    {count > 0 && <span>{count}</span>}
-    <ShoppingCartIcon />
-  </ShoppingCartContainer>
+  <Link href="/cart" passHref={true}>
+    <ShoppingCartContainer>
+      {count > 0 && <span>{count}</span>}
+      <ShoppingCartIcon />
+    </ShoppingCartContainer>
+  </Link>
 )
 
 const ShoppingCartContainer = styled.div`
