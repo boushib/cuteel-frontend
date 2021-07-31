@@ -1,26 +1,36 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import { Button } from './Button'
+import { useContext } from 'react'
+import { CartContext } from '../store'
+import { CartAT } from '../store/actions'
+import { Product } from '../models'
 
 type Props = {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  image: string
+  product: Product
 }
 
-const ProductCard: React.FC<Props> = ({ id, name, price, quantity, image }) => (
-  <Link href={`/products/${id}`} passHref={true}>
-    <ProductContainer>
-      <ProductImg img={image} />
-      <ProductBody>
-        <ProductTitle>{name}</ProductTitle>
-        <ProductPrice>${price}</ProductPrice>
-        Quantity: {quantity}
-      </ProductBody>
-    </ProductContainer>
-  </Link>
-)
+const ProductCard: React.FC<Props> = ({ product }) => {
+  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const handleAddToCart = (e: any) => {
+    e.stopPropagation()
+    dispatch({ type: CartAT.ADD, payload: product })
+  }
+  const { _id, image, name, price, quantity } = product
+  return (
+    <Link href={`/products/${_id}`} passHref={true}>
+      <ProductContainer>
+        <ProductImg img={image} />
+        <ProductBody>
+          <ProductTitle>{name}</ProductTitle>
+          <ProductPrice>${price}</ProductPrice>
+          <ProductQuantity>Quantity: {quantity}</ProductQuantity>
+          <Button onClick={handleAddToCart}>Add to Cart</Button>
+        </ProductBody>
+      </ProductContainer>
+    </Link>
+  )
+}
 
 export default ProductCard
 
@@ -48,6 +58,12 @@ const ProductTitle = styled.div`
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 4px;
+`
+
+const ProductQuantity = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
 `
 
 const ProductPrice = styled.div`
