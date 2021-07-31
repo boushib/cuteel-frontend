@@ -48,7 +48,7 @@ const Navbar = () => {
           <SearchIcon width={20} />
           <ShoppingCartIcon />
           {!user && <Link href="/login">Login</Link>}
-          {user && <Avatar img={DEFAULT_AVATAR} />}
+          {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>
       </Container>
     </Nav>
