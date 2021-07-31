@@ -16,11 +16,10 @@ const Cart = () => {
   return (
     <div className="cart page">
       <div className="container">
-        <h1>Cart Page</h1>
+        <h1>Cart</h1>
         {products.length === 0 && 'Your Cart is empty!'}
         {products.length > 0 && (
           <>
-            <Total>Total: ${total}</Total>
             {products.map((p) => (
               <CartProduct
                 id={p._id}
@@ -29,6 +28,7 @@ const Cart = () => {
                 key={p._id}
               />
             ))}
+            <Total>Total: ${total}</Total>
             <Button onClick={handleCheckout}>Checkout</Button>
           </>
         )}
@@ -40,7 +40,7 @@ const Cart = () => {
 export default Cart
 
 const Total = styled.div`
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 16px;
+  font-size: 18px;
+  margin: 20px 0;
+  color: #999;
 `
