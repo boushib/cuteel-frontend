@@ -17,11 +17,21 @@ const Cart = () => {
     <div className="cart page">
       <div className="container">
         <h1>Cart Page</h1>
-        <Total>Total: ${total}</Total>
-        {products.map((p) => (
-          <CartProduct id={p._id} name={p.name} price={p.price} key={p._id} />
-        ))}
-        <Button onClick={handleCheckout}>Checkout</Button>
+        {products.length === 0 && 'Your Cart is empty!'}
+        {products.length > 0 && (
+          <>
+            <Total>Total: ${total}</Total>
+            {products.map((p) => (
+              <CartProduct
+                id={p._id}
+                name={p.name}
+                price={p.price}
+                key={p._id}
+              />
+            ))}
+            <Button onClick={handleCheckout}>Checkout</Button>
+          </>
+        )}
       </div>
     </div>
   )
