@@ -4,6 +4,9 @@ import Link from 'next/link'
 import ShoppingCartIcon from '../icons/ShoppingCart'
 import SearchIcon from '../icons/Search'
 import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { AuthState } from '../models'
+import { AuthContext } from '../store'
 
 const ROUTES = [
   {
@@ -22,10 +25,15 @@ const ROUTES = [
 
 const Navbar = () => {
   const router = useRouter()
+  const { state } = useContext(AuthContext) as { state: AuthState }
+  const { user } = state
+  console.log(user)
+  const DEFAULT_AVATAR =
+    'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
   return (
     <Nav>
       <Container>
-        <Image src="/img/logo.png" width="200" height="66" alt="Logo" />
+        <Image src="/img/logo.png" width="160" height="54" alt="Logo" />
         <Menu>
           {ROUTES.map((route) => (
             <li
@@ -39,7 +47,8 @@ const Navbar = () => {
         <NavTail>
           <SearchIcon width={20} />
           <ShoppingCartIcon />
-          <Link href="/login">Login</Link>
+          {!user && <Link href="/login">Login</Link>}
+          {user && <Avatar img={DEFAULT_AVATAR} />}
         </NavTail>
       </Container>
     </Nav>
@@ -105,4 +114,14 @@ const NavTail = styled.div`
       fill: #777;
     }
   }
+`
+
+const Avatar = styled.div`
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-image: url('${({ img }) => img}');
+  cursor: pointer;
 `
