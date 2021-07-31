@@ -4,7 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import Navbar from '../components/Navbar'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
-import Head from 'next/head'
+import { AuthProvider } from '../store'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -86,13 +86,15 @@ const App = ({ Component, pageProps }: AppProps) => {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Navbar />
-        {isLoading && (
-          <div className="page">
-            <div className="container">Loading...</div>
-          </div>
-        )}
-        {!isLoading && <Component {...pageProps} />}
+        <AuthProvider>
+          <Navbar />
+          {isLoading && (
+            <div className="page">
+              <div className="container">Loading...</div>
+            </div>
+          )}
+          {!isLoading && <Component {...pageProps} />}
+        </AuthProvider>
       </ThemeProvider>
     </>
   )

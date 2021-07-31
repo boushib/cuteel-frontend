@@ -1,20 +1,36 @@
 import { Button } from '../../components/Button'
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { AuthContext } from '../../store'
 import Link from 'next/link'
 import api from '../../api'
+import { AuthState } from '../../models'
+import { AuthAT } from '../../store/actions'
+import { useRouter } from 'next/router'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const router = useRouter()
+
+  const { state, dispatch } = useContext(AuthContext) as {
+    state: AuthState
+    dispatch: Function
+  }
+
+  console.log({ state })
 
   const handleSubmit = async () => {
     try {
-      const { data } = await api.post('/auth/signin', { email, password })
-      const { token, user } = data
-      console.log({ token, user })
-    } catch (error) {
-      console.log(error)
+      dispatch({ type: AuthAT.PENDING })
+      const { data: user } = await api.post('/auth/signin', { email, password })
+      dispatch({ type: AuthAT.SUCCESS, payload: user })
+      localStorage.setItem('user', JSON.stringify(user))
+      router.push('/')
+    } catch (error: any) {
+      const message = error.response.data.error
+      console.log(message)
+      dispatch({ type: AuthAT.ERROR, payload: message })
     }
   }
 
