@@ -28,6 +28,7 @@ const Products: React.FC<Props> = ({ products }) => (
             <ProductCard
               id={p._id}
               name={p.name}
+              image={p.image}
               price={p.price}
               quantity={p.quantity}
               key={p._id}
