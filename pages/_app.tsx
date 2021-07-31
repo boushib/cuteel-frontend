@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import Navbar from '../components/Navbar'
+import Spinner from '../components/Spinner'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
 import { AuthProvider } from '../store'
@@ -90,7 +91,9 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Navbar />
           {isLoading && (
             <div className="page">
-              <div className="container">Loading...</div>
+              <div className="container">
+                <Spinner />
+              </div>
             </div>
           )}
           {!isLoading && <Component {...pageProps} />}
