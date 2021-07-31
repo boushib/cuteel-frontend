@@ -59,6 +59,11 @@ const GlobalStyle = createGlobalStyle`
     color: #666;
     font-size: 15px;
   }
+
+  textarea {
+    resize: none;
+    height: 92px;
+  }
 `
 
 const theme = {
