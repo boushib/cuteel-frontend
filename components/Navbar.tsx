@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <Nav>
       <Container>
-        <Image src="/img/logo.png" width="160" height="54" alt="Logo" />
+        <AppLogo />
         <Menu>
           {ROUTES.map((route) => (
             <li
@@ -57,6 +57,22 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+const AppLogo = () => (
+  <Link href="/" passHref={true}>
+    <AppLogoContainer>
+      <Image src="/img/logo.png" width={160} height={52.9} alt="" />
+    </AppLogoContainer>
+  </Link>
+)
+
+const AppLogoContainer = styled.div`
+  width: 160px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`
 
 type ShoppingCartProps = {
   count: number
