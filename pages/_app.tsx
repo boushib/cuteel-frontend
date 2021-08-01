@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .page {
-    padding: 130px 0 40px;
+    padding: 40px 0;
   }
 
   .form-control {
