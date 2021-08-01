@@ -118,7 +118,7 @@ const Nav = styled.nav`
   background-color: #fff;
   padding: 8px 0;
   border-bottom: 1px solid #eee;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100vw;
