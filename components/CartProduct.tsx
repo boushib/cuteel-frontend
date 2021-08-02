@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Remove from '../icons/Remove'
 import { Product } from '../models'
 
 type Props = {
@@ -30,11 +31,24 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
       <CartProductPrice>${price.toFixed()}</CartProductPrice>
+      <RemoveIcon>
+        <Remove />
+      </RemoveIcon>
     </CartProductContainer>
   )
 }
 
 export default CartProduct
+
+const RemoveIcon = styled.div`
+  height: 24px;
+  cursor: pointer;
+  margin-left: 32px;
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+`
 
 const CartProductContainer = styled.div`
   display: flex;
@@ -81,7 +95,7 @@ const CartProductPrice = styled.div`
 const CartProductImage = styled.div`
   width: 100px;
   height: 100px;
-  margin-right: 16px;
+  margin-right: 32px;
   background-size: cover;
   background-position: center;
   background-image: url('${(props: { img: string }) => props.img}');
