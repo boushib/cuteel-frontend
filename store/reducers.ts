@@ -40,6 +40,7 @@ export const cartReducer = (state: CartState, action: CartAction) => {
       const rItems = [...state.items].filter((i) => i.product._id !== productId)
       let t = 0
       rItems.forEach((i) => (t += i.product.price * i.quantity))
+      localStorage.setItem('cart', JSON.stringify({ items: rItems, total: t }))
       return { items: rItems, total: t }
     case CartAT.SET:
       return action.payload
