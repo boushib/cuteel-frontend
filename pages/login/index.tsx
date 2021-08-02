@@ -26,7 +26,7 @@ const Login = () => {
       const { data: user } = await api.post('/auth/signin', { email, password })
       dispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('user', JSON.stringify(user))
-      router.push('/')
+      router.push('/admin')
     } catch (error: any) {
       const message = error.response.data.error
       console.log(message)
