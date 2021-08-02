@@ -1,14 +1,19 @@
 import styled from 'styled-components'
 import Remove from '../icons/Remove'
+import { useContext } from 'react'
 import { Product } from '../models'
+import { CartContext } from '../store'
+import { CartAT } from '../store/actions'
 
-type Props = {
-  product: Product
-  quantity: number
-}
+type Props = { product: Product; quantity: number }
 
 const CartProduct: React.FC<Props> = ({ product, quantity }) => {
-  const { image, name, price } = product
+  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const { image, name, price, _id } = product
+
+  const removeFromCart = () => {
+    dispatch({ type: CartAT.REMOVE, payload: _id })
+  }
 
   const incrementQuantity = () => {
     handleQuantityChange(quantity + 1)
@@ -31,7 +36,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
       <CartProductPrice>${price.toFixed()}</CartProductPrice>
-      <RemoveIcon>
+      <RemoveIcon onClick={removeFromCart}>
         <Remove />
       </RemoveIcon>
     </CartProductContainer>

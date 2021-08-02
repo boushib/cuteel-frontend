@@ -36,13 +36,11 @@ export const cartReducer = (state: CartState, action: CartAction) => {
       return { items, total }
 
     case CartAT.REMOVE:
-      // const product = state.items.find((p) => p._id === action.payload)
-      // if (!product) return { ...state }
-      // return {
-      //   products: [...state.items].filter((p) => p._id !== product?._id),
-      //   total: state.total - product.price,
-      // }
-      return state
+      const productId = action.payload
+      const rItems = [...state.items].filter((i) => i.product._id !== productId)
+      let t = 0
+      rItems.forEach((i) => (t += i.product.price * i.quantity))
+      return { items: rItems, total: t }
     case CartAT.SET:
       return action.payload
     default:
