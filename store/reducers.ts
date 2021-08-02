@@ -43,6 +43,7 @@ export const cartReducer = (state: CartState, action: CartAction) => {
       localStorage.setItem('cart', JSON.stringify({ items: rItems, total: t }))
       return { items: rItems, total: t }
     case CartAT.SET:
+      localStorage.setItem('cart', JSON.stringify(action.payload))
       return action.payload
     default:
       return state

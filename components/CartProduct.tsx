@@ -1,14 +1,17 @@
 import styled from 'styled-components'
 import Remove from '../icons/Remove'
 import { useContext } from 'react'
-import { Product } from '../models'
+import { CartState, Product } from '../models'
 import { CartContext } from '../store'
 import { CartAT } from '../store/actions'
 
 type Props = { product: Product; quantity: number }
 
 const CartProduct: React.FC<Props> = ({ product, quantity }) => {
-  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const { dispatch, state: cartState } = useContext(CartContext) as {
+    dispatch: Function
+    state: CartState
+  }
   const { image, name, price, _id } = product
 
   const removeFromCart = () => {
@@ -19,12 +22,17 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
     handleQuantityChange(quantity + 1)
   }
   const decrementQuantity = () => {
-    if (quantity === 0) return
+    if (quantity === 1) return
     handleQuantityChange(quantity - 1)
   }
 
   const handleQuantityChange = (q: number) => {
-    console.log('quantity changed: ', q)
+    const items = [...cartState.items]
+    let total = 0
+    const index = items.findIndex((i) => i.product._id === _id)
+    items[index].quantity = q
+    items.forEach((i) => (total += i.product.price * i.quantity))
+    dispatch({ type: CartAT.SET, payload: { items, total } })
   }
   return (
     <CartProductContainer>
