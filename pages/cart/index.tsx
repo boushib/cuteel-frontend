@@ -7,25 +7,26 @@ import { Button } from '../../components/Button'
 
 const Cart = () => {
   const { state: cartState } = useContext(CartContext) as { state: CartState }
-  const { products, total } = cartState
+  const { items, total } = cartState
 
   const handleCheckout = () => {
     console.log('checkout..')
   }
 
+  if (!items) return
+
   return (
     <div className="cart page">
       <div className="container">
         <h1>Cart</h1>
-        {products.length === 0 && 'Your Cart is empty!'}
-        {products.length > 0 && (
+        {items.length === 0 && 'Your Cart is empty!'}
+        {items.length > 0 && (
           <>
-            {products.map((p) => (
+            {items.map((item) => (
               <CartProduct
-                id={p._id}
-                name={p.name}
-                price={p.price}
-                key={p._id}
+                product={item.product}
+                quantity={item.quantity}
+                key={item.product._id}
               />
             ))}
             <Total>Total: ${total}</Total>

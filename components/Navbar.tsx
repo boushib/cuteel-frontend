@@ -28,7 +28,7 @@ const Navbar = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { state: cartState } = useContext(CartContext) as { state: CartState }
   const { user } = authState
-  const { products } = cartState
+  const { items } = cartState
   const DEFAULT_AVATAR =
     'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
   return (
@@ -47,7 +47,7 @@ const Navbar = () => {
         </Menu>
         <NavTail>
           <SearchIcon width={20} />
-          <ShoppingCart count={products.length ?? 0} />
+          <ShoppingCart count={items.length ?? 0} />
           {!user && <Link href="/login">Login</Link>}
           {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>

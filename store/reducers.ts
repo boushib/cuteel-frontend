@@ -19,17 +19,27 @@ export const authReducer = (state: AuthState, action: AuthAction) => {
 export const cartReducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case CartAT.ADD:
-      return {
-        products: [...state.products, action.payload],
-        total: state.total + action.payload.price,
+      let items = [...state.items]
+      const product = action.payload
+      const total = state.total + product.price
+      const index = items.findIndex((i) => i.product._id === product._id)
+
+      if (index > -1) {
+        items[index].product = product
+        items[index].quantity++
+      } else {
+        items = [...items, { product, quantity: 1 }]
       }
+      return { items, total }
+
     case CartAT.REMOVE:
-      const product = state.products.find((p) => p._id === action.payload)
-      if (!product) return { ...state }
-      return {
-        products: [...state.products].filter((p) => p._id !== product?._id),
-        total: state.total - product.price,
-      }
+      // const product = state.items.find((p) => p._id === action.payload)
+      // if (!product) return { ...state }
+      // return {
+      //   products: [...state.items].filter((p) => p._id !== product?._id),
+      //   total: state.total - product.price,
+      // }
+      return state
     default:
       return state
   }

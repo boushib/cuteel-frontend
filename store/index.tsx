@@ -27,7 +27,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
 // Cart Context
 
-const initialCartState = { products: [], total: 0 }
+const initialCartState = { items: [], total: 0 }
 
 export const CartContext = createContext({})
 

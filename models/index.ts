@@ -24,7 +24,12 @@ export type AuthState = {
   error?: string
 }
 
+export type CartItem = {
+  product: Product
+  quantity: number
+}
+
 export type CartState = {
-  products: Array<Product>
+  items: Array<CartItem>
   total: number
 }
