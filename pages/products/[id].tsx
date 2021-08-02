@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { CartContext } from '../../store'
 import { CartAT } from '../../store/actions'
+import Back from '../../components/Back'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -31,6 +32,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
     <div className="product page">
       <Head title={product.name ?? 'Product'} />
       <div className="container">
+        <Back page="Products" />
         <h1>{product.name}</h1>
         <ProductImage img={product.image} />
         <ProductDescription>{product.description}</ProductDescription>
