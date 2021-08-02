@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import { Product } from '../models'
 
-// import './CartProduct.scss'
-
 type Props = {
   product: Product
   quantity: number
@@ -10,46 +8,79 @@ type Props = {
 
 const CartProduct: React.FC<Props> = ({ product, quantity }) => {
   const { image, name } = product
+
+  const incrementQuantity = () => {
+    handleQuantityChange(quantity + 1)
+  }
+  const decrementQuantity = () => {
+    if (quantity === 0) return
+    handleQuantityChange(quantity - 1)
+  }
+
+  const handleQuantityChange = (q: number) => {
+    console.log('quantity changed: ', q)
+  }
   return (
-    // <CartProductContainer>
-    //   <CartProductName>{name}</CartProductName>
-    //   <CartProductPrice>${price}</CartProductPrice>
-    // </CartProductContainer>
-    <div
-      className="cart__product"
-      style={{ display: 'flex', marginBottom: 24 }}
-    >
-      <div
-        className="product__image"
-        style={{
-          backgroundImage: `url('${image}')`,
-          width: 100,
-          height: 100,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
-      <div>
-        <div className="product__name">{name}</div>
-      </div>
-    </div>
+    <CartProductContainer>
+      <CartProductImage img={image} />
+      <CartProductName>{name}</CartProductName>
+      <CartProductQuantityContainer>
+        <span onClick={decrementQuantity}>-</span>
+        <CartProductQuantity>{quantity}</CartProductQuantity>
+        <span onClick={incrementQuantity}>+</span>
+      </CartProductQuantityContainer>
+    </CartProductContainer>
   )
 }
 
 export default CartProduct
 
-// const CartProductContainer = styled.div`
-//   padding: 20px;
-//   background-color: #fff;
-//   border-radius: 4px;
-//   margin-bottom: 16px;
-// `
+const CartProductContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+`
 
-// const CartProductName = styled.h2`
-//   font-size: 24px;
-//   margin-bottom: 12px;
-// `
+const CartProductName = styled.h3`
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+`
+
+const CartProductQuantity = styled.div`
+  font-size: 15px;
+  margin: 0 16px;
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 3px 10px #ddd;
+  color: #888;
+`
+const CartProductQuantityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 36px;
+  user-select: none;
+  span {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+`
 
 // const CartProductPrice = styled.div`
 //   font-size: 20px;
 // `
+
+const CartProductImage = styled.div`
+  width: 100px;
+  height: 100px;
+  margin-right: 16px;
+  background-size: cover;
+  background-position: center;
+  background-image: url('${(props: { img: string }) => props.img}');
+`
