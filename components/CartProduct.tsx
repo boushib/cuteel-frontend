@@ -7,7 +7,7 @@ type Props = {
 }
 
 const CartProduct: React.FC<Props> = ({ product, quantity }) => {
-  const { image, name } = product
+  const { image, name, price } = product
 
   const incrementQuantity = () => {
     handleQuantityChange(quantity + 1)
@@ -29,6 +29,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
         <CartProductQuantity>{quantity}</CartProductQuantity>
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
+      <CartProductPrice>${price.toFixed()}</CartProductPrice>
     </CartProductContainer>
   )
 }
@@ -72,9 +73,10 @@ const CartProductQuantityContainer = styled.div`
   }
 `
 
-// const CartProductPrice = styled.div`
-//   font-size: 20px;
-// `
+const CartProductPrice = styled.div`
+  font-size: 22px;
+  font-weight: bold;
+`
 
 const CartProductImage = styled.div`
   width: 100px;
