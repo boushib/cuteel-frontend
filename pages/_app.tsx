@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
 import { AuthProvider, CartProvider } from '../store'
+import Footer from '../components/Footer'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -103,6 +104,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               </div>
             )}
             {!isLoading && <Component {...pageProps} />}
+            <Footer />
           </CartProvider>
         </AuthProvider>
       </ThemeProvider>
