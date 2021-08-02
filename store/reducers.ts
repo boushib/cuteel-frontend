@@ -30,6 +30,9 @@ export const cartReducer = (state: CartState, action: CartAction) => {
       } else {
         items = [...items, { product, quantity: 1 }]
       }
+
+      localStorage.setItem('cart', JSON.stringify({ items, total }))
+
       return { items, total }
 
     case CartAT.REMOVE:
@@ -40,6 +43,8 @@ export const cartReducer = (state: CartState, action: CartAction) => {
       //   total: state.total - product.price,
       // }
       return state
+    case CartAT.SET:
+      return action.payload
     default:
       return state
   }

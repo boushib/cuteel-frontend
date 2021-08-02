@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from 'react'
-import { AuthAT } from './actions'
+import { AuthAT, CartAT } from './actions'
 import { authReducer, cartReducer } from './reducers'
 
 // Auth Context
@@ -34,6 +34,13 @@ export const CartContext = createContext({})
 // Context provider
 export const CartProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialCartState)
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart')
+    if (storedCart) {
+      const cart = JSON.parse(storedCart)
+      dispatch({ type: CartAT.SET, payload: cart })
+    }
+  }, [])
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}
