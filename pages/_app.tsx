@@ -75,6 +75,78 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 8px;
     color: #aaa;
   }
+
+  .form__step {
+    font-size: 15px;
+    width: 25%;
+    text-align: center;
+    position: relative;
+    &.done {
+      .form__step__number,
+      &::after {
+        background-color: #89b24a;
+      }
+    }
+    &.current,
+    &.done {
+      .form__step__name {
+        color: #89b24a;
+      }
+      .form__step__number,
+      &::before {
+        background-color: #89b24a;
+      }
+    }
+    &:first-child {
+      &::before {
+        display: none;
+      }
+    }
+    &:last-child {
+      &::after {
+        display: none;
+      }
+    }
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      height: 2px;
+      width: 50%;
+      background-color: #bbb;
+      top: 13px;
+      z-index: -1;
+    }
+    &::before {
+      left: 0;
+    }
+    &::after {
+      right: 0;
+    }
+    &s {
+      display: flex;
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+    &__number {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #bbb;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 14px;
+      margin: 0 auto 12px;
+      svg {
+        width: 14px;
+      }
+    }
+    &__name {
+      color: #999;
+    }
+  }
 `
 
 const theme = {
