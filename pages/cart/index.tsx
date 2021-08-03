@@ -14,6 +14,8 @@ const Cart = () => {
   const { state: cartState } = useContext(CartContext) as { state: CartState }
   const { items, total } = cartState
 
+  const SHIPPING_COST = 20
+
   const handleCheckout = () => {
     console.log('checkout..')
   }
@@ -45,6 +47,7 @@ const Cart = () => {
                     type="radio"
                     name="payment-method"
                     value="master-card"
+                    checked
                   />
                   <Mastercard />
                 </PaymentMethod>
@@ -95,18 +98,18 @@ const Cart = () => {
               />
               <Amount>
                 <span>Subtotal</span>
-                <span>$3000.000</span>
+                <span>${total.toFixed(2)}</span>
               </Amount>
               <Amount>
                 <span>Shipping</span>
-                <span>$20.00</span>
+                <span>${SHIPPING_COST.toFixed(2)}</span>
               </Amount>
               <Amount>
-                <span>Total(Tax incl.)</span>
-                <span>$3820.00</span>
+                <span>Total</span>
+                <span>${(total + SHIPPING_COST).toFixed(2)}</span>
               </Amount>
               <br />
-              <Button>Checkout</Button>
+              <Button onClick={handleCheckout}>Checkout</Button>
             </aside>
           </CartGrid>
         )}
