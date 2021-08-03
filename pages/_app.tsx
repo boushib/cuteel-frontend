@@ -59,11 +59,21 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 16px;
     color: #666;
     font-size: 15px;
+    &::placeholder {
+      color: #999;
+    }
   }
 
   textarea {
     resize: none;
     height: 92px;
+  }
+
+  label {
+    font-size: 15px;
+    display: block;
+    margin-bottom: 8px;
+    color: #aaa;
   }
 `
 
