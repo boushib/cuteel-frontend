@@ -33,7 +33,7 @@ const Support = () => {
         <h1>Contact us</h1>
         {isTicketCreated && (
           <p>
-            Your ticket has been created! We will get in touch with you soon!
+            Your ticket has been received! We will get in touch with you soon!
           </p>
         )}
         {!isTicketCreated && (
