@@ -54,12 +54,13 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
 export default CartProduct
 
 const RemoveIcon = styled.div`
-  height: 24px;
+  height: 20px;
+  width: 20px;
   cursor: pointer;
   margin-left: 32px;
   svg {
-    height: 24px;
-    width: 24px;
+    height: 100%;
+    width: 100%;
   }
 `
 
@@ -69,17 +70,32 @@ const CartProductContainer = styled.div`
   margin-bottom: 24px;
 `
 
+const CartProductImage = styled.div`
+  width: 64px;
+  height: 64px;
+  margin-right: 32px;
+  background-size: cover;
+  background-position: center;
+  background-image: url('${(props: { img: string }) => props.img}');
+`
+
 const CartProductName = styled.h3`
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 400;
+  color: #888;
   margin: 0;
+`
+
+const CartProductPrice = styled.div`
+  font-size: 18px;
+  font-weight: bold;
 `
 
 const CartProductQuantity = styled.div`
   font-size: 15px;
-  margin: 0 16px;
-  height: 36px;
-  width: 36px;
+  margin: 0 12px;
+  height: 32px;
+  width: 32px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -94,22 +110,9 @@ const CartProductQuantityContainer = styled.div`
   margin: 0 36px;
   user-select: none;
   span {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
+    color: #888;
     cursor: pointer;
   }
-`
-
-const CartProductPrice = styled.div`
-  font-size: 22px;
-  font-weight: bold;
-`
-
-const CartProductImage = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-right: 32px;
-  background-size: cover;
-  background-position: center;
-  background-image: url('${(props: { img: string }) => props.img}');
 `
