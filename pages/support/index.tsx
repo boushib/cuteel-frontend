@@ -49,7 +49,7 @@ const Support = () => {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Description"
             ></textarea>
-            <Button onClick={createTicket}>Send</Button>
+            <Button onClick={createTicket}>Create a ticket</Button>
           </>
         )}
       </div>
