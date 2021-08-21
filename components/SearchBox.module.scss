@@ -1,7 +1,7 @@
 .searchBox {
   position: relative;
   &__input {
-    border: 1px solid #ddd;
+    border: none;
     outline: none;
     padding: 8px 16px;
     border-radius: 4px;
@@ -10,6 +10,7 @@
     color: #666;
     font-size: 15px;
     width: 400px;
+    background-color: #fafafa;
     &::placeholder {
       color: #aaa;
     }

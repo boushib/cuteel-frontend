@@ -48,6 +48,7 @@ const GlobalStyle = createGlobalStyle`
 
   .page {
     padding: 40px 0;
+    min-height: calc(100vh - 140px);
   }
 
   .form-control {
@@ -56,6 +57,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 12px 20px;
     border-radius: 4px;
     width: 100%;
+    max-width: 660px;
     display: block;
     margin-bottom: 16px;
     color: #666;
