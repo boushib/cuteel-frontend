@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: #f5f6f7;
+    overflow-x: hidden;
   }
 
   div, p, li, span {

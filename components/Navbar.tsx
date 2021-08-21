@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { AuthState, CartState } from '../models'
 import { AuthContext, CartContext } from '../store'
+import Heart from '../icons/Heart'
 
 const ROUTES = [
   {
@@ -34,21 +35,24 @@ const Navbar = () => {
   return (
     <Nav>
       <Container>
-        <AppLogo />
-        <Menu>
-          {ROUTES.map((route) => (
-            <li
-              className={router.pathname === route.path ? 'active' : ''}
-              key={route.path}
-            >
-              <Link href={route.path}>{route.name}</Link>
-            </li>
-          ))}
-        </Menu>
+        <div className="nav-left">
+          <AppLogo />
+          <Menu>
+            {ROUTES.map((route) => (
+              <li
+                className={router.pathname === route.path ? 'active' : ''}
+                key={route.path}
+              >
+                <Link href={route.path}>{route.name}</Link>
+              </li>
+            ))}
+          </Menu>
+        </div>
         <NavTail>
           <SearchIcon width={20} />
           <ShoppingCart count={items.length ?? 0} />
-          {!user && <Link href="/login">Login</Link>}
+          <Heart />
+          {/* {!user && <Link href="/login">Login</Link>} */}
           {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>
       </Container>
@@ -61,17 +65,17 @@ export default Navbar
 const AppLogo = () => (
   <Link href="/" passHref={true}>
     <AppLogoContainer>
-      <Image src="/img/logo.png" width={160} height={52.9} alt="" />
+      <img src="/img/logo.svg" alt="" />
     </AppLogoContainer>
   </Link>
 )
 
 const AppLogoContainer = styled.div`
-  width: 160px;
-  height: 60px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+  margin-right: 36px;
+  img {
+    width: 42px;
+  }
 `
 
 type ShoppingCartProps = {
@@ -125,12 +129,16 @@ const Nav = styled.nav`
 `
 
 const Container = styled.div`
-  padding: 0 24px;
+  padding: 0 44px 0 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
+  .nav-left {
+    display: flex;
+    align-items: center;
+  }
 `
 
 const Menu = styled.ul`
@@ -155,20 +163,31 @@ const Menu = styled.ul`
 const NavTail = styled.div`
   display: flex;
   align-items: center;
+  & > *:not(:last-child) {
+    margin-right: 24px;
+  }
   svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     opacity: 0.7;
     transition: opacity 0.3s ease-in-out;
     cursor: pointer;
     &.active {
       opacity: 1;
     }
-    &:not(:last-child) {
-      margin-right: 20px;
+    &.search,
+    &.heart {
+      path {
+        fill: #777;
+      }
     }
-    path {
-      fill: #777;
+    &.shopping-cart {
+      height: 22px;
+      stroke: #777;
+    }
+    &.heart {
+      width: 22px;
+      height: 22px;
     }
   }
 `
