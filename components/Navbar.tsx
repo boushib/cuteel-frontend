@@ -1,13 +1,12 @@
-import Image from 'next/image'
 import styled from 'styled-components'
 import Link from 'next/link'
 import ShoppingCartIcon from '../icons/ShoppingCart'
-import SearchIcon from '../icons/Search'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { AuthState, CartState } from '../models'
 import { AuthContext, CartContext } from '../store'
 import Heart from '../icons/Heart'
+import SearchBox from './SearchBox'
 
 const ROUTES = [
   {
@@ -48,8 +47,9 @@ const Navbar = () => {
             ))}
           </Menu>
         </div>
+        <SearchBox />
         <NavTail>
-          <SearchIcon width={20} />
+          {/* <SearchIcon width={20} /> */}
           <ShoppingCart count={items.length ?? 0} />
           <Heart />
           {/* {!user && <Link href="/login">Login</Link>} */}
