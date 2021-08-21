@@ -26,9 +26,21 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1, h2, h3 {
-    color: #666;
+    color: #777;
     margin-bottom: 16px;
     font-weight: 600;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
   
   .container {
@@ -40,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   .grid {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -20px;
+    margin: -20px;
     & > div {
       margin: 20px
     }
