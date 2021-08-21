@@ -94,6 +94,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
 const ShoppingCartContainer = styled.div`
   position: relative;
   margin-right: 16px;
+  display: flex;
   span {
     font-size: 10px;
     color: #fff;
