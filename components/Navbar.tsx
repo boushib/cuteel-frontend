@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import ShoppingCartIcon from '../icons/ShoppingCart'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { AuthState, CartState } from '../models'
 import { AuthContext, CartContext } from '../store'
-import Heart from '../icons/Heart'
+import ShoppingCartIcon from '../icons/ShoppingCart'
+import HeartIcon from '../icons/Heart'
 import SearchBox from './SearchBox'
 
 const ROUTES = [
@@ -49,9 +49,8 @@ const Navbar = () => {
         </div>
         <SearchBox />
         <NavTail>
-          {/* <SearchIcon width={20} /> */}
           <ShoppingCart count={items.length ?? 0} />
-          <Heart />
+          <WishList />
           {/* {!user && <Link href="/login">Login</Link>} */}
           {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>
@@ -88,6 +87,14 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
       {count > 0 && <span>{count}</span>}
       <ShoppingCartIcon />
     </ShoppingCartContainer>
+  </Link>
+)
+
+const WishList = () => (
+  <Link href="/wishlist" passHref>
+    <div style={{ display: 'flex' }}>
+      <HeartIcon />
+    </div>
   </Link>
 )
 
