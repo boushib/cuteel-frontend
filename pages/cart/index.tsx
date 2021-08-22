@@ -98,38 +98,43 @@ const Cart = () => {
                   <PayPal />
                 </PaymentMethod>
               </PaymentMethods>
-              <label htmlFor="">Name on Card</label>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                placeholder="John Doe"
-                onChange={handleFieldChange}
-              />
-              <label htmlFor="">Card number</label>
-              <input
-                type="text"
-                name="cardNumber"
-                className="form-control"
-                placeholder="1111 2222 3333 4444"
-                onChange={handleFieldChange}
-              />
-              <label htmlFor="">Expiration date</label>
-              <input
-                type="text"
-                name="expirationDate"
-                className="form-control"
-                placeholder="10/2022"
-                onChange={handleFieldChange}
-              />
-              <label htmlFor="">CVV</label>
-              <input
-                type="text"
-                name="cvv"
-                className="form-control"
-                placeholder="123"
-                onChange={handleFieldChange}
-              />
+              {paymentMethod === 'paypal' && <PayPalButton />}
+              {paymentMethod !== 'paypal' && (
+                <>
+                  <label htmlFor="">Name on Card</label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="John Doe"
+                    onChange={handleFieldChange}
+                  />
+                  <label htmlFor="">Card number</label>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    className="form-control"
+                    placeholder="1111 2222 3333 4444"
+                    onChange={handleFieldChange}
+                  />
+                  <label htmlFor="">Expiration date</label>
+                  <input
+                    type="text"
+                    name="expirationDate"
+                    className="form-control"
+                    placeholder="10/2022"
+                    onChange={handleFieldChange}
+                  />
+                  <label htmlFor="">CVV</label>
+                  <input
+                    type="text"
+                    name="cvv"
+                    className="form-control"
+                    placeholder="123"
+                    onChange={handleFieldChange}
+                  />
+                </>
+              )}
               <Amount>
                 <span>Subtotal</span>
                 <span>${total.toFixed(2)}</span>
@@ -143,7 +148,6 @@ const Cart = () => {
                 <span>${(total + SHIPPING_COST).toFixed(2)}</span>
               </Amount>
               <br />
-              <PayPalButton />
               <Button onClick={handleCheckout}>Checkout</Button>
             </aside>
           </CartGrid>

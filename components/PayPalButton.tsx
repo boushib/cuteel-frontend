@@ -1,12 +1,8 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
-
-console.log({ ppId: process.env.PAYPAL_CLIENT_ID })
+import { PAYPAL_CLIENT_ID } from '../constants'
 
 const PayPalButton = () => (
-  <PayPalScriptProvider
-    options={{ 'client-id': process.env.PAYPAL_CLIENT_ID! }}
-  >
-    {process.env.PAYPAL_CLIENT_ID}
+  <PayPalScriptProvider options={{ 'client-id': PAYPAL_CLIENT_ID }}>
     <PayPalButtons />
   </PayPalScriptProvider>
 )
