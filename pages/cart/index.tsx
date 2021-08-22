@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import { CartState } from '../../models'
 import { CartContext } from '../../store'
 import styled from 'styled-components'
@@ -9,9 +9,17 @@ import Mastercard from '../../icons/Mastercard'
 import Visa from '../../icons/Visa'
 import Amex from '../../icons/Amex'
 import PayPal from '../../icons/PayPal'
+import PayPalButton from '../../components/PayPalButton'
 
 const Cart = () => {
   const { state: cartState } = useContext(CartContext) as { state: CartState }
+  const [paymentMethod, setPaymentMethod] = useState('master-card')
+  const [paymentInfo, setPaymentInfo] = useState({
+    name: '',
+    cardNumber: '',
+    expirationDate: '',
+    cvv: '',
+  })
   const { items, total } = cartState
 
   const SHIPPING_COST = 20
@@ -19,6 +27,13 @@ const Cart = () => {
   const handleCheckout = () => {
     console.log('checkout..')
   }
+
+  const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setPaymentInfo((p) => ({ ...p, [name]: value }))
+  }
+
+  console.log(paymentInfo)
 
   if (!items) return
 
@@ -47,12 +62,19 @@ const Cart = () => {
                     type="radio"
                     name="payment-method"
                     value="master-card"
-                    checked
+                    checked={paymentMethod === 'master-card'}
+                    onChange={() => setPaymentMethod('master-card')}
                   />
                   <Mastercard />
                 </PaymentMethod>
                 <PaymentMethod>
-                  <input type="radio" name="payment-method" value="visa" />
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="visa"
+                    checked={paymentMethod === 'visa'}
+                    onChange={() => setPaymentMethod('visa')}
+                  />
                   <Visa />
                 </PaymentMethod>
                 <PaymentMethod>
@@ -60,41 +82,53 @@ const Cart = () => {
                     type="radio"
                     name="payment-method"
                     value="american-express"
+                    checked={paymentMethod === 'american-express'}
+                    onChange={() => setPaymentMethod('american-express')}
                   />
                   <Amex />
                 </PaymentMethod>
                 <PaymentMethod>
-                  <input type="radio" name="payment-method" value="paypal" />
+                  <input
+                    type="radio"
+                    name="payment-method"
+                    value="paypal"
+                    checked={paymentMethod === 'paypal'}
+                    onChange={() => setPaymentMethod('paypal')}
+                  />
                   <PayPal />
                 </PaymentMethod>
               </PaymentMethods>
               <label htmlFor="">Name on Card</label>
               <input
                 type="text"
-                name=""
+                name="name"
                 className="form-control"
                 placeholder="John Doe"
+                onChange={handleFieldChange}
               />
               <label htmlFor="">Card number</label>
               <input
                 type="text"
-                name=""
+                name="cardNumber"
                 className="form-control"
                 placeholder="1111 2222 3333 4444"
+                onChange={handleFieldChange}
               />
               <label htmlFor="">Expiration date</label>
               <input
                 type="text"
-                name=""
+                name="expirationDate"
                 className="form-control"
                 placeholder="10/2022"
+                onChange={handleFieldChange}
               />
               <label htmlFor="">CVV</label>
               <input
                 type="text"
-                name=""
+                name="cvv"
                 className="form-control"
                 placeholder="123"
+                onChange={handleFieldChange}
               />
               <Amount>
                 <span>Subtotal</span>
@@ -109,6 +143,7 @@ const Cart = () => {
                 <span>${(total + SHIPPING_COST).toFixed(2)}</span>
               </Amount>
               <br />
+              <PayPalButton />
               <Button onClick={handleCheckout}>Checkout</Button>
             </aside>
           </CartGrid>
