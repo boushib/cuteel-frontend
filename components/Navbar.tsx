@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { AuthState, CartState } from '../models'
-import { AuthContext, CartContext } from '../store/providers'
+import { AuthState, CartState, WishlistState } from '../models'
+import { AuthContext, CartContext, WishlistContext } from '../store/providers'
 import ShoppingCartIcon from '../icons/ShoppingCart'
 import HeartIcon from '../icons/Heart'
 import SearchBox from './SearchBox'
@@ -27,8 +27,12 @@ const Navbar = () => {
   const router = useRouter()
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { state: cartState } = useContext(CartContext) as { state: CartState }
+  const { state: wishlistState } = useContext(WishlistContext) as {
+    state: WishlistState
+  }
   const { user } = authState
   const { items } = cartState
+  const { products: wishlistProducts } = wishlistState
   const DEFAULT_AVATAR =
     'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
   return (
@@ -50,7 +54,7 @@ const Navbar = () => {
         <SearchBox />
         <NavTail>
           <ShoppingCart count={items.length ?? 0} />
-          <WishList />
+          <WishList isEmpty={wishlistProducts.length === 0} />
           {/* {!user && <Link href="/login">Login</Link>} */}
           {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
         </NavTail>
@@ -81,23 +85,6 @@ type ShoppingCartProps = {
   count: number
 }
 
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
-  <Link href="/cart" passHref={true}>
-    <ShoppingCartContainer>
-      {count > 0 && <span>{count}</span>}
-      <ShoppingCartIcon />
-    </ShoppingCartContainer>
-  </Link>
-)
-
-const WishList = () => (
-  <Link href="/wishlist" passHref>
-    <div style={{ display: 'flex' }}>
-      <HeartIcon />
-    </div>
-  </Link>
-)
-
 const ShoppingCartContainer = styled.div`
   position: relative;
   margin-right: 16px;
@@ -125,6 +112,43 @@ const ShoppingCartContainer = styled.div`
     margin: 0;
   }
 `
+
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ count }) => (
+  <Link href="/cart" passHref={true}>
+    <ShoppingCartContainer>
+      {count > 0 && <span>{count}</span>}
+      <ShoppingCartIcon />
+    </ShoppingCartContainer>
+  </Link>
+)
+
+const WishListContainer = styled.div`
+  position: relative;
+  display: flex;
+  span {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: #00bcd4;
+    position: absolute;
+    right: -1px;
+    top: -3px;
+    z-index: 2;
+  }
+`
+
+type WishlistProps = {
+  isEmpty: boolean
+}
+
+const WishList: React.FC<WishlistProps> = ({ isEmpty }) => (
+  <Link href="/wishlist" passHref>
+    <WishListContainer>
+      {!isEmpty && <span></span>}
+      <HeartIcon />
+    </WishListContainer>
+  </Link>
+)
 
 const Nav = styled.nav`
   background-color: #fff;
