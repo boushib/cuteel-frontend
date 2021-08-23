@@ -4,7 +4,7 @@ import { Product } from '../../models'
 import { Button } from '../../components/Button'
 import styled from 'styled-components'
 import { useContext } from 'react'
-import { CartContext } from '../../store'
+import { CartContext } from '../../store/providers'
 import { CartAT } from '../../store/actions'
 import Back from '../../components/Back'
 

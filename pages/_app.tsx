@@ -5,8 +5,13 @@ import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import { useState, useEffect } from 'react'
 import router from 'next/router'
-import { AuthProvider, CartProvider } from '../store'
+import {
+  AuthProvider,
+  CartProvider,
+  WishlistProvider,
+} from '../store/providers'
 import Footer from '../components/Footer'
+import Wishlist from './wishlist'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -192,16 +197,18 @@ const App = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <CartProvider>
-            <Navbar />
-            {isLoading && (
-              <div className="page">
-                <div className="container">
-                  <Spinner />
+            <WishlistProvider>
+              <Navbar />
+              {isLoading && (
+                <div className="page">
+                  <div className="container">
+                    <Spinner />
+                  </div>
                 </div>
-              </div>
-            )}
-            {!isLoading && <Component {...pageProps} />}
-            <Footer />
+              )}
+              {!isLoading && <Component {...pageProps} />}
+              <Footer />
+            </WishlistProvider>
           </CartProvider>
         </AuthProvider>
       </ThemeProvider>

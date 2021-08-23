@@ -1,5 +1,6 @@
-import { AuthState, CartState } from '../models'
+import { AuthState, CartState, WishlistState } from '../models'
 import { AuthAT, AuthAction, CartAction, CartAT } from './actions'
+import { WishlistAction, WishlistAT } from './actions/wishlist'
 
 // Auth reducer
 export const authReducer = (state: AuthState, action: AuthAction) => {
@@ -45,6 +46,29 @@ export const cartReducer = (state: CartState, action: CartAction) => {
     case CartAT.SET:
       localStorage.setItem('cart', JSON.stringify(action.payload))
       return action.payload
+    default:
+      return state
+  }
+}
+
+// Cart reducer
+export const wishlistReducer = (
+  state: WishlistState,
+  action: WishlistAction
+) => {
+  switch (action.type) {
+    case WishlistAT.ADD:
+      const products = [...state.products]
+      products.push(action.payload)
+      localStorage.setItem('wishlist', JSON.stringify(products))
+      return { products }
+    case WishlistAT.REMOVE:
+      const productId = action.payload
+      const rProducts = [...state.products].filter((p) => p._id !== productId)
+      localStorage.setItem('wishlist', JSON.stringify(rProducts))
+      return { products: rProducts }
+    case WishlistAT.SET:
+      return { products: action.payload }
     default:
       return state
   }

@@ -34,6 +34,10 @@ export type CartState = {
   total: number
 }
 
+export type WishlistState = {
+  products: Array<Product>
+}
+
 export type Category = {
   _id: string
   name: string

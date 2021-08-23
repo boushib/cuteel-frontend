@@ -1,10 +1,9 @@
 import { ChangeEvent, useContext, useState } from 'react'
 import { CartState } from '../../models'
-import { CartContext } from '../../store'
+import { CartContext } from '../../store/providers'
 import styled from 'styled-components'
 import CartProduct from '../../components/CartProduct'
 import { Button } from '../../components/Button'
-
 import Mastercard from '../../icons/Mastercard'
 import Visa from '../../icons/Visa'
 import Amex from '../../icons/Amex'

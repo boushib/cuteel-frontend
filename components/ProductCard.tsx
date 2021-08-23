@@ -1,8 +1,8 @@
 import styles from './ProductCard.module.scss'
 import Link from 'next/link'
 import { useContext } from 'react'
-import { CartContext } from '../store'
-import { CartAT } from '../store/actions'
+import { CartContext, WishlistContext } from '../store/providers'
+import { CartAT, WishlistAT } from '../store/actions'
 import { Product } from '../models'
 import ShoppingCart from '../icons/ShoppingCart'
 import Heart from '../icons/Heart'
@@ -12,10 +12,19 @@ type Props = {
 }
 
 const ProductCard: React.FC<Props> = ({ product }) => {
-  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const { dispatch: cartDispatch } = useContext(CartContext) as {
+    dispatch: Function
+  }
+  const { dispatch: wishlistDispatch } = useContext(WishlistContext) as {
+    dispatch: Function
+  }
   const handleAddToCart = (e: any) => {
     e.stopPropagation()
-    dispatch({ type: CartAT.ADD, payload: product })
+    cartDispatch({ type: CartAT.ADD, payload: product })
+  }
+  const handleAddToWishlist = (e: any) => {
+    e.stopPropagation()
+    wishlistDispatch({ type: WishlistAT.ADD, payload: product })
   }
   const { _id, image, name, price, quantity } = product
   return (
@@ -29,7 +38,10 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           <div className={styles.product__card__cta} onClick={handleAddToCart}>
             <ShoppingCart />
           </div>
-          <div className={styles.product__card__cta}>
+          <div
+            className={styles.product__card__cta}
+            onClick={handleAddToWishlist}
+          >
             <Heart />
           </div>
         </div>

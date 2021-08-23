@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Remove from '../icons/Remove'
 import { useContext } from 'react'
 import { CartState, Product } from '../models'
-import { CartContext } from '../store'
+import { CartContext } from '../store/providers'
 import { CartAT } from '../store/actions'
 
 type Props = { product: Product; quantity: number }

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { Button } from './Button'
 import { useContext } from 'react'
-import { CartContext } from '../store'
+import { CartContext } from '../store/providers'
 import { CartAT } from '../store/actions'
 import { Product } from '../models'
 
