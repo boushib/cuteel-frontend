@@ -12,7 +12,7 @@ const FeaturedProducts: React.FC<Props> = ({ products }) => (
       <h2>Best sellers</h2>
       {products && products.length > 0 && (
         <div className="grid">
-          {products.map((p) => (
+          {products.slice(0, 4).map((p) => (
             <ProductCard product={p} key={p._id} />
           ))}
         </div>
