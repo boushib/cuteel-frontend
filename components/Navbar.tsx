@@ -109,7 +109,7 @@ const ShoppingCartContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background-color: #f44336;
+    background-color: #ff5722;
     position: absolute;
     right: 0;
     top: 0;
