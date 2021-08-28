@@ -44,7 +44,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
       <CartProductPrice>${price.toFixed()}</CartProductPrice>
-      <RemoveIcon onClick={removeFromCart}>
+      <RemoveIcon className="remove-icon" onClick={removeFromCart}>
         <Remove />
       </RemoveIcon>
     </CartProductContainer>
@@ -58,6 +58,12 @@ const RemoveIcon = styled.div`
   width: 20px;
   cursor: pointer;
   margin-left: 32px;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
   svg {
     height: 100%;
     width: 100%;
@@ -65,9 +71,19 @@ const RemoveIcon = styled.div`
 `
 
 const CartProductContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 12px;
+  padding-right: 32px;
+  border-radius: 6px;
+  &:hover {
+    .remove-icon {
+      opacity: 1;
+    }
+  }
 `
 
 const CartProductImage = styled.div`
@@ -100,19 +116,26 @@ const CartProductQuantity = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  box-shadow: 0 3px 10px #ddd;
-  color: #888;
+  background-color: #f5f6f7;
+  color: #999;
 `
 const CartProductQuantityContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 0 36px;
+  margin-left: auto;
   user-select: none;
   span {
     font-size: 18px;
-    font-weight: 700;
-    color: #888;
+    font-weight: 500;
+    color: #999;
+    background-color: #fafafa;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     cursor: pointer;
   }
 `

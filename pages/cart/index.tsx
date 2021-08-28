@@ -164,6 +164,11 @@ const CartGrid = styled.div`
   aside {
     width: 320px;
   }
+  .cart__products {
+    flex-grow: 1;
+    margin-right: 36px;
+    max-width: 720px;
+  }
 `
 
 const PaymentMethods = styled.div`
