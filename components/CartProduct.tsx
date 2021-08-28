@@ -54,19 +54,15 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
 export default CartProduct
 
 const RemoveIcon = styled.div`
-  height: 20px;
-  width: 20px;
+  height: 22px;
+  width: 0;
   cursor: pointer;
-  margin-left: 32px;
   opacity: 0;
-  transition: opacity .5s ease-in-out;
-  position: absolute;
-  top: 50%;
-  right: 24px;
-  transform: translateY(-50%);
+  transition: all .5s ease-in-out;
   svg {
-    height: 100%;
-    width: 100%;
+    height: 22px;
+    width: 22px;
+    flex-shrink: 0;
   }
 `
 
@@ -76,12 +72,13 @@ const CartProductContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   background-color: #fff;
-  padding: 12px;
-  padding-right: 32px;
+  padding: 12px 24px 12px 12px;
   border-radius: 6px;
   &:hover {
     .remove-icon {
       opacity: 1;
+      width: 22px;
+      margin-left: 16px;
     }
   }
 `
