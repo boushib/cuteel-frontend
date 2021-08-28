@@ -18,19 +18,21 @@ type Props = {
 }
 
 const Products: React.FC<Props> = ({ products }) => (
-  <div className="products page">
-    <Head title="Products" />
-    <div className="container">
-      <h1>Catalog</h1>
-      {products && products.length > 0 && (
-        <div className="grid">
-          {products.map((p) => (
-            <ProductCard product={p} key={p._id} />
-          ))}
-        </div>
-      )}
+  <>
+    <Head title="Catalog" />
+    <div className="products page">
+      <div className="container">
+        <h1>Catalog</h1>
+        {products && products.length > 0 && (
+          <div className="grid">
+            {products.map((p) => (
+              <ProductCard product={p} key={p._id} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
+  </>
 )
 
 export default Products

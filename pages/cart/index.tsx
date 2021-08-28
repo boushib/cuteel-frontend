@@ -9,6 +9,7 @@ import Visa from '../../icons/Visa'
 import Amex from '../../icons/Amex'
 import PayPal from '../../icons/PayPal'
 import PayPalButton from '../../components/PayPalButton'
+import Head from '../../components/Head'
 
 const Cart = () => {
   const { state: cartState } = useContext(CartContext) as { state: CartState }
@@ -37,122 +38,125 @@ const Cart = () => {
   if (!items) return
 
   return (
-    <div className="cart page">
-      <div className="container">
-        {items.length === 0 && 'Your Cart is empty!'}
-        {items.length > 0 && (
-          <CartGrid>
-            <div className="cart__products">
-              <h2>Cart</h2>
-              {items.map((item) => (
-                <CartProduct
-                  product={item.product}
-                  quantity={item.quantity}
-                  key={item.product._id}
-                />
-              ))}
-            </div>
-            <aside>
-              <h2>Payment details</h2>
-              <label htmlFor="">Payment type</label>
-              <PaymentMethods>
-                <PaymentMethod>
-                  <input
-                    type="radio"
-                    name="payment-method"
-                    value="master-card"
-                    checked={paymentMethod === 'master-card'}
-                    onChange={() => setPaymentMethod('master-card')}
+    <>
+      <Head title="Cart" />
+      <div className="cart page">
+        <div className="container">
+          {items.length === 0 && 'Your Cart is empty!'}
+          {items.length > 0 && (
+            <CartGrid>
+              <div className="cart__products">
+                <h2>Cart</h2>
+                {items.map((item) => (
+                  <CartProduct
+                    product={item.product}
+                    quantity={item.quantity}
+                    key={item.product._id}
                   />
-                  <Mastercard />
-                </PaymentMethod>
-                <PaymentMethod>
-                  <input
-                    type="radio"
-                    name="payment-method"
-                    value="visa"
-                    checked={paymentMethod === 'visa'}
-                    onChange={() => setPaymentMethod('visa')}
-                  />
-                  <Visa />
-                </PaymentMethod>
-                <PaymentMethod>
-                  <input
-                    type="radio"
-                    name="payment-method"
-                    value="american-express"
-                    checked={paymentMethod === 'american-express'}
-                    onChange={() => setPaymentMethod('american-express')}
-                  />
-                  <Amex />
-                </PaymentMethod>
-                <PaymentMethod>
-                  <input
-                    type="radio"
-                    name="payment-method"
-                    value="paypal"
-                    checked={paymentMethod === 'paypal'}
-                    onChange={() => setPaymentMethod('paypal')}
-                  />
-                  <PayPal />
-                </PaymentMethod>
-              </PaymentMethods>
-              {paymentMethod === 'paypal' && <PayPalButton />}
-              {paymentMethod !== 'paypal' && (
-                <>
-                  <label htmlFor="">Name on Card</label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    placeholder="John Doe"
-                    onChange={handleFieldChange}
-                  />
-                  <label htmlFor="">Card number</label>
-                  <input
-                    type="text"
-                    name="cardNumber"
-                    className="form-control"
-                    placeholder="1111 2222 3333 4444"
-                    onChange={handleFieldChange}
-                  />
-                  <label htmlFor="">Expiration date</label>
-                  <input
-                    type="text"
-                    name="expirationDate"
-                    className="form-control"
-                    placeholder="10/2022"
-                    onChange={handleFieldChange}
-                  />
-                  <label htmlFor="">CVV</label>
-                  <input
-                    type="text"
-                    name="cvv"
-                    className="form-control"
-                    placeholder="123"
-                    onChange={handleFieldChange}
-                  />
-                </>
-              )}
-              <Amount>
-                <span>Subtotal</span>
-                <span>${total.toFixed(2)}</span>
-              </Amount>
-              <Amount>
-                <span>Shipping</span>
-                <span>${SHIPPING_COST.toFixed(2)}</span>
-              </Amount>
-              <Amount>
-                <span>Total</span>
-                <span>${(total + SHIPPING_COST).toFixed(2)}</span>
-              </Amount>
-              <br />
-              <Button onClick={handleCheckout}>Checkout</Button>
-            </aside>
-          </CartGrid>
-        )}
+                ))}
+              </div>
+              <aside>
+                <h2>Payment details</h2>
+                <label htmlFor="">Payment type</label>
+                <PaymentMethods>
+                  <PaymentMethod>
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="master-card"
+                      checked={paymentMethod === 'master-card'}
+                      onChange={() => setPaymentMethod('master-card')}
+                    />
+                    <Mastercard />
+                  </PaymentMethod>
+                  <PaymentMethod>
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="visa"
+                      checked={paymentMethod === 'visa'}
+                      onChange={() => setPaymentMethod('visa')}
+                    />
+                    <Visa />
+                  </PaymentMethod>
+                  <PaymentMethod>
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="american-express"
+                      checked={paymentMethod === 'american-express'}
+                      onChange={() => setPaymentMethod('american-express')}
+                    />
+                    <Amex />
+                  </PaymentMethod>
+                  <PaymentMethod>
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="paypal"
+                      checked={paymentMethod === 'paypal'}
+                      onChange={() => setPaymentMethod('paypal')}
+                    />
+                    <PayPal />
+                  </PaymentMethod>
+                </PaymentMethods>
+                {paymentMethod === 'paypal' && <PayPalButton />}
+                {paymentMethod !== 'paypal' && (
+                  <>
+                    <label htmlFor="">Name on Card</label>
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      placeholder="John Doe"
+                      onChange={handleFieldChange}
+                    />
+                    <label htmlFor="">Card number</label>
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      className="form-control"
+                      placeholder="1111 2222 3333 4444"
+                      onChange={handleFieldChange}
+                    />
+                    <label htmlFor="">Expiration date</label>
+                    <input
+                      type="text"
+                      name="expirationDate"
+                      className="form-control"
+                      placeholder="10/2022"
+                      onChange={handleFieldChange}
+                    />
+                    <label htmlFor="">CVV</label>
+                    <input
+                      type="text"
+                      name="cvv"
+                      className="form-control"
+                      placeholder="123"
+                      onChange={handleFieldChange}
+                    />
+                  </>
+                )}
+                <Amount>
+                  <span>Subtotal</span>
+                  <span>${total.toFixed(2)}</span>
+                </Amount>
+                <Amount>
+                  <span>Shipping</span>
+                  <span>${SHIPPING_COST.toFixed(2)}</span>
+                </Amount>
+                <Amount>
+                  <span>Total</span>
+                  <span>${(total + SHIPPING_COST).toFixed(2)}</span>
+                </Amount>
+                <br />
+                <Button onClick={handleCheckout}>Checkout</Button>
+              </aside>
+            </CartGrid>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
