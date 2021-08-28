@@ -1,4 +1,5 @@
 import { ChangeEvent, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Search from '../icons/Search'
 import styles from './SearchBox.module.scss'
 import api from '../api'
@@ -6,6 +7,7 @@ import { Product } from '../models'
 import ProductCard from '../components/ProductCard'
 
 const SearchBox = () => {
+  const router = useRouter()
   const [query, setQuery] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [products, setProducts] = useState<Array<Product>>([])
@@ -13,6 +15,10 @@ const SearchBox = () => {
   useEffect(() => {
     if (query) getProducts()
   }, [query])
+
+  useEffect(() => {
+    setQuery('')
+  }, [router.asPath])
 
   const getProducts = async () => {
     setIsLoading(true)
@@ -32,6 +38,7 @@ const SearchBox = () => {
           type="text"
           className={styles.searchBox__input}
           placeholder="Search..."
+          value={query}
           onChange={handleQueryChange}
         />
         <Search />
