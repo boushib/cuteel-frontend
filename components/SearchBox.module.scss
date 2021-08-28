@@ -1,35 +1,47 @@
-.searchBox {
-  position: relative;
-  &__input {
-    border: none;
-    outline: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    width: 100%;
-    display: block;
-    color: #666;
-    font-size: 15px;
-    width: 400px;
-    background-color: #fafafa;
-    &::placeholder {
-      color: #aaa;
-    }
-  }
-  svg {
-    width: 18px;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    cursor: pointer;
-    transform: translateY(-50%);
-    path {
-      transition: fill 0.4s ease-in-out;
-      fill: #bbb;
-    }
-    &:hover {
-      path {
-        fill: #999;
+.search {
+  &Box {
+    position: relative;
+    &__input {
+      border: none;
+      outline: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      width: 100%;
+      display: block;
+      color: #666;
+      font-size: 15px;
+      width: 400px;
+      background-color: #fafafa;
+      &::placeholder {
+        color: #aaa;
       }
     }
+    svg {
+      width: 18px;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      cursor: pointer;
+      transform: translateY(-50%);
+      path {
+        transition: fill 0.4s ease-in-out;
+        fill: #bbb;
+      }
+      &:hover {
+        path {
+          fill: #999;
+        }
+      }
+    }
+  }
+
+  &Results {
+    background-color: #f5f6f7;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding: 40px 0;
   }
 }
