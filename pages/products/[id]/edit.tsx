@@ -23,7 +23,7 @@ type Props = {
   product: Product
 }
 
-const AddProduct: React.FC<Props> = ({ product }) => {
+const EditProduct: React.FC<Props> = ({ product }) => {
   const [name, setName] = useState('Product 100')
   const [description, setDescription] = useState('Just testing..')
   const [price, setPrice] = useState(19.99)
@@ -54,7 +54,7 @@ const AddProduct: React.FC<Props> = ({ product }) => {
       fd.append('quantity', quantity.toString())
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
-      await api.post('/products/create', fd, { headers })
+      await api.put(`/products/${product._id}`, fd, { headers })
       router.push(`/products/${product._id}`)
     } catch (error) {
       console.log(error)
@@ -64,8 +64,8 @@ const AddProduct: React.FC<Props> = ({ product }) => {
 
   return (
     <>
-      <Head title="Add Product" />
-      <div className="add-product page">
+      <Head title="Edit Product" />
+      <div className="edit-product page">
         <div className="container">
           <h1>New Product</h1>
           {isBusy && <Spinner />}
@@ -137,4 +137,4 @@ const AddProduct: React.FC<Props> = ({ product }) => {
   )
 }
 
-export default AddProduct
+export default EditProduct
