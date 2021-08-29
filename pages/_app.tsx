@@ -91,6 +91,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .btn-group {
+    display: flex;
+    & > button {
+      &:not(:last-child){
+        margin-right: 10px;
+      }
+    }
+  }
+
   textarea {
     resize: none;
     height: 124px;
