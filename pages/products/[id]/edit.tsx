@@ -46,12 +46,24 @@ const EditProduct: React.FC<Props> = ({ product }) => {
   const handleSubmit = async () => {
     try {
       const fd = new FormData()
-      fd.append('name', name)
-      fd.append('description', description)
-      fd.append('price', price.toString())
-      fd.append('category', category)
-      fd.append('image', image)
-      fd.append('quantity', quantity.toString())
+      if (name && name !== product.name) {
+        fd.append('name', name)
+      }
+      if (description && description !== product.description) {
+        fd.append('description', description)
+      }
+      if (price && price !== product.price) {
+        fd.append('price', price.toString())
+      }
+      if (category && category !== product.category) {
+        fd.append('category', category)
+      }
+      if (quantity && quantity !== product.quantity) {
+        fd.append('quantity', quantity.toString())
+      }
+      if (image) {
+        fd.append('image', image)
+      }
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
       await api.put(`/products/${product._id}`, fd, { headers })
