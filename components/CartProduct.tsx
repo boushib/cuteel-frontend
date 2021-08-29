@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { CartState, Product } from '../models'
 import { CartContext } from '../store/providers'
 import { CartAT } from '../store/actions'
+import { getImagePath } from '../utils'
 
 type Props = { product: Product; quantity: number }
 
@@ -36,7 +37,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
   }
   return (
     <CartProductContainer>
-      <CartProductImage img={image} />
+      <CartProductImage img={getImagePath(image)} />
       <CartProductName>{name}</CartProductName>
       <CartProductQuantityContainer>
         <span onClick={decrementQuantity}>-</span>
@@ -58,7 +59,7 @@ const RemoveIcon = styled.div`
   width: 0;
   cursor: pointer;
   opacity: 0;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   svg {
     height: 22px;
     width: 22px;

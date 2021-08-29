@@ -6,6 +6,7 @@ import { CartAT, WishlistAT } from '../store/actions'
 import { Product } from '../models'
 import ShoppingCart from '../icons/ShoppingCart'
 import Heart from '../icons/Heart'
+import { getImagePath } from '../utils'
 
 type Props = {
   product: Product
@@ -32,7 +33,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       <div className={styles.product__card}>
         <div
           className={styles.product__card__image}
-          style={{ backgroundImage: `url('${image}')` }}
+          style={{ backgroundImage: `url('${getImagePath(image)}')` }}
         ></div>
         <div className={styles.product__card__header}>
           <div className={styles.product__card__cta} onClick={handleAddToCart}>

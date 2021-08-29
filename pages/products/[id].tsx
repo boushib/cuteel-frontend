@@ -7,6 +7,7 @@ import { useContext } from 'react'
 import { CartContext } from '../../store/providers'
 import { CartAT } from '../../store/actions'
 import Back from '../../components/Back'
+import { getImagePath } from '../../utils'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -34,7 +35,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
       <div className="container">
         <Back page="Products" />
         <h1>{product.name}</h1>
-        <ProductImage img={product.image} />
+        <ProductImage img={getImagePath(product.image)} />
         <ProductDescription>{product.description}</ProductDescription>
         <ProductPrice>${product.price}</ProductPrice>
         <Button onClick={handleAddToCart}>Add to Cart</Button>
