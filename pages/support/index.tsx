@@ -1,9 +1,9 @@
-import { Button } from '../../components/Button'
-import Head from '../../components/Head'
+import { Button } from '@/components/Button'
+import Head from '@/components/Head'
 import { useState, useContext } from 'react'
-import api from '../../api'
-import { AuthContext } from '../../store/providers'
-import { AuthState } from '../../models'
+import api from '@/api'
+import { AuthContext } from '@/store/providers'
+import { AuthState } from '@/models'
 
 const Support = () => {
   const [subject, setSubject] = useState('')

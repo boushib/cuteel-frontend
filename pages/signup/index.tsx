@@ -1,8 +1,8 @@
-import { Button } from '../../components/Button'
-import styled from 'styled-components'
 import { useState } from 'react'
 import Link from 'next/link'
-import api from '../../api'
+import styled from 'styled-components'
+import api from '@/api'
+import { Button } from '@/components/Button'
 
 export const getServerSideProps = async () => {
   return { props: {} }

@@ -1,12 +1,12 @@
-import { Button } from '../../components/Button'
-import styled from 'styled-components'
 import { useState, useContext } from 'react'
-import { AuthContext } from '../../store'
+import styled from 'styled-components'
 import Link from 'next/link'
-import api from '../../api'
-import { AuthState } from '../../models'
-import { AuthAT } from '../../store/actions'
 import { useRouter } from 'next/router'
+import api from '@/api'
+import { AuthContext } from '@/store/providers'
+import { AuthAT } from '@/store/actions'
+import { AuthState } from '@/models'
+import { Button } from '@/components/Button'
 
 const Login = () => {
   const [email, setEmail] = useState('')

@@ -1,8 +1,8 @@
-import { Button } from '../../components/Button'
-import styled from 'styled-components'
-import { useState, useContext } from 'react'
-import api from '../../api'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
+import { Button } from '@/components/Button'
+import api from '@/api'
 
 const CreateCategory = () => {
   const [name, setName] = useState('')

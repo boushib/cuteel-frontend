@@ -1,4 +1,4 @@
-import Checkmark from '../../icons/Checkmark'
+import Checkmark from '@/icons/Checkmark'
 
 const Order = () => {
   return (

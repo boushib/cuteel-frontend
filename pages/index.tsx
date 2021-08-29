@@ -1,8 +1,8 @@
-import api from '../api'
-import { Product } from '../models'
-import Head from '../components/Head'
-import Hero from '../components/home/Hero'
-import FeaturedProducts from '../components/FeaturedProducts'
+import api from '@/api'
+import { Product } from '@/models'
+import Head from '@/components/Head'
+import Hero from '@/components/home/Hero'
+import FeaturedProducts from '@/components/FeaturedProducts'
 
 const getProducts = async () => {
   const { data } = await api.get('/products')

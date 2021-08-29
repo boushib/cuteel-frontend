@@ -1,4 +1,4 @@
-import { Product } from '../models'
+import { Product } from '@/models'
 import ProductCard from './ProductCard'
 import styles from './FeaturedProducts.module.scss'
 

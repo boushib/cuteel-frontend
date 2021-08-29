@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-import { AuthState, CartState, WishlistState } from '../models'
-import { AuthContext, CartContext, WishlistContext } from '../store/providers'
-import ShoppingCartIcon from '../icons/ShoppingCart'
-import HeartIcon from '../icons/Heart'
+import styled from 'styled-components'
+import { AuthState, CartState, WishlistState } from '@/models'
+import { AuthContext, CartContext, WishlistContext } from '@/store/providers'
+import ShoppingCartIcon from '@/icons/ShoppingCart'
+import HeartIcon from '@/icons/Heart'
 import SearchBox from './SearchBox'
 
 const ROUTES = [

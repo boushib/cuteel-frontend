@@ -1,12 +1,12 @@
-import styles from './ProductCard.module.scss'
-import Link from 'next/link'
 import { useContext } from 'react'
+import Link from 'next/link'
 import { CartContext, WishlistContext } from '../store/providers'
-import { CartAT, WishlistAT } from '../store/actions'
-import { Product } from '../models'
-import ShoppingCart from '../icons/ShoppingCart'
-import Heart from '../icons/Heart'
+import { CartAT, WishlistAT } from '@/store/actions'
+import { Product } from '@/models'
 import { getImagePath } from '../utils'
+import ShoppingCart from '@/icons/ShoppingCart'
+import Heart from '@/icons/Heart'
+import styles from './ProductCard.module.scss'
 
 type Props = {
   product: Product

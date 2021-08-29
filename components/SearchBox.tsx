@@ -1,10 +1,10 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Search from '../icons/Search'
+import api from '@/api'
+import { Product } from '@/models'
+import ProductCard from '@/components/ProductCard'
+import Search from '@/icons/Search'
 import styles from './SearchBox.module.scss'
-import api from '../api'
-import { Product } from '../models'
-import ProductCard from '../components/ProductCard'
 
 const SearchBox = () => {
   const router = useRouter()
@@ -14,6 +14,7 @@ const SearchBox = () => {
 
   useEffect(() => {
     if (query) getProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   useEffect(() => {
@@ -43,10 +44,10 @@ const SearchBox = () => {
         />
         <Search />
       </div>
-      {
-        query && <div className={styles.searchResults}>
+      {query && (
+        <div className={styles.searchResults}>
           <div className="container">
-            <h2>Results for "{query}"</h2>
+            <h2>Results for &quot;{query}&quot;</h2>
             {isLoading && 'Loading..'}
             {!isLoading && products && products.length > 0 && (
               <div className="grid">
@@ -55,12 +56,10 @@ const SearchBox = () => {
                 ))}
               </div>
             )}
-            {!isLoading && products.length === 0 && (
-              <div>Nothing found!</div>
-            )}
+            {!isLoading && products.length === 0 && <div>Nothing found!</div>}
           </div>
         </div>
-      }
+      )}
     </>
   )
 }

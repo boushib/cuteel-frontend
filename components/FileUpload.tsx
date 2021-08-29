@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react'
-import ImageIcon from '../icons/Image'
+import ImageIcon from '@/icons/Image'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024
 

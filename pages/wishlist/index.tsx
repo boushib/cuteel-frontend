@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import Head from '../../components/Head'
-import ProductCard from '../../components/ProductCard'
-import { WishlistState } from '../../models'
-import { WishlistContext } from '../../store/providers'
+import Head from '@/components/Head'
+import ProductCard from '@/components/ProductCard'
+import { WishlistState } from '@/models'
+import { WishlistContext } from '@/store/providers'
 
 const Wishlist = () => {
   const { state: wishlistState } = useContext(WishlistContext) as {

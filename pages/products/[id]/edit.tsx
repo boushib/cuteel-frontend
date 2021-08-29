@@ -1,13 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { Product } from '@/models'
 import api from '@/api'
 import { Button } from '@/components/Button'
 import FileUpload from '@/components/FileUpload'
 import Head from '@/components/Head'
 import Spinner from '@/components/Spinner'
-import styles from './add.module.scss'
+import styles from '../add.module.scss'
 
-const AddProduct = () => {
+const getProduct = async (id: string) => {
+  const { data } = await api.get(`/products/${id}`)
+  return data.product
+}
+
+export const getServerSideProps = async ({ params }: any) => {
+  const { id } = params
+  const product: Product = await getProduct(id)
+  return { props: { product } }
+}
+
+type Props = {
+  product: Product
+}
+
+const AddProduct: React.FC<Props> = ({ product }) => {
   const [name, setName] = useState('Product 100')
   const [description, setDescription] = useState('Just testing..')
   const [price, setPrice] = useState(19.99)
@@ -15,8 +31,17 @@ const AddProduct = () => {
   const [image, setImage] = useState<any>()
   const [quantity, setQuantity] = useState(100)
   const [isBusy, setIsBusy] = useState(false)
-
   const router = useRouter()
+
+  useEffect(() => {
+    if (product) {
+      setName(product.name)
+      setDescription(product.description)
+      setPrice(product.price)
+      setCategory(product.category)
+      setQuantity(product.quantity)
+    }
+  }, [product])
 
   const handleSubmit = async () => {
     try {
@@ -30,7 +55,7 @@ const AddProduct = () => {
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
       await api.post('/products/create', fd, { headers })
-      router.push('/catalog')
+      router.push(`/products/${product._id}`)
     } catch (error) {
       console.log(error)
     }

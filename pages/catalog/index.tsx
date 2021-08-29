@@ -1,9 +1,9 @@
-import Head from '../../components/Head'
-import api from '../../api'
-import { Product } from '../../models'
-import ProductCard from '../../components/ProductCard'
-import { Button } from '../../components/Button'
 import Link from 'next/link'
+import Head from '@/components/Head'
+import api from '@/api'
+import { Product } from '@/models'
+import ProductCard from '@/components/ProductCard'
+import { Button } from '@/components/Button'
 
 const getProducts = async () => {
   const { data } = await api.get('/products')

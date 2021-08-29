@@ -1,4 +1,4 @@
-import Star from '../icons/Star'
+import Star from '@/icons/Star'
 import styles from './Rating.module.scss'
 
 const Rating = () => (

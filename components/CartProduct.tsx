@@ -1,10 +1,10 @@
-import styled from 'styled-components'
-import Remove from '../icons/Remove'
 import { useContext } from 'react'
-import { CartState, Product } from '../models'
-import { CartContext } from '../store/providers'
-import { CartAT } from '../store/actions'
-import { getImagePath } from '../utils'
+import styled from 'styled-components'
+import { CartState, Product } from '@/models'
+import { CartContext } from '@/store/providers'
+import { CartAT } from '@/store/actions'
+import { getImagePath } from '@/utils'
+import Remove from '@/icons/Remove'
 
 type Props = { product: Product; quantity: number }
 

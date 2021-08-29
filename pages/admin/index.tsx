@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { AuthState } from '../../models'
-import { AuthContext } from '../../store'
+import { AuthState } from '@/models'
+import { AuthContext } from '@/store/providers'
 
 const Dashboard = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }

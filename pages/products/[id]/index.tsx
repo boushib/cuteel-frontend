@@ -1,14 +1,15 @@
 import styled from 'styled-components'
-import api from '../../api'
+import api from '@/api'
+import Link from 'next/link'
 import { useContext } from 'react'
-import { CartContext } from '../../store/providers'
-import { Product } from '../../models'
-import { CartAT, WishlistAT } from '../../store/actions'
-import { getImagePath } from '../../utils'
-import Head from '../../components/Head'
-import { Button } from '../../components/Button'
-import Back from '../../components/Back'
-import Rating from '../../components/Rating'
+import { CartContext } from '@/store/providers'
+import { Product } from '@/models'
+import { CartAT, WishlistAT } from '@/store/actions'
+import { getImagePath } from '@/utils'
+import Head from '@/components/Head'
+import { Button } from '@/components/Button'
+import Back from '@/components/Back'
+import Rating from '@/components/Rating'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -53,6 +54,9 @@ const ProductPage: React.FC<Props> = ({ product }) => {
               <Button color="#00bcd4" onClick={handleAddToWishlist}>
                 Add to Wishlist
               </Button>
+              <Link href={`/products/${product._id}/edit`} passHref>
+                <Button color="#9e9e9e">Edit</Button>
+              </Link>
             </div>
           </div>
         </ProductContainer>
