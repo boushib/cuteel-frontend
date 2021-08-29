@@ -11,7 +11,6 @@ import {
   WishlistProvider,
 } from '../store/providers'
 import Footer from '../components/Footer'
-import Wishlist from './wishlist'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -66,6 +65,14 @@ const GlobalStyle = createGlobalStyle`
   .page {
     padding: 40px 0;
     min-height: calc(100vh - 140px);
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      & > * {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .form-control {
@@ -86,7 +93,7 @@ const GlobalStyle = createGlobalStyle`
 
   textarea {
     resize: none;
-    height: 92px;
+    height: 124px;
   }
 
   label {
@@ -94,6 +101,43 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     margin-bottom: 8px;
     color: #aaa;
+  }
+
+  .file-upload {
+    background-color: #fff;
+    height: 124px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: #666;
+    font-size: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      top: 11px;
+      left: 11px;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+      border: 2px dashed #eaeaea;
+      border-radius: 6px;
+    }
+    input {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    svg {
+      display: block;
+      margin: 0 auto 8px;
+    }
   }
 
   .form__step {
