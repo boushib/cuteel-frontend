@@ -17,7 +17,12 @@ const Wishlist = () => {
       <div className="cart page">
         <div className="container">
           <h1>Wishlist</h1>
-          {products.length === 0 && 'Your Wishlist is empty!'}
+          {products.length === 0 && (
+            <p>
+              Your Wishlist is empty! Go add some products you like to the
+              wishlist!
+            </p>
+          )}
           {products.length > 0 && (
             <div className="grid">
               {products.map((p) => (
