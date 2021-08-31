@@ -23,8 +23,10 @@ const Login = () => {
   const handleSubmit = async () => {
     try {
       dispatch({ type: AuthAT.PENDING })
-      const { data: user } = await api.post('/auth/signin', { email, password })
+      const { data } = await api.post('/auth/signin', { email, password })
+      const { user, token } = data
       dispatch({ type: AuthAT.SUCCESS, payload: user })
+      localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
       router.push('/admin')
     } catch (error: any) {
