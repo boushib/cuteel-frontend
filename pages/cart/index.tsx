@@ -42,15 +42,14 @@ const Cart = () => {
       <Head title="Cart" />
       <div className="cart page">
         <div className="container">
+          <h1>Cart</h1>
           {items.length === 0 && (
             <>
-              <h1>Cart</h1>
               <p>Your Cart is empty! Go add some products to the cart.</p>
             </>
           )}
           {items.length > 0 && (
             <CartGrid>
-              <h2>Cart</h2>
               <div className="cart__products">
                 {items.map((item) => (
                   <CartProduct
@@ -61,7 +60,6 @@ const Cart = () => {
                 ))}
               </div>
               <aside>
-                <h2>Payment details</h2>
                 <label htmlFor="">Payment type</label>
                 <PaymentMethods>
                   <PaymentMethod>
