@@ -32,6 +32,9 @@
       "@/api": ["api/"],
       "@/api/": ["api/"],
       "@/api/*": ["api/*"],
+      "@/hooks": ["hooks/"],
+      "@/hooks/": ["hooks/"],
+      "@/hooks/*": ["hooks/*"],
       "@/icons/*": ["icons/*"]
     }
   },
