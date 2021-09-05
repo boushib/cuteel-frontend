@@ -7,6 +7,7 @@ import { AuthContext, CartContext, WishlistContext } from '@/store/providers'
 import ShoppingCartIcon from '@/icons/ShoppingCart'
 import HeartIcon from '@/icons/Heart'
 import SearchBox from './SearchBox'
+import { DEFAULT_AVATAR } from '../constants'
 
 const ROUTES = [
   {
@@ -33,8 +34,6 @@ const Navbar = () => {
   const { user } = authState
   const { items } = cartState
   const { products: wishlistProducts } = wishlistState
-  const DEFAULT_AVATAR =
-    'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png'
   return (
     <Nav>
       <Container>
@@ -56,7 +55,11 @@ const Navbar = () => {
           <ShoppingCart count={items.length ?? 0} />
           <WishList isEmpty={wishlistProducts.length === 0} />
           {/* {!user && <Link href="/login">Login</Link>} */}
-          {user && <Avatar img={user.avatar ?? DEFAULT_AVATAR} />}
+          {user && (
+            <Link href={`/u/${user._id}`} passHref>
+              <Avatar img={user.avatar ?? DEFAULT_AVATAR} />
+            </Link>
+          )}
         </NavTail>
       </Container>
     </Nav>

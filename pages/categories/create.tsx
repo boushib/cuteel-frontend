@@ -11,7 +11,11 @@ const CreateCategory = () => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await api.post('/categories/create', { name })
+      const { data } = await api.post(
+        '/categories/create',
+        { name },
+        { headers: {} }
+      )
       const { category } = data
       console.log(category)
       router.push('/admin')

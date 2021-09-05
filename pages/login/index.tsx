@@ -18,8 +18,6 @@ const Login = () => {
     dispatch: Function
   }
 
-  console.log({ state })
-
   const handleSubmit = async () => {
     try {
       dispatch({ type: AuthAT.PENDING })

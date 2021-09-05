@@ -15,8 +15,7 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await api.post('/auth/signup', { name, email, password })
-      console.log(data)
+      await api.post('/auth/signup', { name, email, password })
     } catch (error) {
       console.log(error)
     }
