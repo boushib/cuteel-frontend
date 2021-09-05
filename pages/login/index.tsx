@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 import api from '@/api'
 import { AuthContext } from '@/store/providers'
 import { AuthAT } from '@/store/actions'
@@ -26,6 +27,7 @@ const Login = () => {
       dispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
+      Cookies.set('token', token)
       router.push('/admin')
     } catch (error: any) {
       const message = error.response.data.error

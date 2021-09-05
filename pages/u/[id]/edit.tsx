@@ -1,20 +1,29 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { AuthContext } from '@/store/providers'
-import { AuthState } from '@/models'
+import { User } from '@/models'
 import api from '@/api'
 import { Button } from '@/components/Button'
 import styles from './profile.module.scss'
 import FileUpload from '@/components/FileUpload'
 
-const User = () => {
+const getUser = async (id: string) => {
+  const { data } = await api.get(`/users/${id}`)
+  return data.user
+}
+
+export const getServerSideProps = async ({ params }: any) => {
+  const { id } = params
+  const user: User = await getUser(id)
+  return { props: { user } }
+}
+
+type Props = { user: User }
+
+const EditProfile: React.FC<Props> = ({ user }) => {
   const [avatar, setAvatar] = useState<File>()
   const [name, setName] = useState('')
   const [isBusy, setIsBusy] = useState(false)
-  const { state: authState } = useContext(AuthContext) as { state: AuthState }
-  const { user } = authState
   const router = useRouter()
-
   useEffect(() => {
     if (user) {
       setName(user.name)
@@ -69,4 +78,4 @@ const User = () => {
   )
 }
 
-export default User
+export default EditProfile

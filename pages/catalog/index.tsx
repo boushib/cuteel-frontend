@@ -6,13 +6,9 @@ import { Product } from '@/models'
 import ProductCard from '@/components/ProductCard'
 import { Button } from '@/components/Button'
 
-const getProducts = async () => {
-  //const token = window.localStorage.getItem('token')
+const getProducts = async (token: string) => {
   try {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTJlYWZjNDM1OTljNzUxNzAxZmEyODIiLCJlbWFpbCI6ImVsQGdvb2dsZS5jb20iLCJpYXQiOjE2MzA0NTAwNzksImV4cCI6MTYzMDcwOTI3OX0.N1k60rVO3W5lDd3lsK97I0dBFF1vPdOBRM7q2lohigs'
-    // setToken(token)
-    api.defaults.headers['Authorization'] = `Bearer ${token}`
+    setToken(token)
     const { data } = await api.get('/products')
     return data.products
   } catch (error: any) {
@@ -21,9 +17,8 @@ const getProducts = async () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // req.cookies
-  console.log({ HEADERS: ctx.req.cookies })
-  const products: Array<Product> = await getProducts()
+  const token = ctx.req.cookies['token']
+  const products: Array<Product> = await getProducts(token)
   return { props: { products } }
 }
 
