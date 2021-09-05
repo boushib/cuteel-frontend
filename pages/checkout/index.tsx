@@ -1,10 +1,10 @@
 import Checkmark from '@/icons/Checkmark'
 
-const Order = () => {
+const Checkout = () => {
   return (
     <div className="order page">
       <div className="container">
-        <h1>Order</h1>
+        <h1>Checkout</h1>
         <div className="form__steps">
           <div className="form__step done">
             <div className="form__step__number">
@@ -30,4 +30,4 @@ const Order = () => {
   )
 }
 
-export default Order
+export default Checkout

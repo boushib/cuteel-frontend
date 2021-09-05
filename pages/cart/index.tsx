@@ -1,4 +1,5 @@
 import { ChangeEvent, useContext, useState } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { CartState } from '@/models'
 import { CartContext } from '@/store/providers'
@@ -21,11 +22,12 @@ const Cart = () => {
     cvv: '',
   })
   const { items, total } = cartState
+  const router = useRouter()
 
   const SHIPPING_COST = 20
 
   const handleCheckout = () => {
-    console.log('checkout..')
+    router.push('/checkout')
   }
 
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
