@@ -8,6 +8,7 @@ import ShoppingCartIcon from '@/icons/ShoppingCart'
 import HeartIcon from '@/icons/Heart'
 import SearchBox from './SearchBox'
 import { DEFAULT_AVATAR } from '../constants'
+import { getImagePath } from '../utils'
 
 const ROUTES = [
   {
@@ -57,7 +58,9 @@ const Navbar = () => {
           {/* {!user && <Link href="/login">Login</Link>} */}
           {user && (
             <Link href={`/u/${user._id}`} passHref>
-              <Avatar img={user.avatar ?? DEFAULT_AVATAR} />
+              <Avatar
+                img={user.avatar ? getImagePath(user.avatar) : DEFAULT_AVATAR}
+              />
             </Link>
           )}
         </NavTail>

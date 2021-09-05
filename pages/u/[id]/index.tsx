@@ -5,6 +5,7 @@ import { AuthState } from '@/models'
 import { DEFAULT_AVATAR } from '@/constants'
 import { Button } from '@/components/Button'
 import styles from './profile.module.scss'
+import { getImagePath } from '@/utils/'
 
 const User = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
@@ -16,7 +17,9 @@ const User = () => {
           <div
             className={styles.profile__avatar}
             style={{
-              backgroundImage: `url('${user?.avatar ?? DEFAULT_AVATAR}')`,
+              backgroundImage: `url('${
+                user?.avatar ? getImagePath(user.avatar) : DEFAULT_AVATAR
+              }')`,
             }}
           ></div>
           <div>
