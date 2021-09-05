@@ -77,7 +77,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 12px 20px;
     border-radius: 4px;
     width: 100%;
-    max-width: 660px;
+    /* max-width: 660px; */
     display: block;
     margin-bottom: 16px;
     color: #666;
@@ -119,10 +119,12 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
+    &:not(:last-child){
+      margin-bottom: 16px;
+    }
     &::before {
       content: '';
       position: absolute;
-      top: 0;
       top: 11px;
       left: 11px;
       width: calc(100% - 24px);

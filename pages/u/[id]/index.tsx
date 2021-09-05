@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import Link from 'next/link'
 import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models'
 import { DEFAULT_AVATAR } from '@/constants'
@@ -26,7 +27,9 @@ const User = () => {
             </div>
           </div>
         </div>
-        <Button>Edit Profile</Button>
+        <Link href={`/u/${user?._id}/edit`} passHref>
+          <Button>Edit Profile</Button>
+        </Link>
       </div>
     </div>
   )

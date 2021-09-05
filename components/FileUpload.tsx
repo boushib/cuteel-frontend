@@ -5,11 +5,13 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024
 
 type Props = {
   maxFileSize?: number
+  label?: string
   onChange: (file: File) => void
 }
 
 const FileUpload: React.FC<Props> = ({
   maxFileSize = MAX_FILE_SIZE,
+  label = 'Image',
   onChange,
 }) => {
   const [isUploading, setIsUploading] = useState(false)
@@ -26,8 +28,8 @@ const FileUpload: React.FC<Props> = ({
     }
   }
   return (
-    <div>
-      <label htmlFor="image">Image</label>
+    <>
+      <label htmlFor="image">{label}</label>
       <div className="file-upload">
         <input
           type="file"
@@ -44,7 +46,7 @@ const FileUpload: React.FC<Props> = ({
           {!file && <p>Drop your file here or Click to browse</p>}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
