@@ -28,7 +28,7 @@ const Login = () => {
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
       Cookies.set('token', token)
-      router.push('/admin')
+      router.push('/dashboard')
     } catch (error: any) {
       const message = error.response.data.error
       console.log(message)

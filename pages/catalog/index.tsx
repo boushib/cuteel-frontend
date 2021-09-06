@@ -1,7 +1,6 @@
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Head from '@/components/Head'
-import api, { setToken } from '@/api'
+import api from '@/api'
 import { Product } from '@/models'
 import ProductCard from '@/components/ProductCard'
 import { Button } from '@/components/Button'
@@ -15,7 +14,7 @@ const getProducts = async () => {
   }
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps = async () => {
   const products: Array<Product> = await getProducts()
   return { props: { products } }
 }

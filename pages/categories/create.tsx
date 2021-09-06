@@ -18,7 +18,7 @@ const CreateCategory = () => {
       )
       const { category } = data
       console.log(category)
-      router.push('/admin')
+      router.push('/dashboard')
     } catch (error: any) {
       console.log(error.response.data.error)
     }

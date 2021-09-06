@@ -45,3 +45,13 @@ export type Category = {
   createdAt: string
   updatedAt: string
 }
+
+export type Ticket = {
+  _id: string
+  status: string
+  subject: string
+  description: string
+  userId: string
+  createdAt: string
+  updatedAt: string
+}
