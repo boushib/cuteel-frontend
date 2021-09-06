@@ -77,73 +77,71 @@ const EditProduct: React.FC<Props> = ({ product }) => {
   return (
     <>
       <Head title="Edit Product" />
-      <div className="edit-product page">
-        <div className="container">
-          <h1>New Product</h1>
-          {isBusy && <Spinner />}
-          {!isBusy && (
-            <>
-              <div className={styles.grid}>
-                <div>
-                  <label htmlFor="name">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="form-control"
-                    placeholder="Product name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="price">Price</label>
-                  <input
-                    type="number"
-                    id="price"
-                    className="form-control"
-                    placeholder="Product price"
-                    value={price}
-                    onChange={(e) => setPrice(+e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="category">Category</label>
-                  <input
-                    type="text"
-                    id="category"
-                    className="form-control"
-                    placeholder="Product category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="quantity">Quantity</label>
-                  <input
-                    type="number"
-                    id="quantity"
-                    className="form-control"
-                    placeholder="Product quantity"
-                    value={quantity}
-                    onChange={(e) => setQuantity(+e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    className="form-control"
-                    id="description"
-                    placeholder="Product description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </div>
-                <FileUpload onChange={setImage} />
+      <div className="edit-product">
+        <h2>Edit Product</h2>
+        {isBusy && <Spinner />}
+        {!isBusy && (
+          <>
+            <div className={styles.grid}>
+              <div>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  className="form-control"
+                  placeholder="Product name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
-              <Button onClick={handleSubmit}>Submit</Button>
-            </>
-          )}
-        </div>
+              <div>
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  id="price"
+                  className="form-control"
+                  placeholder="Product price"
+                  value={price}
+                  onChange={(e) => setPrice(+e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="category">Category</label>
+                <input
+                  type="text"
+                  id="category"
+                  className="form-control"
+                  placeholder="Product category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  className="form-control"
+                  placeholder="Product quantity"
+                  value={quantity}
+                  onChange={(e) => setQuantity(+e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="description">Description</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  placeholder="Product description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <FileUpload onChange={setImage} />
+            </div>
+            <Button onClick={handleSubmit}>Submit</Button>
+          </>
+        )}
       </div>
     </>
   )

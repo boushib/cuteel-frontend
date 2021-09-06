@@ -6,9 +6,8 @@ import { Product } from '@/models'
 import ProductCard from '@/components/ProductCard'
 import { Button } from '@/components/Button'
 
-const getProducts = async (token: string) => {
+const getProducts = async () => {
   try {
-    setToken(token)
     const { data } = await api.get('/products')
     return data.products
   } catch (error: any) {
@@ -16,9 +15,8 @@ const getProducts = async (token: string) => {
   }
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = ctx.req.cookies['token']
-  const products: Array<Product> = await getProducts(token)
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products: Array<Product> = await getProducts()
   return { props: { products } }
 }
 

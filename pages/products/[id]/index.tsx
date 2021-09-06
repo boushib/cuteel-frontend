@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 import api from '@/api'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import { CartContext } from '@/store/providers'
 import { Product } from '@/models'
@@ -29,22 +27,12 @@ type Props = {
 
 const ProductPage: React.FC<Props> = ({ product }) => {
   const { dispatch } = useContext(CartContext) as { dispatch: Function }
-  const router = useRouter()
-
   const handleAddToCart = () => {
     dispatch({ type: CartAT.ADD, payload: product })
   }
 
   const handleAddToWishlist = () => {
     dispatch({ type: WishlistAT.ADD, payload: product })
-  }
-  const handleDeleteProduct = async () => {
-    try {
-      await api.delete(`/products/${product._id}`)
-      router.push('/catalog')
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   return (
@@ -63,12 +51,6 @@ const ProductPage: React.FC<Props> = ({ product }) => {
               <Button onClick={handleAddToCart}>Add to Cart</Button>
               <Button color="#00bcd4" onClick={handleAddToWishlist}>
                 Add to Wishlist
-              </Button>
-              <Link href={`/products/${product._id}/edit`} passHref>
-                <Button color="#9e9e9e">Edit</Button>
-              </Link>
-              <Button color="#f44336" onClick={handleDeleteProduct}>
-                Delete
               </Button>
             </div>
           </div>
