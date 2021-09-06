@@ -37,14 +37,17 @@ const Tickets: React.FC<Props> = ({ tickets }) => (
           </tr>
         </thead>
         <tbody>
-          {tickets.map((t) => (
-            <tr key={t._id}>
-              <td>{t.subject}</td>
-              <td>{t.status}</td>
-              <td>{t.description}</td>
+          {tickets.map((ticket) => (
+            <tr key={ticket._id}>
+              <td>{ticket.subject}</td>
+              <td>{ticket.status}</td>
+              <td>{ticket.description}</td>
               <td>
                 <ButtonSmall color="#00bcd4">View</ButtonSmall>
-                <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                {ticket.status === 'open' && <ButtonSmall>Resolve</ButtonSmall>}
+                {ticket.status === 'resolved' && (
+                  <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                )}
               </td>
             </tr>
           ))}
