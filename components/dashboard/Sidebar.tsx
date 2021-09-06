@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import CategoryIcon from '@/icons/Category'
 import DiscountIcon from '@/icons/Discount'
 import InvoiceIcon from '@/icons/Invoice'
@@ -12,28 +13,60 @@ const DashboardSidebar = () => (
   <div className={styles.dashboard__sidebar}>
     <ul>
       <li>
-        <ShopIcon /> Products
+        <Link href="/dashboard/products" passHref>
+          <div>
+            <ShopIcon /> Products
+          </div>
+        </Link>
       </li>
       <li>
-        <CategoryIcon /> Categories
+        <Link href="/dashboard/categories" passHref>
+          <div>
+            <CategoryIcon /> Categories
+          </div>
+        </Link>
       </li>
       <li>
-        <ShoppingCartIcon /> Orders
+        <Link href="/dashboard/orders" passHref>
+          <div>
+            <ShoppingCartIcon /> Orders
+          </div>
+        </Link>
       </li>
       <li>
-        <InvoiceIcon /> Invoices
+        <Link href="/dashboard/invoices" passHref>
+          <div>
+            <InvoiceIcon /> Invoices
+          </div>
+        </Link>
       </li>
       <li>
-        <DiscountIcon /> Discounts
+        <Link href="/dashboard/discounts" passHref>
+          <div>
+            <DiscountIcon /> Discounts
+          </div>
+        </Link>
       </li>
       <li>
-        <UserIcon /> Customers
+        <Link href="/dashboard/customers" passHref>
+          <div>
+            <UserIcon /> Customers
+          </div>
+        </Link>
       </li>
       <li>
-        <SupportIcon size={24} /> Tickets
+        <Link href="/dashboard/tickets" passHref>
+          <div>
+            <SupportIcon /> Tickets
+          </div>
+        </Link>
       </li>
       <li>
-        <StatsIcon /> Stats
+        <Link href="/dashboard/stats" passHref>
+          <div>
+            <StatsIcon /> Stats
+          </div>
+        </Link>
       </li>
     </ul>
   </div>

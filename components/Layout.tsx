@@ -12,7 +12,7 @@ type Props = {
 const Layout: React.FC<Props> = ({ Component, pageProps }) => {
   const { isLoading } = useRouteChange()
   const router = useRouter()
-  const isDashboard = router.pathname === '/dashboard'
+  const isDashboard = router.pathname.substring(0, 10) === '/dashboard'
   return (
     <>
       {isDashboard && (

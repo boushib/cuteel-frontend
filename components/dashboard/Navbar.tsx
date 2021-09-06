@@ -3,16 +3,26 @@ import Link from 'next/link'
 import styles from './Dashboard.module.scss'
 import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models/'
+import { getImagePath } from '@/utils/'
+import { DEFAULT_AVATAR } from '@/constants/'
 
 const DashboardNavbar = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { user } = authState
+  const avatar = user?.avatar ? getImagePath(user?.avatar) : DEFAULT_AVATAR
   return (
     <div className={styles.dashboard__navbar}>
       <Link href="/dashboard" passHref={true}>
-        <img src="/img/logo.svg" alt="" />
+        <img
+          src="/img/logo.svg"
+          alt=""
+          className={styles.dashboard__navbar__logo}
+        />
       </Link>
-      <div className="dashboard__nav__user">Hello {user?.name}!</div>
+      <div
+        className={styles.dashboard__navbar__avatar}
+        style={{ backgroundImage: `url('${avatar}')` }}
+      ></div>
     </div>
   )
 }
