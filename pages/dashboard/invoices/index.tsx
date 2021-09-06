@@ -1,7 +1,12 @@
+import Head from '@/components/Head'
+
 const Invoices = () => (
-  <div className="invoices">
-    <h2>Invoices</h2>
-  </div>
+  <>
+    <Head title="Invoices" />
+    <div className="invoices">
+      <h2>Invoices</h2>
+    </div>
+  </>
 )
 
 export default Invoices

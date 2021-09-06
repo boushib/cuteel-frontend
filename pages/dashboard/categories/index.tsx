@@ -1,5 +1,6 @@
 import api from '@/api'
 import { Button, ButtonSmall } from '@/components/Button'
+import Head from '@/components/Head'
 import { Category } from '@/models/'
 import { GetServerSideProps } from 'next'
 import styles from './Categories.module.scss'
@@ -21,30 +22,33 @@ export const getServerSideProps: GetServerSideProps = async () => {
 type Props = { categories: Array<Category> }
 
 const Categories: React.FC<Props> = ({ categories }) => (
-  <div className={styles.categories}>
-    <h2>Categories</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {categories.map((c) => (
-          <tr key={c._id}>
-            <td>{c.name}</td>
-            <td>{c.description}</td>
-            <td>
-              <ButtonSmall color="#00bcd4">Edit</ButtonSmall>
-              <ButtonSmall color="#f44336">Delete</ButtonSmall>
-            </td>
+  <>
+    <Head title="Categories" />
+    <div className={styles.categories}>
+      <h2>Categories</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {categories.map((c) => (
+            <tr key={c._id}>
+              <td>{c.name}</td>
+              <td>{c.description}</td>
+              <td>
+                <ButtonSmall color="#00bcd4">Edit</ButtonSmall>
+                <ButtonSmall color="#f44336">Delete</ButtonSmall>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
 )
 
 export default Categories
