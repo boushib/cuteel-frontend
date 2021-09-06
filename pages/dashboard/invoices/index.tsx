@@ -5,7 +5,7 @@ const Invoices = () => (
     <Head title="Invoices" />
     <div className="invoices">
       <h2>Invoices</h2>
-      <p>No invoices available!</p>
+      <p>No invoices yet!</p>
     </div>
   </>
 )

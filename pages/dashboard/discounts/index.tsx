@@ -5,7 +5,7 @@ const Discounts = () => (
     <Head title="Discounts" />
     <div className="discounts">
       <h2>Discounts</h2>
-      <p>No discounts available!</p>
+      <p>No active discounts!</p>
     </div>
   </>
 )
