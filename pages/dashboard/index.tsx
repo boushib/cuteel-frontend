@@ -6,10 +6,8 @@ const Dashboard = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { user } = authState
   return (
-    <div className="dashboard page">
-      <div className="container">
-        <h1>Good morning {user?.name}!</h1>
-      </div>
+    <div className="dashboard">
+      <h1>Good morning {user?.name}!</h1>
     </div>
   )
 }

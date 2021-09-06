@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Store from './Store'
-import Dashboard from '@/pages/admin'
+import Dashboard from '@/components/dashboard/Dashboard'
 import { useRouteChange } from '@/hooks'
 
 type Props = {
@@ -12,10 +12,16 @@ type Props = {
 const Layout: React.FC<Props> = ({ Component, pageProps }) => {
   const { isLoading } = useRouteChange()
   const router = useRouter()
-  const isDashboard = router.pathname === '/admin'
+  const isDashboard = router.pathname === '/dashboard'
   return (
     <>
-      {isDashboard && <Dashboard />}
+      {isDashboard && (
+        <Dashboard
+          pageProps={pageProps}
+          Component={Component}
+          isLoading={isLoading}
+        />
+      )}
       {!isDashboard && (
         <Store
           isLoading={isLoading}

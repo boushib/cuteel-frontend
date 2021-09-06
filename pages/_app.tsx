@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '@/components/GlobalStyle'
-import Navbar from '@/components/Navbar'
-import Spinner from '@/components/Spinner'
 import { AuthProvider, CartProvider, WishlistProvider } from '@/store/providers'
-import Footer from '@/components/Footer'
-import '../styles/globals.css'
 import Layout from '@/components/Layout'
 import { AppProps } from 'next/app'
+import '../styles/globals.css'
 
 const theme = {
   colors: {
