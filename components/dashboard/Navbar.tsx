@@ -5,6 +5,7 @@ import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models/'
 import { getImagePath } from '@/utils/'
 import { DEFAULT_AVATAR } from '@/constants/'
+import NotificationsIcon from '@/icons/Notifications'
 
 const DashboardNavbar = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
@@ -19,10 +20,16 @@ const DashboardNavbar = () => {
           className={styles.dashboard__navbar__logo}
         />
       </Link>
-      <div
-        className={styles.dashboard__navbar__avatar}
-        style={{ backgroundImage: `url('${avatar}')` }}
-      ></div>
+      <div className={styles.dashboard__navbar__tail}>
+        <div className={styles.dashboard__navbar__notifications}>
+          <NotificationsIcon />
+          <span></span>
+        </div>
+        <div
+          className={styles.dashboard__navbar__avatar}
+          style={{ backgroundImage: `url('${avatar}')` }}
+        ></div>
+      </div>
     </div>
   )
 }

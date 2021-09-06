@@ -49,7 +49,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
             <Rating />
             <div className="btn-group">
               <Button onClick={handleAddToCart}>Add to Cart</Button>
-              <Button color="#00bcd4" onClick={handleAddToWishlist}>
+              <Button color="#3f51b5" onClick={handleAddToWishlist}>
                 Add to Wishlist
               </Button>
             </div>

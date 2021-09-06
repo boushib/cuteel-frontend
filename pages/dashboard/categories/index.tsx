@@ -40,7 +40,7 @@ const Categories: React.FC<Props> = ({ categories }) => (
               <td>{c.name}</td>
               <td>{c.description}</td>
               <td>
-                <ButtonSmall color="#00bcd4">Edit</ButtonSmall>
+                <ButtonSmall color="#3f51b5">Edit</ButtonSmall>
                 <ButtonSmall color="#f44336">Delete</ButtonSmall>
               </td>
             </tr>

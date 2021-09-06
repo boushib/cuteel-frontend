@@ -27,7 +27,10 @@ const AdminProductCard: React.FC<Props> = ({ product }) => {
         style={{ backgroundImage: `url('${getImagePath(image)}')` }}
       ></div>
       <div className={styles.product__card__header}>
-        <div className={styles.product__card__cta}>
+        <div
+          className={styles.product__card__cta}
+          style={{ backgroundColor: '#3f51b5' }}
+        >
           <Link href={`/dashboard/products/${product._id}/edit`} passHref>
             <span style={{ width: 18, height: 18 }}>
               <EditIcon size={18} />
@@ -36,6 +39,7 @@ const AdminProductCard: React.FC<Props> = ({ product }) => {
         </div>
         <div
           className={styles.product__card__cta}
+          style={{ backgroundColor: '#f44336' }}
           onClick={handleDeleteProduct}
         >
           <TrashIcon size={18} />

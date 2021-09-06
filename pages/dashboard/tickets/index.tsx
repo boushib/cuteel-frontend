@@ -43,7 +43,7 @@ const Tickets: React.FC<Props> = ({ tickets }) => (
               <td>{ticket.status}</td>
               <td>{ticket.description}</td>
               <td>
-                <ButtonSmall color="#00bcd4">View</ButtonSmall>
+                <ButtonSmall color="#3f51b5">View</ButtonSmall>
                 {ticket.status === 'open' && <ButtonSmall>Resolve</ButtonSmall>}
                 {ticket.status === 'resolved' && (
                   <ButtonSmall color="#f44336">Delete</ButtonSmall>
