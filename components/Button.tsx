@@ -18,3 +18,8 @@ export const ButtonSecondary = styled(Button)`
   background-color: #252525;
   box-shadow: 0 4px 14px 0 #25252533;
 `
+
+export const ButtonSmall = styled(Button)`
+  padding: 10px 16px;
+  font-size: 14px;
+`
