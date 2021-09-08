@@ -8,7 +8,7 @@ import styles from './Tickets.module.scss'
 const getTickets = async () => {
   try {
     const { data } = await api.get('/tickets')
-    return data.tickets
+    return data.tickets ?? []
   } catch (error: any) {
     console.log(error.response)
   }
@@ -17,7 +17,7 @@ const getTickets = async () => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   setToken(req.cookies['token'])
   const tickets: Array<Ticket> = await getTickets()
-  return { props: { tickets } }
+  return { props: { tickets: tickets ?? [] } }
 }
 
 type Props = { tickets: Array<Ticket> }
@@ -27,32 +27,39 @@ const Tickets: React.FC<Props> = ({ tickets }) => (
     <Head title="Tickets" />
     <div className={styles.tickets}>
       <h2>Tickets</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Subject</th>
-            <th>Status</th>
-            <th>Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tickets.map((ticket) => (
-            <tr key={ticket._id}>
-              <td>{ticket.subject}</td>
-              <td>{ticket.status}</td>
-              <td>{ticket.description}</td>
-              <td>
-                <ButtonSmall color="#3f51b5">View</ButtonSmall>
-                {ticket.status === 'open' && <ButtonSmall>Resolve</ButtonSmall>}
-                {ticket.status === 'resolved' && (
-                  <ButtonSmall color="#f44336">Delete</ButtonSmall>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {tickets.length === 0 && <p>No tickets available!</p>}
+      {tickets.length > 0 && (
+        <div className="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tickets.map((ticket) => (
+                <tr key={ticket._id}>
+                  <td>{ticket.subject}</td>
+                  <td>{ticket.status}</td>
+                  <td>{ticket.description}</td>
+                  <td>
+                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    {ticket.status === 'open' && (
+                      <ButtonSmall>Resolve</ButtonSmall>
+                    )}
+                    {ticket.status === 'resolved' && (
+                      <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   </>
 )

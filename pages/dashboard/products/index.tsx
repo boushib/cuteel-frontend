@@ -3,8 +3,7 @@ import Link from 'next/link'
 import Head from '@/components/Head'
 import api, { setToken } from '@/api'
 import { Product } from '@/models'
-import ProductCard from '@/components/dashboard/ProductCard'
-import { Button } from '@/components/Button'
+import { Button, ButtonSmall } from '@/components/Button'
 
 const getProducts = async () => {
   try {
@@ -33,11 +32,32 @@ const Products: React.FC<Props> = ({ products }) => (
           <Button>Add Product</Button>
         </Link>
       </div>
-      {products && products.length > 0 && (
-        <div className="grid">
-          {products.map((p) => (
-            <ProductCard product={p} key={p._id} />
-          ))}
+      {products.length === 0 && <p>No products yet!</p>}
+      {products.length > 0 && (
+        <div className="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>In Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product.name}</td>
+                  <td>${product.price.toFixed(2)}</td>
+                  <td>{product.quantity}</td>
+                  <td>
+                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

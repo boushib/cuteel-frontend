@@ -189,12 +189,16 @@ const Menu = styled.ul`
     list-style-type: none;
     opacity: 0.6;
     transition: opacity 0.3s ease-in-out;
+    font-weight: 400;
     cursor: pointer;
     &.active {
       opacity: 1;
     }
     &:not(:last-child) {
       margin-right: 20px;
+    }
+    a {
+      font: inherit;
     }
   }
 `

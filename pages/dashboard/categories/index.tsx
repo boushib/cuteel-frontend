@@ -26,27 +26,31 @@ const Categories: React.FC<Props> = ({ categories }) => (
     <Head title="Categories" />
     <div className={styles.categories}>
       <h2>Categories</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((c) => (
-            <tr key={c._id}>
-              <td>{c.name}</td>
-              <td>{c.description}</td>
-              <td>
-                <ButtonSmall color="#3f51b5">Edit</ButtonSmall>
-                <ButtonSmall color="#f44336">Delete</ButtonSmall>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {categories.length > 0 && (
+        <div className="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories.map((c) => (
+                <tr key={c._id}>
+                  <td>{c.name}</td>
+                  <td>{c.description}</td>
+                  <td>
+                    <ButtonSmall color="#3f51b5">Edit</ButtonSmall>
+                    <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   </>
 )

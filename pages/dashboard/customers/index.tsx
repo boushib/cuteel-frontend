@@ -29,40 +29,44 @@ const Customers: React.FC<Props> = ({ customers }) => (
     <div className="customers">
       <h2>Customers</h2>
       {customers.length === 0 && <p>No customers yet!</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {customers.map((customer) => (
-            <tr key={customer._id}>
-              <td>
-                <div
-                  className="avatar"
-                  style={{
-                    backgroundImage: `url('${
-                      customer.avatar
-                        ? getImagePath(customer.avatar)
-                        : DEFAULT_AVATAR
-                    }')`,
-                  }}
-                ></div>
-              </td>
-              <td>{customer.name}</td>
-              <td>{customer.email}</td>
-              <td>
-                <ButtonSmall color="#3f51b5">View</ButtonSmall>
-                <ButtonSmall color="#f44336">Delete</ButtonSmall>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {customers.length > 0 && (
+        <div className="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {customers.map((customer) => (
+                <tr key={customer._id}>
+                  <td>
+                    <div
+                      className="avatar"
+                      style={{
+                        backgroundImage: `url('${
+                          customer.avatar
+                            ? getImagePath(customer.avatar)
+                            : DEFAULT_AVATAR
+                        }')`,
+                      }}
+                    ></div>
+                  </td>
+                  <td>{customer.name}</td>
+                  <td>{customer.email}</td>
+                  <td>
+                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   </>
 )

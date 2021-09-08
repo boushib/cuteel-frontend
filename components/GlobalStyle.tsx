@@ -6,10 +6,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-weight: 300;
   }
 
   body {
-    background-color: #f5f6f7;
+    /* background-color: #f5f6f7; */
+    background-color: #ededed;
     overflow-x: hidden;
   }
 
@@ -33,6 +35,13 @@ const GlobalStyle = createGlobalStyle`
 
   h3 {
     font-size: 24px;
+  }
+
+  .card {
+    padding: 16px 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14)
   }
   
   .container {
@@ -66,25 +75,26 @@ const GlobalStyle = createGlobalStyle`
    table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 15px;
+    font-size: 14px;
     thead {
-      background-color: #f5f6f7;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #ededed;
     }
     tbody {
       background-color: #fff;
     }
     tr {
       &:not(:last-child) {
-        border-bottom: 1px solid #f5f6f7;
+        border-bottom: 1px solid #ededed;
       }
     }
     th,
     td {
-      padding: 12px 20px;
+      padding: 12px 16px;
     }
     th {
       text-align: left;
+      color: #88b14b;
+      font-size: 15px;
     }
     td {
       button {
