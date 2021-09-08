@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     /* background-color: #f5f6f7; */
-    background-color: #ededed;
+    background-color: #fafafa;
     overflow-x: hidden;
   }
 
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 16px 20px;
     background-color: #fff;
     border-radius: 6px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14)
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06)
   }
   
   .container {
