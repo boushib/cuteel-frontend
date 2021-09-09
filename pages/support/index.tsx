@@ -29,7 +29,7 @@ const Support = () => {
   return (
     <div className="support page">
       <Head title="Help &amp; Support" />
-      <div className="container">
+      <div className="container" style={{ maxWidth: 800 }}>
         <h1>Contact us</h1>
         {isTicketCreated && (
           <p>

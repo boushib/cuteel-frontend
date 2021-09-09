@@ -120,11 +120,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 12px 20px;
     border-radius: 4px;
     width: 100%;
-    /* max-width: 660px; */
     display: block;
     margin-bottom: 16px;
     color: #666;
     font-size: 15px;
+        border: 1px solid #efefef;
     &::placeholder {
       color: #999;
     }

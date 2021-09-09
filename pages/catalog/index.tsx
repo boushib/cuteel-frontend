@@ -28,12 +28,7 @@ const Products: React.FC<Props> = ({ products }) => (
     <Head title="Catalog" />
     <div className="products page">
       <div className="container">
-        <div className="page__header">
-          <h1>Catalog</h1>
-          <Link href="/products/add" passHref>
-            <Button>Add Product</Button>
-          </Link>
-        </div>
+        <h2>Catalog</h2>
         {products && products.length > 0 && (
           <div className="grid">
             {products.map((p) => (

@@ -52,6 +52,12 @@ const Products: React.FC<Props> = ({ products }) => (
                   <td>{product.quantity}</td>
                   <td>
                     <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    <Link
+                      href={`/dashboard/products/${product._id}/edit`}
+                      passHref
+                    >
+                      <ButtonSmall color="#9c27b0">Edit</ButtonSmall>
+                    </Link>
                     <ButtonSmall color="#f44336">Delete</ButtonSmall>
                   </td>
                 </tr>
