@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Product } from '@/models'
-import api from '@/api'
+import api, { setToken } from '@/api'
 import { Button } from '@/components/Button'
 import FileUpload from '@/components/FileUpload'
 import Head from '@/components/Head'
@@ -66,6 +66,8 @@ const EditProduct: React.FC<Props> = ({ product }) => {
       }
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
+      const token = localStorage.getItem('token')
+      setToken(`${token}`)
       await api.put(`/products/${product._id}`, fd, { headers })
       router.push(`/products/${product._id}`)
     } catch (error) {

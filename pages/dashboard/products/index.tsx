@@ -51,7 +51,9 @@ const Products: React.FC<Props> = ({ products }) => (
                   <td>${product.price.toFixed(2)}</td>
                   <td>{product.quantity}</td>
                   <td>
-                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    <Link href={`/dashboard/products/${product._id}`} passHref>
+                      <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    </Link>
                     <Link
                       href={`/dashboard/products/${product._id}/edit`}
                       passHref
