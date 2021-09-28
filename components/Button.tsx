@@ -11,6 +11,7 @@ export const Button = styled.button`
   padding: 0.9rem 1.4rem;
   font-size: 15px;
   margin-bottom: 12px;
+  white-space: nowrap;
   cursor: pointer;
 `
 

@@ -132,10 +132,10 @@ const GlobalStyle = createGlobalStyle`
 
   .btn-group {
     display: flex;
-    & > button {
-      &:not(:last-child){
-        margin-right: 10px;
-      }
+    flex-wrap: wrap;
+    margin: -6px;
+    button {
+      margin: 6px;
     }
   }
 
