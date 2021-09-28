@@ -102,6 +102,15 @@ const GlobalStyle = createGlobalStyle`
           margin-right: 10px;
         }
       }
+      .product {
+        &__image {
+          width: 40px;
+          height: 40px;
+          background-color: rgba(0, 0, 0, .05);
+          background-size: cover;
+          background-position: center;
+        }
+      }
     }
   }
 

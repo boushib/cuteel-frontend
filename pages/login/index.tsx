@@ -14,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const { state, dispatch } = useContext(AuthContext) as {
+  const { dispatch } = useContext(AuthContext) as {
     state: AuthState
     dispatch: Function
   }

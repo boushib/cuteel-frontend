@@ -69,7 +69,7 @@ const EditProduct: React.FC<Props> = ({ product }) => {
       const token = localStorage.getItem('token')
       setToken(`${token}`)
       await api.put(`/products/${product._id}`, fd, { headers })
-      router.push(`/products/${product._id}`)
+      router.push(`/dashboard/products/${product._id}`)
     } catch (error) {
       console.log(error)
     }

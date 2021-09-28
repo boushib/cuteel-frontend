@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import api from '@/api'
+import { useRouter } from 'next/router'
+import api, { setToken } from '@/api'
 import { Product } from '@/models'
 import Head from '@/components/Head'
 import { Button } from '@/components/Button'
 import Back from '@/components/Back'
 import Rating from '@/components/Rating'
+import { useState } from 'react'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -18,13 +20,23 @@ export const getServerSideProps = async ({ params }: any) => {
   return { props: { product } }
 }
 
-type Props = {
-  product: Product
-}
+type Props = { product: Product }
 
 const ProductPage: React.FC<Props> = ({ product }) => {
-  const handleDelete = () => {
-    // TODO
+  const [isDeletingProduct, setIsDeletingProduct] = useState(false)
+  const router = useRouter()
+
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      setToken(`${token}`)
+      setIsDeletingProduct(true)
+      await api.delete(`/products/${product._id}`)
+      router.push('/dashboard/products/')
+    } catch (error) {
+      console.log(error)
+    }
+    setIsDeletingProduct(false)
   }
 
   return (
@@ -43,8 +55,12 @@ const ProductPage: React.FC<Props> = ({ product }) => {
               <Link href={`/dashboard/products/${product._id}/edit`} passHref>
                 <Button color="#3f51b5">Edit</Button>
               </Link>
-              <Button color="#f44336" onClick={handleDelete}>
-                Delete
+              <Button
+                color="#f44336"
+                onClick={handleDelete}
+                disabled={isDeletingProduct}
+              >
+                {isDeletingProduct ? 'Deleting..' : 'Delete'}
               </Button>
             </div>
           </div>
