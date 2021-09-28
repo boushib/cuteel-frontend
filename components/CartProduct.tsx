@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { CartState, Product } from '@/models'
 import { CartContext } from '@/store/providers'
 import { CartAT } from '@/store/actions'
-import { getImagePath } from '@/utils'
 import Remove from '@/icons/Remove'
 
 type Props = { product: Product; quantity: number }
@@ -37,7 +36,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
   }
   return (
     <CartProductContainer>
-      <CartProductImage img={getImagePath(image)} />
+      <CartProductImage img={image} />
       <CartProductName>{name}</CartProductName>
       <CartProductQuantityContainer>
         <span onClick={decrementQuantity}>-</span>

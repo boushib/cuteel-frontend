@@ -4,7 +4,6 @@ import { useContext } from 'react'
 import { CartContext } from '@/store/providers'
 import { Product } from '@/models'
 import { CartAT, WishlistAT } from '@/store/actions'
-import { getImagePath } from '@/utils'
 import Head from '@/components/Head'
 import { Button } from '@/components/Button'
 import Back from '@/components/Back'
@@ -41,7 +40,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
       <div className="container" style={{ maxWidth: 1024 }}>
         <Back page="Products" />
         <ProductContainer>
-          <ProductImage img={getImagePath(product.image)} />
+          <ProductImage img={product.image} />
           <div>
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>

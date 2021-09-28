@@ -1,5 +1,3 @@
-export const getImagePath = (path: string) => `${process.env.API_URL}/${path}`
-
 export const getGreeting = () => {
   const timeOfDay = new Date().getHours()
   let timing = ''

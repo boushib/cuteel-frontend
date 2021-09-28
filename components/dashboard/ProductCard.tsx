@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Product } from '@/models'
 import api from '@/api'
-import { getImagePath } from '@/utils'
 import EditIcon from '@/icons/Edit'
 import TrashIcon from '@/icons/Trash'
 import styles from './ProductCard.module.scss'
@@ -24,7 +23,7 @@ const AdminProductCard: React.FC<Props> = ({ product }) => {
     <div className={styles.product__card}>
       <div
         className={styles.product__card__image}
-        style={{ backgroundImage: `url('${getImagePath(image)}')` }}
+        style={{ backgroundImage: `url('${image}')` }}
       ></div>
       <div className={styles.product__card__header}>
         <div

@@ -3,7 +3,6 @@ import { User } from '@/models'
 import { DEFAULT_AVATAR } from '@/constants'
 import { Button } from '@/components/Button'
 import styles from './profile.module.scss'
-import { getImagePath } from '@/utils'
 import api from '@/api/'
 
 const getUser = async (id: string) => {
@@ -26,9 +25,7 @@ const Profile: React.FC<Props> = ({ user }) => (
         <div
           className={styles.profile__avatar}
           style={{
-            backgroundImage: `url('${
-              user?.avatar ? getImagePath(user.avatar) : DEFAULT_AVATAR
-            }')`,
+            backgroundImage: `url('${user?.avatar ?? DEFAULT_AVATAR}')`,
           }}
         ></div>
         <div>

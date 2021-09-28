@@ -3,7 +3,6 @@ import { ButtonSmall } from '@/components/Button'
 import Head from '@/components/Head'
 import { DEFAULT_AVATAR } from '@/constants/'
 import { User } from '@/models/'
-import { getImagePath } from '@/utils/'
 import { GetServerSideProps } from 'next'
 
 const getCustomers = async () => {
@@ -48,9 +47,7 @@ const Customers: React.FC<Props> = ({ customers }) => (
                       className="avatar"
                       style={{
                         backgroundImage: `url('${
-                          customer.avatar
-                            ? getImagePath(customer.avatar)
-                            : DEFAULT_AVATAR
+                          customer.avatar ?? DEFAULT_AVATAR
                         }')`,
                       }}
                     ></div>
