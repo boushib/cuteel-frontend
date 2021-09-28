@@ -1,9 +1,9 @@
 import api from '@/api'
+import Link from 'next/link'
 import { Button, ButtonSmall } from '@/components/Button'
 import Head from '@/components/Head'
 import { Category } from '@/models/'
 import { GetServerSideProps } from 'next'
-import styles from './Categories.module.scss'
 
 const getCategories = async () => {
   try {
@@ -24,8 +24,13 @@ type Props = { categories: Array<Category> }
 const Categories: React.FC<Props> = ({ categories }) => (
   <>
     <Head title="Categories" />
-    <div className={styles.categories}>
-      <h2>Categories</h2>
+    <div className="categories">
+      <div className="page__header">
+        <h2>Categories</h2>
+        <Link href="/dashboard/categories/add" passHref>
+          <Button>Add Category</Button>
+        </Link>
+      </div>
       {categories.length > 0 && (
         <div className="card">
           <table>
