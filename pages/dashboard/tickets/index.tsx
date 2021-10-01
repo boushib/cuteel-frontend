@@ -1,4 +1,5 @@
 import api, { setToken } from '@/api/'
+import Link from 'next/link'
 import { ButtonSmall } from '@/components/Button'
 import Head from '@/components/Head'
 import { Ticket } from '@/models/'
@@ -46,7 +47,9 @@ const Tickets: React.FC<Props> = ({ tickets }) => (
                   <td>{ticket.status}</td>
                   <td>{ticket.description}</td>
                   <td>
-                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    <Link href={`/dashboard/tickets/${ticket._id}`} passHref>
+                      <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    </Link>
                     {ticket.status === 'open' && (
                       <ButtonSmall>Resolve</ButtonSmall>
                     )}

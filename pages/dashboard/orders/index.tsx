@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Head from '@/components/Head'
 import api, { setToken } from '@/api'
 import { ButtonSmall } from '@/components/Button'
@@ -68,6 +69,9 @@ const Orders: React.FC<Props> = ({ orders }) => {
                       </a>
                     </td>
                     <td>
+                      <Link href={`/dashboard/orders/${order._id}`} passHref>
+                        <ButtonSmall color="#673ab7">View</ButtonSmall>
+                      </Link>
                       <ButtonSmall>Approve</ButtonSmall>
                       <ButtonSmall color="#f44336">Delete</ButtonSmall>
                     </td>
