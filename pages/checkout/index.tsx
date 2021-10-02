@@ -18,7 +18,6 @@ const Checkout = () => {
   return (
     <div className="order page">
       <div className="container">
-        <h1 className={styles.checkout__heading}>Checkout</h1>
         <div className="form__steps">
           {STEPS.map((s, i) => (
             <div

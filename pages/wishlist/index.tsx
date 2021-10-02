@@ -26,7 +26,11 @@ const Wishlist = () => {
           {products.length > 0 && (
             <div className="grid">
               {products.map((p) => (
-                <ProductCard product={p} key={p._id} />
+                <ProductCard
+                  product={p}
+                  showAddToWishlist={false}
+                  key={p._id}
+                />
               ))}
             </div>
           )}

@@ -9,9 +9,13 @@ import styles from './ProductCard.module.scss'
 
 type Props = {
   product: Product
+  showAddToWishlist?: boolean
 }
 
-const ProductCard: React.FC<Props> = ({ product }) => {
+const ProductCard: React.FC<Props> = ({
+  product,
+  showAddToWishlist = true,
+}) => {
   const { dispatch: cartDispatch } = useContext(CartContext) as {
     dispatch: Function
   }
@@ -38,12 +42,14 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           <div className={styles.product__card__cta} onClick={handleAddToCart}>
             <ShoppingCart />
           </div>
-          <div
-            className={styles.product__card__cta}
-            onClick={handleAddToWishlist}
-          >
-            <Heart />
-          </div>
+          {showAddToWishlist && (
+            <div
+              className={styles.product__card__cta}
+              onClick={handleAddToWishlist}
+            >
+              <Heart />
+            </div>
+          )}
         </div>
         <div className={styles.product__card__content}>
           <div className={styles.product__card__name}>{name}</div>
