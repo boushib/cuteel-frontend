@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import Link from 'next/link'
-import { CartContext, WishlistContext } from '@/store/providers'
-import { CartAT, WishlistAT } from '@/store/actions'
-import { Product } from '@/models'
+import { CartContext, ToastContext, WishlistContext } from '@/store/providers'
+import { CartAT, ToastAT, WishlistAT } from '@/store/actions'
+import { Product, ToastType } from '@/models'
 import ShoppingCart from '@/icons/ShoppingCart'
 import Heart from '@/icons/Heart'
 import styles from './ProductCard.module.scss'
@@ -20,22 +20,28 @@ const ProductCard: React.FC<Props> = ({
   const { dispatch: cartDispatch } = useContext(CartContext) as {
     dispatch: Function
   }
+
   const { dispatch: wishlistDispatch } = useContext(WishlistContext) as {
     dispatch: Function
   }
+
   const handleAddToCart = (e: any) => {
     e.stopPropagation()
     cartDispatch({ type: CartAT.ADD, payload: product })
   }
+
   const handleAddToWishlist = (e: any) => {
     e.stopPropagation()
     wishlistDispatch({ type: WishlistAT.ADD, payload: product })
   }
+
   const handleRemoveFromWishlist = (e: any) => {
     e.stopPropagation()
     wishlistDispatch({ type: WishlistAT.REMOVE, payload: product._id })
   }
+
   const { _id, image, name, price, quantity } = product
+
   return (
     <Link href={`/products/${_id}`} passHref={true}>
       <div className={styles.product__card}>

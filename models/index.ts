@@ -40,6 +40,23 @@ export type WishlistState = {
   products: Array<Product>
 }
 
+export enum ToastType {
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  WARNING = 'WARNING',
+  INFO = 'INFO',
+}
+
+export type Toast = {
+  type: ToastType
+  message: string
+  timeout?: number
+}
+
+export type ToastState = {
+  toast: Toast | null
+}
+
 export type Category = {
   _id: string
   name: string

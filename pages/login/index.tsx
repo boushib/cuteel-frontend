@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import api from '@/api'
-import { AuthContext } from '@/store/providers'
-import { AuthAT } from '@/store/actions'
-import { AuthState } from '@/models'
+import { AuthContext, ToastContext } from '@/store/providers'
+import { AuthAT, ToastAT } from '@/store/actions'
+import { AuthState, ToastType } from '@/models'
 import { Button } from '@/components/Button'
 
 const Login = () => {
@@ -14,25 +14,38 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const { dispatch } = useContext(AuthContext) as {
+  const { dispatch: authDispatch } = useContext(AuthContext) as {
     state: AuthState
+    dispatch: Function
+  }
+
+  const { dispatch: toastDispatch } = useContext(ToastContext) as {
     dispatch: Function
   }
 
   const handleSubmit = async () => {
     try {
-      dispatch({ type: AuthAT.PENDING })
+      authDispatch({ type: AuthAT.PENDING })
       const { data } = await api.post('/auth/signin', { email, password })
       const { user, token } = data
-      dispatch({ type: AuthAT.SUCCESS, payload: user })
+      authDispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
       Cookies.set('token', token)
       router.push('/dashboard')
     } catch (error: any) {
       const message = error.response.data.error
-      console.log(message)
-      dispatch({ type: AuthAT.ERROR, payload: message })
+
+      toastDispatch({
+        type: ToastAT.SHOW,
+        payload: { type: ToastType.ERROR, message },
+      })
+
+      setTimeout(() => {
+        toastDispatch({ type: ToastAT.HIDE })
+      }, 5000)
+
+      authDispatch({ type: AuthAT.ERROR, payload: message })
     }
   }
 

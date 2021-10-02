@@ -1,5 +1,12 @@
-import { AuthState, CartState, WishlistState } from '../models'
-import { AuthAT, AuthAction, CartAction, CartAT } from './actions'
+import { AuthState, CartState, WishlistState, ToastState } from '../models'
+import {
+  AuthAT,
+  AuthAction,
+  CartAction,
+  CartAT,
+  ToastAction,
+  ToastAT,
+} from './actions'
 import { WishlistAction, WishlistAT } from './actions/wishlist'
 
 // Auth reducer
@@ -73,6 +80,18 @@ export const wishlistReducer = (
       return { products: rProducts }
     case WishlistAT.SET:
       return { products: action.payload }
+    default:
+      return state
+  }
+}
+
+// Toast reducer
+export const toastReducer = (state: ToastState, action: ToastAction) => {
+  switch (action.type) {
+    case ToastAT.SHOW:
+      return { toast: action.payload }
+    case ToastAT.HIDE:
+      return { toast: null }
     default:
       return state
   }

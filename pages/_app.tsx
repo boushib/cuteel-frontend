@@ -1,6 +1,11 @@
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '@/components/GlobalStyle'
-import { AuthProvider, CartProvider, WishlistProvider } from '@/store/providers'
+import {
+  AuthProvider,
+  CartProvider,
+  ToastProvider,
+  WishlistProvider,
+} from '@/store/providers'
 import Layout from '@/components/Layout'
 import { AppProps } from 'next/app'
 import '../styles/globals.css'
@@ -19,7 +24,9 @@ const App = ({ pageProps, Component }: AppProps) => {
         <AuthProvider>
           <CartProvider>
             <WishlistProvider>
-              <Layout pageProps={pageProps} Component={Component} />
+              <ToastProvider>
+                <Layout pageProps={pageProps} Component={Component} />
+              </ToastProvider>
             </WishlistProvider>
           </CartProvider>
         </AuthProvider>

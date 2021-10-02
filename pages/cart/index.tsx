@@ -35,8 +35,6 @@ const Cart = () => {
     setPaymentInfo((p) => ({ ...p, [name]: value }))
   }
 
-  console.log(paymentInfo)
-
   if (!items) return
 
   return (
