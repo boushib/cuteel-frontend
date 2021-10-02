@@ -6,6 +6,7 @@ import { Product } from '@/models'
 import ShoppingCart from '@/icons/ShoppingCart'
 import Heart from '@/icons/Heart'
 import styles from './ProductCard.module.scss'
+import Delete from '@/icons/Delete'
 
 type Props = {
   product: Product
@@ -48,6 +49,15 @@ const ProductCard: React.FC<Props> = ({
               onClick={handleAddToWishlist}
             >
               <Heart />
+            </div>
+          )}
+          {!showAddToWishlist && (
+            <div
+              className={styles.product__card__cta}
+              onClick={handleAddToWishlist}
+              style={{ backgroundColor: '#ff5722' }}
+            >
+              <Delete size={12} />
             </div>
           )}
         </div>
