@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,OAAO,AAAC,CACN,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,aAAa,CAAE,IAAI,CAWpB,AAdD,AAIE,OAJK,CAIL,GAAG,AAAC,CACF,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CAIb,AAVH,AAOI,OAPG,CAIL,GAAG,AAGA,IAAK,CAAA,WAAW,CAAE,CACjB,YAAY,CAAE,GAAG,CAClB,AAEF,AAAD,cAAQ,AAAC,CACP,WAAW,CAAE,IAAI,CAClB",
-    "sources": [
-        "../../components/Rating.module.scss"
-    ],
-    "names": [],
-    "file": "Rating.module.min.css"
-}

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,iBAAiB,AAAC,CAChB,OAAO,CAAE,MAAM,CAChB",
-    "sources": [
-        "../../components/FeaturedProducts.module.scss"
-    ],
-    "names": [],
-    "file": "FeaturedProducts.module.min.css"
-}
