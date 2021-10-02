@@ -1,29 +1,34 @@
 import Checkmark from '@/icons/Checkmark'
+import { useState } from 'react'
+
+const STEPS = [
+  'Order details',
+  'Shipping address',
+  'Payment method',
+  'Place order',
+]
 
 const Checkout = () => {
+  const [currentStep, setCurrentStep] = useState(1)
   return (
     <div className="order page">
       <div className="container">
         <h1>Checkout</h1>
         <div className="form__steps">
-          <div className="form__step done">
-            <div className="form__step__number">
-              <Checkmark />
+          {STEPS.map((s, i) => (
+            <div
+              className={`form__step${currentStep === i ? ' current' : ''}${
+                currentStep > i ? ' done' : ''
+              }`}
+              key={`s-${i}`}
+            >
+              <div className="form__step__number">
+                {currentStep <= i && i + 1}
+                {currentStep > i && <Checkmark />}
+              </div>
+              <div className="form__step__name">{s}</div>
             </div>
-            <div className="form__step__name">Personal details</div>
-          </div>
-          <div className="form__step current">
-            <div className="form__step__number">2</div>
-            <div className="form__step__name">Shipping address</div>
-          </div>
-          <div className="form__step">
-            <div className="form__step__number">3</div>
-            <div className="form__step__name">Payment Method</div>
-          </div>
-          <div className="form__step">
-            <div className="form__step__number">4</div>
-            <div className="form__step__name">Place order</div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
