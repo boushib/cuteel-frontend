@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,AAAC,CACJ,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,IAAI,CACf,MAAM,CAAE,YAAY,CACpB,SAAS,CAAE,MAAM,CASlB,AAbD,AAKE,KALG,CAKC,GAAG,AAAC,CACN,UAAU,CAAE,gBAAgB,CAC5B,MAAM,CAAE,IAAI,CAKb,AAZH,AAQI,KARC,CAKC,GAAG,CAGL,KAAK,CART,KAAK,CAKC,GAAG,CAIL,QAAQ,AAAC,CACP,MAAM,CAAE,CAAC,CACV",
+    "sources": [
+        "../../pages/dashboard/products/add.module.scss"
+    ],
+    "names": [],
+    "file": "add.module.min.css"
+}
