@@ -31,6 +31,10 @@ const ProductCard: React.FC<Props> = ({
     e.stopPropagation()
     wishlistDispatch({ type: WishlistAT.ADD, payload: product })
   }
+  const handleRemoveFromWishlist = (e: any) => {
+    e.stopPropagation()
+    wishlistDispatch({ type: WishlistAT.REMOVE, payload: product._id })
+  }
   const { _id, image, name, price, quantity } = product
   return (
     <Link href={`/products/${_id}`} passHref={true}>
@@ -54,7 +58,7 @@ const ProductCard: React.FC<Props> = ({
           {!showAddToWishlist && (
             <div
               className={styles.product__card__cta}
-              onClick={handleAddToWishlist}
+              onClick={handleRemoveFromWishlist}
               style={{ backgroundColor: '#ff5722' }}
             >
               <Delete size={12} />
