@@ -59,8 +59,12 @@ export const wishlistReducer = (
   switch (action.type) {
     case WishlistAT.ADD:
       const products = [...state.products]
-      products.push(action.payload)
-      localStorage.setItem('wishlist', JSON.stringify(products))
+      const product = action.payload
+      const index = products.findIndex((p) => p._id === product._id)
+      if (index === -1) {
+        products.push(action.payload)
+        localStorage.setItem('wishlist', JSON.stringify(products))
+      }
       return { products }
     case WishlistAT.REMOVE:
       const productId = action.payload
