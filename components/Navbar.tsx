@@ -19,7 +19,7 @@ const ROUTES = [
     path: '/catalog',
   },
   {
-    name: 'Help & Support',
+    name: 'Support',
     path: '/support',
   },
 ]

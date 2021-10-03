@@ -1,32 +1,56 @@
 import Head from '@/components/Head'
 import api from '@/api'
-import { CartState, Product, WishlistState } from '@/models'
+import { CartState, Category, Product, WishlistState } from '@/models'
 import ProductCard from '@/components/ProductCard'
 import { useContext, useState } from 'react'
 import { CartContext, WishlistContext } from '@/store/providers'
-import styles from './catalog.module.sass'
 import Checkbox from '@/components/Checkbox'
+import styles from './catalog.module.sass'
 
-const CATGEORIES = ['Home', 'Accessories', 'Laptops', 'Gaming']
+type GetProductsProps = {
+  filters?: any
+}
 
-const getProducts = async () => {
-  try {
-    const { data } = await api.get('/products')
-    return data.products
-  } catch (error: any) {
-    console.log(error.response)
-  }
+type GetProducts = (props: GetProductsProps) => Promise<Array<Product>>
+
+const getProducts: GetProducts = async ({ filters }) => {
+  return api.get('/products')
+}
+
+type GetCategories = () => Promise<Array<Category>>
+
+const getCategories: GetCategories = async () => {
+  return api.get('/categories')
 }
 
 export const getServerSideProps = async () => {
-  const products: Array<Product> = await getProducts()
-  return { props: { products } }
+  let props = { products: [], categories: [] }
+  try {
+    const productsPromise = getProducts({})
+    const categoriesPromise = getCategories()
+    const [{ data: productsData }, { data: categoriesData }]: any =
+      await Promise.all([productsPromise, categoriesPromise])
+    const { products } = productsData
+    const { categories } = categoriesData
+    props = { products, categories }
+  } catch (error: any) {
+    console.log(error.response)
+  }
+  return { props }
 }
 
-type Props = { products: Array<Product> }
+type Filters = {
+  categories: Array<string>
+  priceRange: { min: number; max: number }
+}
 
-const Products: React.FC<Props> = ({ products }) => {
-  const [categories, setCategories] = useState(CATGEORIES)
+type Props = { products: Array<Product>; categories: Array<Category> }
+
+const Products: React.FC<Props> = ({ products, categories }) => {
+  const [filters, setFilters] = useState<Filters>({
+    categories: categories.map((c) => c.name),
+    priceRange: { min: 0, max: 1000000 },
+  })
   const { state: cartState } = useContext(CartContext) as { state: CartState }
   const { state: wishlistState } = useContext(WishlistContext) as {
     state: WishlistState
@@ -36,9 +60,15 @@ const Products: React.FC<Props> = ({ products }) => {
 
   const handleCategoryChange = (isChecked: boolean, category: string) => {
     if (isChecked) {
-      setCategories((categories) => [...categories, category])
+      setFilters((filters) => ({
+        ...filters,
+        categories: [...filters.categories, category],
+      }))
     } else {
-      setCategories((categories) => categories.filter((c) => c !== category))
+      setFilters((filters) => ({
+        ...filters,
+        categories: filters.categories.filter((c) => c !== category),
+      }))
     }
   }
 
@@ -50,13 +80,15 @@ const Products: React.FC<Props> = ({ products }) => {
           <div className={styles.catalog__sidebar__label}>
             Filter by Category
           </div>
-          {CATGEORIES.map((c) => (
-            <div className={styles.catalog__sidebar__category} key={c}>
+          {categories.map((c) => (
+            <div className={styles.catalog__sidebar__category} key={c._id}>
               <Checkbox
-                onChange={(isChecked) => handleCategoryChange(isChecked, c)}
-                checked={categories.includes(c)}
+                onChange={(isChecked) =>
+                  handleCategoryChange(isChecked, c.name)
+                }
+                checked={filters.categories.includes(c.name)}
               >
-                {c}
+                {c.name}
               </Checkbox>
             </div>
           ))}
