@@ -60,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .page {
-    padding: 40px 0;
+    padding: 32px 0;
     min-height: calc(100vh - 140px);
     &__header {
       display: flex;

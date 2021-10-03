@@ -1,0 +1,20 @@
+$navHeight: 72px
+$sidebarWidth: 250px
+.catalog
+  &__sidebar
+    position: fixed
+    top: $navHeight
+    left: 0
+    width: $sidebarWidth
+    height: calc(100vh - $navHeight)
+    padding: 36px
+    &__label
+      font-weight: 400
+      font-size: 15px
+      margin-bottom: 12px
+      color: #999
+    &__category
+      margin-bottom: 4px
+  &__main
+    padding: 0 32px
+    margin-left: $sidebarWidth

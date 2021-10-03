@@ -1,0 +1,49 @@
+$primary: #89b24a
+
+.checkbox
+  position: relative
+  background-color: transparent
+  display: flex
+  align-items: center
+  font-size: 15px
+  margin: 0
+  text-align: left
+  cursor: pointer
+  &__checkmark
+    width: 20px
+    height: 20px
+    flex-shrink: 0
+    display: block
+    border: 1px solid #ccc
+    margin-right: 10px
+    transition: all 0.3s ease-in-out
+    position: relative
+    border-radius: 4px
+    font-weight: 300
+    &::after
+      content: ''
+      position: absolute
+      left: 6px
+      top: 2px
+      width: 4px
+      height: 9px
+      border: solid #fff
+      border-width: 0 2px 2px 0
+      transform: rotate(45deg)
+      opacity: 0
+      transition: all 0.3s ease-in-out
+
+  input
+    width: 0
+    height: 0
+    position: absolute
+    top: 0
+    left: 0
+    opacity: 0
+    cursor: pointer
+    &:checked
+      & ~ .checkbox__checkmark
+        background-color: $primary
+        border-color: $primary
+        &::after
+          opacity: 1
