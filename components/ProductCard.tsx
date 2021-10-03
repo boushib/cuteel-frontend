@@ -5,17 +5,21 @@ import { CartAT, ToastAT, WishlistAT } from '@/store/actions'
 import { Product, ToastType } from '@/models'
 import ShoppingCart from '@/icons/ShoppingCart'
 import Heart from '@/icons/Heart'
-import styles from './ProductCard.module.scss'
+import styles from './ProductCard.module.sass'
 import Delete from '@/icons/Delete'
 
 type Props = {
   product: Product
   showAddToWishlist?: boolean
+  isInCart?: boolean
+  isInWishlist?: boolean
 }
 
 const ProductCard: React.FC<Props> = ({
   product,
   showAddToWishlist = true,
+  isInCart = false,
+  isInWishlist = false,
 }) => {
   const { dispatch: cartDispatch } = useContext(CartContext) as {
     dispatch: Function
@@ -50,12 +54,21 @@ const ProductCard: React.FC<Props> = ({
           style={{ backgroundImage: `url('${image}')` }}
         ></div>
         <div className={styles.product__card__header}>
-          <div className={styles.product__card__cta} onClick={handleAddToCart}>
+          <div
+            className={`${styles.product__card__cta}${
+              isInCart ? ' ' + styles['product__card__cta--active'] : ''
+            }`}
+            onClick={handleAddToCart}
+          >
             <ShoppingCart />
           </div>
           {showAddToWishlist && (
             <div
-              className={styles.product__card__cta}
+              className={`${styles.product__card__cta} ${
+                styles['product__card__cta--wishlist']
+              }${
+                isInWishlist ? ' ' + styles['product__card__cta--active'] : ''
+              }`}
               onClick={handleAddToWishlist}
             >
               <Heart />
