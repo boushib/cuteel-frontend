@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import api from '@/api'
 import { useContext } from 'react'
-import { CartContext } from '@/store/providers'
+import { CartContext, WishlistContext } from '@/store/providers'
 import { Product } from '@/models'
 import { CartAT, WishlistAT } from '@/store/actions'
 import Head from '@/components/Head'
@@ -20,18 +20,22 @@ export const getServerSideProps = async ({ params }: any) => {
   return { props: { product } }
 }
 
-type Props = {
-  product: Product
-}
+type Props = { product: Product }
 
 const ProductPage: React.FC<Props> = ({ product }) => {
-  const { dispatch } = useContext(CartContext) as { dispatch: Function }
+  const { dispatch: cartDispatch } = useContext(CartContext) as {
+    dispatch: Function
+  }
+  const { dispatch: wishlistDispatch } = useContext(WishlistContext) as {
+    dispatch: Function
+  }
+
   const handleAddToCart = () => {
-    dispatch({ type: CartAT.ADD, payload: product })
+    cartDispatch({ type: CartAT.ADD, payload: product })
   }
 
   const handleAddToWishlist = () => {
-    dispatch({ type: WishlistAT.ADD, payload: product })
+    wishlistDispatch({ type: WishlistAT.ADD, payload: product })
   }
 
   return (
@@ -66,7 +70,6 @@ const ProductContainer = styled.div`
 `
 
 const ProductPrice = styled.div`
-  /* font-family: 'Syne'; */
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 16px;
