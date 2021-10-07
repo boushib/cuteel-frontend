@@ -2,10 +2,12 @@ import Head from '@/components/Head'
 import api from '@/api'
 import { CartState, Category, Product, WishlistState } from '@/models'
 import ProductCard from '@/components/ProductCard'
-import { useContext, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import { CartContext, WishlistContext } from '@/store/providers'
 import Checkbox from '@/components/Checkbox'
 import styles from './catalog.module.sass'
+import Radio from '@/components/Radio'
+import { PRICE_RANGES } from '@/constants/'
 
 type GetProductsProps = {
   filters?: any
@@ -72,26 +74,52 @@ const Products: React.FC<Props> = ({ products, categories }) => {
     }
   }
 
+  const handlePriceRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const [min, max] = e.target.value.split(',').map((s) => +s)
+    console.log({ min, max })
+    setFilters({ ...filters, priceRange: { min, max } })
+  }
+
   return (
     <>
       <Head title="Catalog" />
       <div className="products page">
         <div className={styles.catalog__sidebar}>
           <div className={styles.catalog__sidebar__label}>
-            Filter by Category
+            Filter by category
           </div>
-          {categories.map((c) => (
-            <div className={styles.catalog__sidebar__category} key={c._id}>
-              <Checkbox
-                onChange={(isChecked) =>
-                  handleCategoryChange(isChecked, c.name)
-                }
-                checked={filters.categories.includes(c.name)}
-              >
-                {c.name}
-              </Checkbox>
+          <div className={styles.catalog__sidebar__section}>
+            {categories.map((c) => (
+              <div className={styles.catalog__sidebar__category} key={c._id}>
+                <Checkbox
+                  onChange={(isChecked) =>
+                    handleCategoryChange(isChecked, c.name)
+                  }
+                  checked={filters.categories.includes(c.name)}
+                >
+                  {c.name}
+                </Checkbox>
+              </div>
+            ))}
+          </div>
+          <div className={styles.catalog__sidebar__section}>
+            <div className={styles.catalog__sidebar__label}>
+              Filter by price range
             </div>
-          ))}
+            {PRICE_RANGES.map((r) => (
+              <Radio
+                name="priceRange"
+                label={r.label}
+                value={`${r.value.min},${r.value.max}`}
+                checked={
+                  r.value.min === filters.priceRange.min &&
+                  r.value.max === filters.priceRange.max
+                }
+                onChange={handlePriceRangeChange}
+                key={r.label}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles.catalog__main}>
           <h2>Catalog</h2>
