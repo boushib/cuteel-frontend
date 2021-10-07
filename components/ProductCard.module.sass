@@ -1,13 +1,31 @@
 .product__card
   width: 280px
   height: 280px
-  background-color: #fafafa
+  background-color: #e7e7e7
   position: relative
   overflow: hidden
   cursor: pointer
   &:hover
     .product__card__image
       transform: scale(1.1)
+  &__container
+    position: relative
+
+  &__discount
+    font-size: 15px
+    width: 48px
+    height: 48px
+    border-radius: 50%
+    color: rgba(255, 255, 255, .9)
+    background-color: #ff5722
+    position: absolute
+    top: 10px
+    left: 10px
+    transform: translate(-50%, -50%)
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 9
 
   &__image
     position: absolute

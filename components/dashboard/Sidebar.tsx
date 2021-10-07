@@ -40,13 +40,13 @@ const DashboardSidebar = () => (
           </div>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link href="/dashboard/discounts" passHref>
           <div>
             <DiscountIcon /> Discounts
           </div>
         </Link>
-      </li>
+      </li> */}
       <li>
         <Link href="/dashboard/customers" passHref>
           <div>

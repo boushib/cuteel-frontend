@@ -44,48 +44,55 @@ const ProductCard: React.FC<Props> = ({
     wishlistDispatch({ type: WishlistAT.REMOVE, payload: product._id })
   }
 
-  const { _id, image, name, price, quantity } = product
+  const { _id, image, name, price, quantity, discount } = product
 
   return (
     <Link href={`/products/${_id}`} passHref={true}>
-      <div className={styles.product__card}>
-        <div
-          className={styles.product__card__image}
-          style={{ backgroundImage: `url('${image}')` }}
-        ></div>
-        <div className={styles.product__card__header}>
-          <div
-            className={`${styles.product__card__cta}${
-              isInCart ? ' ' + styles['product__card__cta--active'] : ''
-            }`}
-            onClick={handleAddToCart}
-          >
-            <ShoppingCart />
+      <div className={styles.product__card__container}>
+        {discount > 0 && (
+          <div className={styles.product__card__discount}>
+            -{Math.round(100 * discount)}%
           </div>
-          {showAddToWishlist && (
+        )}
+        <div className={styles.product__card}>
+          <div
+            className={styles.product__card__image}
+            style={{ backgroundImage: `url('${image}')` }}
+          ></div>
+          <div className={styles.product__card__header}>
             <div
-              className={`${styles.product__card__cta} ${
-                styles['product__card__cta--wishlist']
-              }${
-                isInWishlist ? ' ' + styles['product__card__cta--active'] : ''
+              className={`${styles.product__card__cta}${
+                isInCart ? ' ' + styles['product__card__cta--active'] : ''
               }`}
-              onClick={handleAddToWishlist}
+              onClick={handleAddToCart}
             >
-              <Heart />
+              <ShoppingCart />
             </div>
-          )}
-          {!showAddToWishlist && (
-            <div
-              className={styles.product__card__cta}
-              onClick={handleRemoveFromWishlist}
-              style={{ backgroundColor: '#ff5722' }}
-            >
-              <Delete size={12} />
-            </div>
-          )}
-        </div>
-        <div className={styles.product__card__content}>
-          <div className={styles.product__card__name}>{name}</div>
+            {showAddToWishlist && (
+              <div
+                className={`${styles.product__card__cta} ${
+                  styles['product__card__cta--wishlist']
+                }${
+                  isInWishlist ? ' ' + styles['product__card__cta--active'] : ''
+                }`}
+                onClick={handleAddToWishlist}
+              >
+                <Heart />
+              </div>
+            )}
+            {!showAddToWishlist && (
+              <div
+                className={styles.product__card__cta}
+                onClick={handleRemoveFromWishlist}
+                style={{ backgroundColor: '#ff5722' }}
+              >
+                <Delete size={12} />
+              </div>
+            )}
+          </div>
+          <div className={styles.product__card__content}>
+            <div className={styles.product__card__name}>{name}</div>
+          </div>
         </div>
       </div>
     </Link>
