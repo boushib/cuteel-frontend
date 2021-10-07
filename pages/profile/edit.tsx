@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { AuthState, User } from '@/models'
 import api, { setToken } from '@/api'
 import { Button } from '@/components/Button'
-import styles from './profile.module.scss'
+import styles from './profile.module.sass'
 import FileUpload from '@/components/FileUpload'
 import { AuthContext } from '@/store/providers'
 
@@ -52,7 +52,7 @@ const EditProfile = () => {
 
   return (
     <div className="profile page">
-      <div className="container">
+      <div className={`container ${styles.profile__container}`}>
         <div className={styles.profile__card}>
           <h1>Edit Profile</h1>
           <FileUpload onChange={setAvatar} />

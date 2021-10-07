@@ -6,6 +6,8 @@ export type User = {
   email: string
   avatar: string
   roles: Array<string>
+  createdAt: string
+  updatedAt: string
 }
 
 export type Product = {

@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 24px;
   }
 
+  b {
+    font-weight: bold;
+  }
+
   .card {
     padding: 16px 20px;
     background-color: #fff;
