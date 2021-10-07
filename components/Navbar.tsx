@@ -238,6 +238,7 @@ const Avatar = styled.div`
   border-radius: 50%;
   background-size: cover;
   background-position: center;
+  background-color: #efefef;
   background-image: url('${(props: { img: string }) => props.img}');
   cursor: pointer;
 `

@@ -1,29 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
-import { User } from '@/models'
-import api from '@/api'
+import { AuthState, User } from '@/models'
+import api, { setToken } from '@/api'
 import { Button } from '@/components/Button'
 import styles from './profile.module.scss'
 import FileUpload from '@/components/FileUpload'
+import { AuthContext } from '@/store/providers'
 
-const getUser = async (id: string) => {
-  const { data } = await api.get(`/users/${id}`)
-  return data.user
-}
+const EditProfile = () => {
+  const { state: authState } = useContext(AuthContext) as { state: AuthState }
+  const { user } = authState
 
-export const getServerSideProps = async ({ params }: any) => {
-  const { id } = params
-  const user: User = await getUser(id)
-  return { props: { user } }
-}
-
-type Props = { user: User }
-
-const EditProfile: React.FC<Props> = ({ user }) => {
   const [avatar, setAvatar] = useState<File>()
   const [name, setName] = useState('')
   const [isBusy, setIsBusy] = useState(false)
   const router = useRouter()
+
   useEffect(() => {
     if (user) {
       setName(user.name)
@@ -48,8 +40,10 @@ const EditProfile: React.FC<Props> = ({ user }) => {
 
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
+      const token = localStorage.getItem('token')
+      setToken(`${token}`)
       await api.put(`/users/${user?._id}`, fd, { headers })
-      router.push(`/u/${user?._id}`)
+      router.push('/profile')
     } catch (error) {
       console.log(error)
     }
