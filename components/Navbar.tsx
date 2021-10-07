@@ -56,7 +56,7 @@ const Navbar = () => {
           <WishList isEmpty={wishlistProducts.length === 0} />
           {/* {!user && <Link href="/login">Login</Link>} */}
           {user && (
-            <Link href={`/u/${user._id}`} passHref>
+            <Link href="/profile" passHref>
               <Avatar img={user.avatar ?? DEFAULT_AVATAR} />
             </Link>
           )}
