@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import api, { setToken } from '@/api'
 import { Order } from '@/models'
 import Head from '@/components/Head'
 import Back from '@/components/Back'
+import { formatDate } from '@/utils/'
+import styles from './order.module.sass'
 
 const getOrder = async (id: string) => {
   const { data } = await api.get(`/orders/${id}`)
@@ -37,11 +37,51 @@ const OrderPage = ({ order }: Props) => {
   // }
 
   return (
-    <div className="order page">
+    <div className="order">
       <Head title={'Order ' + order.orderNumber} />
-      <div className="container" style={{ maxWidth: 1024 }}>
-        <Back page="Orders" />
-        <p>Order number: {order.orderNumber}</p>
+      <Back page="Orders" />
+      <h3>Order details</h3>
+      <div className={styles.order__details}>
+        <div className="card">
+          <p>
+            <b>Order number:</b> {order.orderNumber}
+          </p>
+          <p>
+            <b>Billing Date:</b> {formatDate(order.billingDate)}
+          </p>
+          <p>
+            <b>Due Date:</b> {formatDate(order.dueDate)}
+          </p>
+          <p>
+            <b>Billing Address:</b> El Hassane Boushib Haj Fateh 456 Casablanca,
+            Morocco, 22000
+          </p>
+        </div>
+      </div>
+      <h3>Items</h3>
+      <div className="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Unit Cost</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.items.map((item, index) => (
+              <tr key={`item-${index}`}>
+                <td>{item.name}</td>
+                <td>{item.description}</td>
+                <td>${item.price}</td>
+                <td>{item.quantity}</td>
+                <td>${item.quantity * item.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )
