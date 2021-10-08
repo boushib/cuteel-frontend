@@ -92,6 +92,19 @@ const ProductCard: React.FC<Props> = ({
           </div>
           <div className={styles.product__card__content}>
             <div className={styles.product__card__name}>{name}</div>
+            {discount === 0 && (
+              <div className={styles.product__card__price}>${price}</div>
+            )}
+            {discount > 0 && (
+              <div className={styles.product__card__price}>
+                <span
+                  style={{ marginRight: 12, textDecoration: 'line-through' }}
+                >
+                  ${price}
+                </span>
+                ${price * (1 - discount)}
+              </div>
+            )}
           </div>
         </div>
       </div>
