@@ -196,6 +196,7 @@ const Menu = styled.ul`
     }
     a {
       font: inherit;
+      color: inherit;
     }
   }
 `

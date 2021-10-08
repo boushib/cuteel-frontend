@@ -37,6 +37,11 @@ const GlobalStyle = createGlobalStyle`
     font-size: 24px;
   }
 
+  a {
+    font-family: 'Anonymous Pro', monospace;
+    color: #89b24a;
+  }
+
   b {
     font-weight: bold;
   }
@@ -68,6 +73,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: calc(100vh - 140px);
     &__header {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       margin-bottom: 24px;
       & > * {

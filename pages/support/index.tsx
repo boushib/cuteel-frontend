@@ -30,7 +30,10 @@ const Support = () => {
     <div className="support page">
       <Head title="Help &amp; Support" />
       <div className="container" style={{ maxWidth: 800 }}>
-        <h1>Contact us</h1>
+        <div className="page__header">
+          <h1>Contact us</h1>
+          <a href="/tickets">My tickets</a>
+        </div>
         {isTicketCreated && (
           <p>
             Your ticket has been received! We will get in touch with you soon!
