@@ -48,7 +48,12 @@ const ProductPage: React.FC<Props> = ({ product }) => {
           <div>
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>
-            <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
+            <ProductPrice>
+              <span style={{ marginRight: 12, textDecoration: 'line-through' }}>
+                ${product.price}
+              </span>
+              ${product.price * (1 - product.discount)}
+            </ProductPrice>
             <Rating />
             <div className="btn-group">
               <Button onClick={handleAddToCart}>Add to Cart</Button>
@@ -73,6 +78,10 @@ const ProductPrice = styled.div`
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 16px;
+  span {
+    font: inherit;
+    color: #ff5722;
+  }
 `
 
 const ProductImage = styled.div`
