@@ -4,7 +4,6 @@ import { ButtonSmall } from '@/components/Button'
 import Head from '@/components/Head'
 import { Ticket } from '@/models/'
 import { GetServerSideProps } from 'next'
-import styles from './Tickets.module.scss'
 
 const getTickets = async () => {
   try {
@@ -26,7 +25,7 @@ type Props = { tickets: Array<Ticket> }
 const Tickets: React.FC<Props> = ({ tickets }) => (
   <>
     <Head title="Tickets" />
-    <div className={styles.tickets}>
+    <div className="tickets">
       <h2>Tickets</h2>
       {tickets.length === 0 && <p>No tickets available!</p>}
       {tickets.length > 0 && (

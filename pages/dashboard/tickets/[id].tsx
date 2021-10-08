@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import api, { setToken } from '@/api'
 import { Ticket } from '@/models'
 import Head from '@/components/Head'
 import Back from '@/components/Back'
+import styles from './ticket.module.sass'
 
 const getTicket = async (id: string) => {
   const { data } = await api.get(`/tickets/${id}`)
@@ -25,7 +24,23 @@ const TicketPage = ({ ticket }: Props) => {
       <Head title="Ticket" />
       <div className="container" style={{ maxWidth: 1024 }}>
         <Back page="Tickets" />
-        <p>Subject: {ticket.subject}</p>
+        <h3>Ticket {ticket._id}</h3>
+        <div className={styles.ticket__details}>
+          <div className="card">
+            <p>
+              <b>Subject:</b> {ticket.subject}
+            </p>
+            <p>
+              <b>Status:</b> {ticket.status}
+            </p>
+            <p>
+              <b>Description:</b> {ticket.description}
+            </p>
+            <p>
+              <b>Created at:</b> {ticket.createdAt}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -47,14 +47,7 @@ const OrderPage = ({ order }: Props) => {
             <b>Order number:</b> {order.orderNumber}
           </p>
           <p>
-            <b>Billing Date:</b> {formatDate(order.billingDate)}
-          </p>
-          <p>
-            <b>Due Date:</b> {formatDate(order.dueDate)}
-          </p>
-          <p>
-            <b>Billing Address:</b> El Hassane Boushib Haj Fateh 456 Casablanca,
-            Morocco, 22000
+            <b>Date:</b> {formatDate(order.billingDate)}
           </p>
         </div>
       </div>
