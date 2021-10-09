@@ -33,13 +33,13 @@ const DashboardSidebar = () => (
           </div>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link href="/dashboard/invoices" passHref>
           <div>
             <InvoiceIcon /> Invoices
           </div>
         </Link>
-      </li>
+      </li> */}
       {/* <li>
         <Link href="/dashboard/discounts" passHref>
           <div>
