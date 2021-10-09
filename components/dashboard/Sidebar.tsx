@@ -13,6 +13,13 @@ const DashboardSidebar = () => (
   <div className={styles.dashboard__sidebar}>
     <ul>
       <li>
+        <Link href="/dashboard" passHref>
+          <div>
+            <StatsIcon /> Overview
+          </div>
+        </Link>
+      </li>
+      <li>
         <Link href="/dashboard/products" passHref>
           <div>
             <ShopIcon /> Products
@@ -61,13 +68,13 @@ const DashboardSidebar = () => (
           </div>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link href="/dashboard/stats" passHref>
           <div>
             <StatsIcon /> Stats
           </div>
         </Link>
-      </li>
+      </li> */}
     </ul>
   </div>
 )
