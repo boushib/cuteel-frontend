@@ -49,10 +49,17 @@ const ProductPage: React.FC<Props> = ({ product }) => {
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>
-              <span style={{ marginRight: 12, textDecoration: 'line-through' }}>
-                ${product.price}
-              </span>
-              ${product.price * (1 - product.discount)}
+              {product.discount === 0 && <>${product.price}</>}
+              {product.discount > 0 && (
+                <>
+                  <span
+                    style={{ marginRight: 12, textDecoration: 'line-through' }}
+                  >
+                    ${product.price}
+                  </span>
+                  ${product.price * (1 - product.discount)}
+                </>
+              )}
             </ProductPrice>
             <Rating />
             <div className="btn-group">
