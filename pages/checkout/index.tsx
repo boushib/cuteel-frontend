@@ -1,11 +1,9 @@
-import { Button } from '@/components/Button'
 import CheckoutAddress from '@/components/CheckoutAddress'
 import CheckoutPayment from '@/components/CheckoutPayment'
 import Head from '@/components/Head'
 import OrderSummary from '@/components/OrderSummary'
 import Checkmark from '@/icons/Checkmark'
 import { useState } from 'react'
-import styles from './index.module.sass'
 
 const STEPS = [
   'Order details',

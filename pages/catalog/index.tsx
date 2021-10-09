@@ -9,14 +9,27 @@ import styles from './catalog.module.sass'
 import Radio from '@/components/Radio'
 import { PRICE_RANGES } from '@/constants/'
 
-type GetProductsProps = {
-  filters?: any
+type Filters = {
+  categories: Array<Category>
+  priceRange: { min: number; max: number }
 }
 
-type GetProducts = (props: GetProductsProps) => Promise<Array<Product>>
+type GetProductsProps = {
+  filters?: Filters
+}
+
+// type GetProducts = (props: GetProductsProps) => Promise<Array<Product>>
+type GetProducts = (props: GetProductsProps) => Promise<any>
 
 const getProducts: GetProducts = async ({ filters }) => {
-  return api.get('/products')
+  let query = ''
+  if (filters) {
+    const { categories } = filters
+    if (categories) {
+      query = `?categ=${categories.map((c) => c._id).join(',')}`
+    }
+  }
+  return api.get(`/products${query}`)
 }
 
 type GetCategories = () => Promise<Array<Category>>
@@ -41,16 +54,12 @@ export const getServerSideProps = async () => {
   return { props }
 }
 
-type Filters = {
-  categories: Array<string>
-  priceRange: { min: number; max: number }
-}
-
 type Props = { products: Array<Product>; categories: Array<Category> }
 
 const Products: React.FC<Props> = ({ products, categories }) => {
+  const [filteredProducts, setFilteredProducts] = useState(products)
   const [filters, setFilters] = useState<Filters>({
-    categories: categories.map((c) => c.name),
+    categories: categories,
     priceRange: { min: 0, max: 1000000 },
   })
   const { state: cartState } = useContext(CartContext) as { state: CartState }
@@ -60,18 +69,27 @@ const Products: React.FC<Props> = ({ products, categories }) => {
   const { items: cartItems } = cartState
   const { products: wishlistProducts } = wishlistState
 
-  const handleCategoryChange = (isChecked: boolean, category: string) => {
+  const handleCategoryChange = async (
+    isChecked: boolean,
+    category: Category
+  ) => {
+    let categories: Array<Category> = []
     if (isChecked) {
+      categories = [...filters.categories, category]
       setFilters((filters) => ({
         ...filters,
-        categories: [...filters.categories, category],
+        categories,
       }))
     } else {
+      categories = filters.categories.filter((c) => c._id !== category._id)
       setFilters((filters) => ({
         ...filters,
-        categories: filters.categories.filter((c) => c !== category),
+        categories,
       }))
     }
+
+    const { data } = await getProducts({ filters: { ...filters, categories } })
+    setFilteredProducts(data.products)
   }
 
   const handlePriceRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,10 +110,8 @@ const Products: React.FC<Props> = ({ products, categories }) => {
             {categories.map((c) => (
               <div className={styles.catalog__sidebar__category} key={c._id}>
                 <Checkbox
-                  onChange={(isChecked) =>
-                    handleCategoryChange(isChecked, c.name)
-                  }
-                  checked={filters.categories.includes(c.name)}
+                  onChange={(isChecked) => handleCategoryChange(isChecked, c)}
+                  checked={filters.categories.includes(c)}
                 >
                   {c.name}
                 </Checkbox>
@@ -125,7 +141,7 @@ const Products: React.FC<Props> = ({ products, categories }) => {
           <h2>Catalog</h2>
           {products && products.length > 0 && (
             <div className="grid">
-              {products.map((p) => {
+              {filteredProducts.map((p) => {
                 const isInCart =
                   cartItems.find((item) => item.product._id === p._id) !==
                   undefined
