@@ -2,7 +2,7 @@ import Head from '@/components/Head'
 import api from '@/api'
 import { CartState, Category, Product, WishlistState } from '@/models'
 import ProductCard from '@/components/ProductCard'
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { CartContext, WishlistContext } from '@/store/providers'
 import Checkbox from '@/components/Checkbox'
 import styles from './catalog.module.sass'
@@ -24,10 +24,10 @@ type GetProducts = (props: GetProductsProps) => Promise<any>
 const getProducts: GetProducts = async ({ filters }) => {
   let query = ''
   if (filters) {
-    const { categories } = filters
-    if (categories) {
-      query = `?categ=${categories.map((c) => c._id).join(',')}`
-    }
+    const { categories, priceRange } = filters
+    const categ = categories.map((c) => c._id).join(',')
+    const { min: minPrice, max: maxPrice } = priceRange
+    query = `?categ=${categ}&minPrice=${minPrice}&maxPrice=${maxPrice}`
   }
   return api.get(`/products${query}`)
 }
@@ -69,6 +69,16 @@ const Products: React.FC<Props> = ({ products, categories }) => {
   const { items: cartItems } = cartState
   const { products: wishlistProducts } = wishlistState
 
+  useEffect(() => {
+    fetchAndPopulateProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
+
+  const fetchAndPopulateProducts = async () => {
+    const { data } = await getProducts({ filters })
+    setFilteredProducts(data.products)
+  }
+
   const handleCategoryChange = async (
     isChecked: boolean,
     category: Category
@@ -87,9 +97,6 @@ const Products: React.FC<Props> = ({ products, categories }) => {
         categories,
       }))
     }
-
-    const { data } = await getProducts({ filters: { ...filters, categories } })
-    setFilteredProducts(data.products)
   }
 
   const handlePriceRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
