@@ -146,7 +146,9 @@ const Products: React.FC<Props> = ({ products, categories }) => {
         </div>
         <div className={styles.catalog__main}>
           <h2>Catalog</h2>
-          {products && products.length > 0 && (
+          {!filteredProducts ||
+            (filteredProducts.length === 0 && <p>No products found!</p>)}
+          {filteredProducts && filteredProducts.length > 0 && (
             <div className="grid">
               {filteredProducts.map((p) => {
                 const isInCart =
