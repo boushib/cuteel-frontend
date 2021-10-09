@@ -157,6 +157,15 @@ const GlobalStyle = createGlobalStyle`
       margin: 6px;
     }
   }
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -6px;
+    div {
+      margin: 6px;
+      flex-grow: 1;
+    }
+  }
 
   textarea {
     resize: none;
@@ -259,7 +268,7 @@ const GlobalStyle = createGlobalStyle`
     &s {
       display: flex;
       max-width: 800px;
-      margin: 0 auto 24px;
+      margin: 0 auto 36px;
     }
     &__number {
       width: 28px;
@@ -279,6 +288,21 @@ const GlobalStyle = createGlobalStyle`
     &__name {
       color: #999;
     }
+  }
+
+  // 
+  .checkout__done {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 28px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 320px;
+    font-family: 'Anonymous Pro';
+    font-size: 17px;
+    color: #999;
   }
 `
 
