@@ -8,6 +8,7 @@ import { AuthContext, ToastContext } from '@/store/providers'
 import { AuthAT, ToastAT } from '@/store/actions'
 import { AuthState, ToastType } from '@/models'
 import { Button } from '@/components/Button'
+import Head from '@/components/Head'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -50,28 +51,31 @@ const Login = () => {
   }
 
   return (
-    <div className="login page">
-      <FormContainer>
-        <h1>Login</h1>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Email"
-          autoFocus={true}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button onClick={handleSubmit}>Login</Button>
-        <SignupLink>
-          {"Don't have an account? "} <Link href="/signup">Signup</Link>
-        </SignupLink>
-      </FormContainer>
-    </div>
+    <>
+      <Head title="Login" />
+      <div className="login page">
+        <FormContainer>
+          <h1>Login</h1>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Email"
+            autoFocus={true}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button onClick={handleSubmit}>Login</Button>
+          <SignupLink>
+            {"Don't have an account? "} <Link href="/signup">Signup</Link>
+          </SignupLink>
+        </FormContainer>
+      </div>
+    </>
   )
 }
 

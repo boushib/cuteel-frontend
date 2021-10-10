@@ -6,6 +6,7 @@ import { Button } from '@/components/Button'
 import styles from './profile.module.sass'
 import FileUpload from '@/components/FileUpload'
 import { AuthContext } from '@/store/providers'
+import Head from '@/components/Head'
 
 const EditProfile = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
@@ -51,24 +52,27 @@ const EditProfile = () => {
   }
 
   return (
-    <div className="profile page">
-      <div className={`container ${styles.profile__container}`}>
-        <div className={styles.profile__card}>
-          <h1>Edit Profile</h1>
-          <FileUpload onChange={setAvatar} />
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            className="form-control"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Button onClick={handleSave}>Save</Button>
+    <>
+      <Head title="Edit Profile" />
+      <div className="profile page">
+        <div className={`container ${styles.profile__container}`}>
+          <div className={styles.profile__card}>
+            <h1>Edit Profile</h1>
+            <FileUpload onChange={setAvatar} />
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              className="form-control"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Button onClick={handleSave}>Save</Button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

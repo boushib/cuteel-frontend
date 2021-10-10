@@ -1,9 +1,10 @@
-import { Button } from '@/components/Button'
-import Head from '@/components/Head'
 import { useState, useContext } from 'react'
 import api from '@/api'
 import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models'
+import { Button } from '@/components/Button'
+import Head from '@/components/Head'
+import Link from 'next/link'
 
 const Support = () => {
   const [subject, setSubject] = useState('')
@@ -28,11 +29,11 @@ const Support = () => {
 
   return (
     <div className="support page">
-      <Head title="Help &amp; Support" />
+      <Head title="Support" />
       <div className="container" style={{ maxWidth: 800 }}>
         <div className="page__header">
           <h1>Contact us</h1>
-          <a href="/tickets">My tickets</a>
+          <Link href="/tickets">My tickets</Link>
         </div>
         {isTicketCreated && (
           <p>
