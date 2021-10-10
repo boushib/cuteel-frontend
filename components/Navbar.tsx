@@ -54,7 +54,11 @@ const Navbar = () => {
         <NavTail>
           <ShoppingCart count={items.length ?? 0} />
           <WishList isEmpty={wishlistProducts.length === 0} />
-          {/* {!user && <Link href="/login">Login</Link>} */}
+          {!user && (
+            <span style={{ color: '#999' }}>
+              <Link href="/login">Login</Link>
+            </span>
+          )}
           {user && (
             <Link href="/profile" passHref>
               <Avatar img={user.avatar ?? DEFAULT_AVATAR} />

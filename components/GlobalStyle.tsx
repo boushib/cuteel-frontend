@@ -37,10 +37,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 24px;
   }
 
-  a {
+  /* a {
     font-family: 'Anonymous Pro', monospace;
     color: #89b24a;
-  }
+  } */
 
   b {
     font-weight: bold;
