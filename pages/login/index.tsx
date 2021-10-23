@@ -28,14 +28,10 @@ const Login = () => {
       // form validation
       if (!(email && validateEmail(email) && password)) {
         let field = ''
-        if (!password) field = 'password'
         if (!(email && validateEmail(email))) field = 'email'
-        return showToast({
-          type: ToastType.ERROR,
-          message: `Please enter a valid ${field}!`,
-        })
+        else if (!password) field = 'password'
+        throw new Error(`Please enter a valid ${field}!`)
       }
-
       authDispatch({ type: AuthAT.PENDING })
       const { data } = await api.post('/auth/signin', { email, password })
       const { user, token } = data
@@ -45,7 +41,7 @@ const Login = () => {
       Cookies.set('token', token)
       router.push('/dashboard')
     } catch (error: any) {
-      const message = error.response.data.error
+      const message = error.response?.data?.error ?? error.message
       showToast({ type: ToastType.ERROR, message })
       authDispatch({ type: AuthAT.ERROR, payload: message })
     }
