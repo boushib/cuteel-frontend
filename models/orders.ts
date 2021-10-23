@@ -10,6 +10,7 @@ export type Order = {
     postalCode: number
   }
   items: Array<{
+    productId: string
     name: string
     description: string
     quantity: number
