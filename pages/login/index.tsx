@@ -10,6 +10,7 @@ import { AuthState, ToastType } from '@/models'
 import { Button } from '@/components/Button'
 import Head from '@/components/Head'
 import { useToast } from '@/hooks/'
+import { validateEmail } from '@/utils/'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -24,6 +25,17 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
+      // form validation
+      if (!(email && validateEmail(email) && password)) {
+        let field = ''
+        if (!password) field = 'password'
+        if (!(email && validateEmail(email))) field = 'email'
+        return showToast({
+          type: ToastType.ERROR,
+          message: `Please enter a valid ${field}!`,
+        })
+      }
+
       authDispatch({ type: AuthAT.PENDING })
       const { data } = await api.post('/auth/signin', { email, password })
       const { user, token } = data
