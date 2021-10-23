@@ -64,24 +64,22 @@ $navHeight: 60px;
     width: 200px;
     height: calc(100vh - #{$navHeight});
     padding: 12px 0;
-    ul {
+    &__nav {
       list-style-type: none;
-      li {
+      &__item {
         font-size: 14px;
         cursor: pointer;
         padding: 10px 24px;
-        transition: background-color 0.3s ease-in-out;
-        & > div {
-          display: flex;
-          align-items: center;
-        }
+        transition: all 0.3s ease-in-out;
+        opacity: 0.6;
         &:hover {
-          background-color: rgba(#fff, 0.06);
+          opacity: 1;
         }
         svg {
           margin-right: 12px;
           position: relative;
           bottom: 2px;
+          vertical-align: middle;
         }
       }
     }

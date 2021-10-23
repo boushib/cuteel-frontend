@@ -4,23 +4,21 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import api from '@/api'
-import { AuthContext, ToastContext } from '@/store/providers'
-import { AuthAT, ToastAT } from '@/store/actions'
+import { AuthContext } from '@/store/providers'
+import { AuthAT } from '@/store/actions'
 import { AuthState, ToastType } from '@/models'
 import { Button } from '@/components/Button'
 import Head from '@/components/Head'
+import { useToast } from '@/hooks/'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+  const showToast = useToast()
 
   const { dispatch: authDispatch } = useContext(AuthContext) as {
     state: AuthState
-    dispatch: Function
-  }
-
-  const { dispatch: toastDispatch } = useContext(ToastContext) as {
     dispatch: Function
   }
 
@@ -36,16 +34,7 @@ const Login = () => {
       router.push('/dashboard')
     } catch (error: any) {
       const message = error.response.data.error
-
-      toastDispatch({
-        type: ToastAT.SHOW,
-        payload: { type: ToastType.ERROR, message },
-      })
-
-      setTimeout(() => {
-        toastDispatch({ type: ToastAT.HIDE })
-      }, 5000)
-
+      showToast({ type: ToastType.ERROR, message })
       authDispatch({ type: AuthAT.ERROR, payload: message })
     }
   }
@@ -59,14 +48,14 @@ const Login = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Email"
+            placeholder="Enter your email"
             autoFocus={true}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             className="form-control"
-            placeholder="Password"
+            placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button onClick={handleSubmit}>Login</Button>

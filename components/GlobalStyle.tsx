@@ -304,6 +304,10 @@ const GlobalStyle = createGlobalStyle`
     font-size: 17px;
     color: #999;
   }
+
+  .active {
+    opacity: 1;
+  }
 `
 
 export default GlobalStyle

@@ -28,7 +28,7 @@ const FileUpload: React.FC<Props> = ({
     }
   }
   return (
-    <>
+    <div className="file-upload__container">
       <label htmlFor="image">{label}</label>
       <div className="file-upload">
         <input
@@ -46,7 +46,7 @@ const FileUpload: React.FC<Props> = ({
           {!file && <p>Drop your file here or Click to browse</p>}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

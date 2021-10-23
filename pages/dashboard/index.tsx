@@ -89,14 +89,14 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex' }}>
+        {/* <div style={{ display: 'flex' }}>
           <div style={{ width: '48%', height: 400 }}>
             <Line data={data} options={options} />
           </div>
           <div style={{ width: '48%', height: 400, marginLeft: '4%' }}>
             <Bar data={data} options={options} />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

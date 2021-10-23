@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
+import { ToastContext } from '@/store/providers'
+import { ToastAT } from '@/store/actions'
+import { ToastType } from '../models'
 
 export const useRouteChange = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,4 +25,22 @@ export const useRouteChange = () => {
   }, [])
 
   return { isLoading }
+}
+
+export const useToast = () => {
+  const { dispatch: toastDispatch } = useContext(ToastContext) as {
+    dispatch: Function
+  }
+
+  type Props = { message: string; type: ToastType }
+
+  return ({ message, type }: Props) => {
+    toastDispatch({
+      type: ToastAT.SHOW,
+      payload: { type: ToastType.ERROR, message },
+    })
+    setTimeout(() => {
+      toastDispatch({ type: ToastAT.HIDE })
+    }, 5000)
+  }
 }

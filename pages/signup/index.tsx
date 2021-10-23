@@ -13,9 +13,13 @@ const Signup = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
   const handleSubmit = async () => {
     try {
+      if (password !== passwordConfirmation) return
+      // Check the other fields
+      // TODO show errors to the user
       await api.post('/auth/signup', { name, email, password })
     } catch (error) {
       console.log(error)
@@ -31,22 +35,28 @@ const Signup = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Name"
+            placeholder="Enter your name"
             autoFocus={true}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="text"
             className="form-control"
-            placeholder="Email"
+            placeholder="Enter your email"
             autoFocus={true}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             className="form-control"
-            placeholder="Password"
+            placeholder="Choose a password"
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Confirm password"
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
           <Button onClick={handleSubmit}>Signup</Button>
           <LoginLink>
