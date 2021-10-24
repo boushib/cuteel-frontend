@@ -1,44 +1,91 @@
-import { Line, Bar } from 'react-chartjs-2'
-import { useContext } from 'react'
-import { AuthState } from '@/models'
-import { AuthContext } from '@/store/providers'
-import Head from '@/components/Head'
+// import { Line, Bar } from 'react-chartjs-2'
+import { Order, Product, User } from '@/models'
+import api, { setToken } from '@/api/'
+import { GetServerSideProps } from 'next'
 import styles from './Overview.module.sass'
+import Head from '@/components/Head'
 import Shop from '@/icons/Shop'
-import User from '@/icons/User'
+import UserIcon from '@/icons/User'
 import ShoppingCart from '@/icons/ShoppingCart'
 import Money from '@/icons/Money'
 
-const data = {
-  labels: ['1', '2', '3', '4', '5', '6'],
-  datasets: [
-    {
-      label: '# of Orders',
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
-      backgroundColor: 'rgb(239, 83, 80)',
-      borderColor: 'rgba(239, 83, 80, 0.2)',
-    },
-  ],
+// const data = {
+//   labels: ['1', '2', '3', '4', '5', '6'],
+//   datasets: [
+//     {
+//       label: '# of Orders',
+//       data: [12, 19, 3, 5, 2, 3],
+//       fill: false,
+//       backgroundColor: 'rgb(239, 83, 80)',
+//       borderColor: 'rgba(239, 83, 80, 0.2)',
+//     },
+//   ],
+// }
+
+// const options: any = {
+//   responsive: true,
+//   maintainAspectRatio: false,
+//   scales: {
+//     yAxes: [
+//       {
+//         ticks: {
+//           beginAtZero: true,
+//         },
+//       },
+//     ],
+//   },
+// }
+
+type GetProducts = () => Promise<any>
+const getProducts: GetProducts = async () => api.get('/products')
+
+type GetOrders = () => Promise<Array<Order>>
+const getOrders: GetOrders = async () => api.get('/orders')
+
+type GetCustomers = () => Promise<Array<User>>
+const getCustomers: GetCustomers = async () => api.get('/customers')
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  setToken(req.cookies['token'])
+  let props = { products: [], orders: [], customers: [] }
+  try {
+    const productsPromise = getProducts()
+    const ordersPromise = getOrders()
+    const customersPromise = getCustomers()
+    const [
+      { data: productsData },
+      { data: ordersData },
+      { data: customersData },
+    ]: any = await Promise.all([
+      productsPromise,
+      ordersPromise,
+      customersPromise,
+    ])
+    const { products } = productsData
+    const { orders } = ordersData
+    const { users } = customersData
+    props = { products, orders, customers: users }
+  } catch (error: any) {
+    console.log(error.response)
+  }
+  return { props }
 }
 
-const options: any = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
+type Props = {
+  products: Array<Product>
+  orders: Array<Order>
+  customers: Array<User>
 }
 
-const Dashboard = () => {
-  const { state: authState } = useContext(AuthContext) as { state: AuthState }
-  const { user } = authState
+const Dashboard = ({ products, orders, customers }: Props) => {
+  let sales = 0
+  let income = 0
+
+  orders.forEach((order) => {
+    sales += order.items.length
+    income += order.total
+  })
+
   return (
     <>
       <Head title="Dashboard" />
@@ -52,7 +99,9 @@ const Dashboard = () => {
             </div>
             <div>
               <div className={styles.overview__item__label}>Products</div>
-              <div className={styles.overview__item__value}>56</div>
+              <div className={styles.overview__item__value}>
+                {products.length}
+              </div>
             </div>
           </div>
           <div
@@ -63,7 +112,7 @@ const Dashboard = () => {
             </div>
             <div>
               <div className={styles.overview__item__label}>Sales</div>
-              <div className={styles.overview__item__value}>567</div>
+              <div className={styles.overview__item__value}>{sales}</div>
             </div>
           </div>
           <div
@@ -74,18 +123,20 @@ const Dashboard = () => {
             </div>
             <div>
               <div className={styles.overview__item__label}>Icome</div>
-              <div className={styles.overview__item__value}>$23980</div>
+              <div className={styles.overview__item__value}>${income}</div>
             </div>
           </div>
           <div
             className={`${styles.overview__item} ${styles['overview__item--var4']}`}
           >
             <div className={styles.overview__item__icon}>
-              <User size={24} />
+              <UserIcon size={24} />
             </div>
             <div>
-              <div className={styles.overview__item__label}>Users</div>
-              <div className={styles.overview__item__value}>112</div>
+              <div className={styles.overview__item__label}>Customers</div>
+              <div className={styles.overview__item__value}>
+                {customers.length}
+              </div>
             </div>
           </div>
         </div>
