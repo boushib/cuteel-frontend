@@ -1,4 +1,4 @@
-import { Elements as StripeElements } from '@stripe/react-stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
 import CheckoutAddress from '@/components/CheckoutAddress'
 import CheckoutPayment from '@/components/CheckoutPayment'
 import Head from '@/components/Head'
@@ -6,13 +6,9 @@ import OrderSummary from '@/components/OrderSummary'
 import Checkmark from '@/icons/Checkmark'
 import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
+import { ORDER } from '@/constants/dummy'
 
-const STEPS = [
-  'Order details',
-  'Shipping address',
-  // 'Payment method',
-  'Place order',
-]
+const STEPS = ['Order details', 'Shipping address', 'Summary', 'Payment method']
 
 const Checkout = () => {
   // TODO - Revert this!
@@ -21,12 +17,12 @@ const Checkout = () => {
   const handleProceed = () => {
     setCurrentStep((s) => s + 1)
   }
-  const stripe = loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`)
+  const stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 
   return (
     <>
       <Head title="Checkout" />
-      <StripeElements stripe={stripe}>
+      <Elements stripe={stripe}>
         <div className="order page">
           <div className="container">
             <div className="form__steps">
@@ -47,12 +43,16 @@ const Checkout = () => {
               ))}
             </div>
             {currentStep === 1 && <CheckoutAddress onProceed={handleProceed} />}
-            {/* {currentStep === 2 && <CheckoutPayment onProceed={handleProceed} />} */}
-            {currentStep === 2 && <OrderSummary onProceed={handleProceed} />}
-            {currentStep > 3 && <CheckoutDone />}
+            {currentStep === 2 && (
+              <OrderSummary order={ORDER} onProceed={handleProceed} />
+            )}
+            {currentStep === 3 && (
+              <CheckoutPayment amount={ORDER.total} onProceed={handleProceed} />
+            )}
+            {currentStep > 4 && <CheckoutDone />}
           </div>
         </div>
-      </StripeElements>
+      </Elements>
     </>
   )
 }

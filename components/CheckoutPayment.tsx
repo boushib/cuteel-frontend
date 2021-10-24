@@ -1,207 +1,190 @@
-import styled from 'styled-components'
+import { ORDER } from '@/constants/dummy'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import Mastercard from '@/icons/Mastercard'
-import Visa from '@/icons/Visa'
-import Amex from '@/icons/Amex'
 import { ChangeEvent, useState } from 'react'
-import Skrill from '@/icons/Skrill'
-import Discover from '@/icons/Discover'
-import Maestro from '@/icons/Maestro'
+import api, { setToken } from '../api'
 import { Button } from './Button'
 
-type Props = { onProceed: () => void }
+type Props = {
+  amount: number
+  onProceed: () => void
+}
 
-const CheckoutPayment = ({ onProceed }: Props) => {
-  const [paymentMethod, setPaymentMethod] = useState('master-card')
-  const [paymentInfo, setPaymentInfo] = useState({
+type BillingDetails = {
+  name: string
+  email: string
+  address: {
+    city: string
+    line1: string
+    state: string
+    postal_code: string
+  }
+}
+
+const CheckoutPayment = ({ amount, onProceed }: Props) => {
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [billingDetails, setBillingDetails] = useState<BillingDetails>({
     name: '',
-    cardNumber: '',
-    expirationDate: '',
-    cvv: '',
+    email: '',
+    address: {
+      city: '',
+      line1: '',
+      state: '',
+      postal_code: '',
+    },
   })
 
+  const order = ORDER
+
   const stripe = useStripe()
-  const stripeElements = useElements()
+  const elements = useElements()
 
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setPaymentInfo((p) => ({ ...p, [name]: value }))
+    if (name === 'name' || name === 'email') {
+      setBillingDetails((s) => ({ ...s, [name]: value }))
+    } else {
+      setBillingDetails((s) => ({
+        ...s,
+        address: { ...s.address, [name]: value },
+      }))
+    }
   }
 
-  const handleProceed = async () => {
-    if (!stripe || !stripeElements) return
+  const handleCardDetailsChange = (e: any) => {
+    console.log(e.error?.message)
+  }
 
-    const result = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements: stripeElements,
-      confirmParams: {
-        return_url: '/order/complete',
-      },
-    })
+  const handleSubmit = async () => {
+    console.log(billingDetails)
+    // TODO - validate form fields
 
-    if (result.error) {
-      // Show error to your customer (e.g., payment details incomplete)
-      console.log(result.error.message)
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+    if (!(stripe && elements)) return
+
+    setIsProcessing(true)
+    const card = elements.getElement('card')
+    if (!card) return
+
+    try {
+      const token = localStorage.getItem('token')
+      setToken(`${token}`)
+      const { data } = await api.post('/payment/create', {
+        amount: order.total,
+      })
+      const { clientSecret } = data
+      const billing_details = { ...billingDetails }
+      const paymentMethodReq = await stripe.createPaymentMethod({
+        type: 'card',
+        card,
+        billing_details,
+      })
+
+      if (paymentMethodReq.error) {
+        throw new Error(paymentMethodReq.error.message)
+      }
+
+      const { error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: paymentMethodReq.paymentMethod.id,
+      })
+
+      if (error) {
+        throw new Error(error.message)
+      }
+      console.log('Done!!')
+      // onSuccessfulCheckout()
+    } catch (error: any) {
+      console.log('Payment error: ', error.message)
     }
 
-    //onProceed()
+    setIsProcessing(false)
   }
 
   return (
     <div
       className="checkout__payment"
-      style={{ maxWidth: 800, margin: '0 auto' }}
+      style={{ maxWidth: 680, margin: '0 auto' }}
     >
-      <label htmlFor="">Payment type</label>
-      <PaymentMethods>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="master-card"
-            checked={paymentMethod === 'master-card'}
-            onChange={() => setPaymentMethod('master-card')}
-          />
-          <Mastercard />
-        </PaymentMethod>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="visa"
-            checked={paymentMethod === 'visa'}
-            onChange={() => setPaymentMethod('visa')}
-          />
-          <Visa />
-        </PaymentMethod>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="american-express"
-            checked={paymentMethod === 'american-express'}
-            onChange={() => setPaymentMethod('american-express')}
-          />
-          <Amex />
-        </PaymentMethod>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="skrill"
-            checked={paymentMethod === 'skrill'}
-            onChange={() => setPaymentMethod('skrill')}
-          />
-          <Skrill />
-        </PaymentMethod>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="discover"
-            checked={paymentMethod === 'discover'}
-            onChange={() => setPaymentMethod('discover')}
-          />
-          <Discover />
-        </PaymentMethod>
-        <PaymentMethod>
-          <input
-            type="radio"
-            name="payment-method"
-            value="maestro"
-            checked={paymentMethod === 'maestro'}
-            onChange={() => setPaymentMethod('maestro')}
-          />
-          <Maestro />
-        </PaymentMethod>
-      </PaymentMethods>
-      <div className="stripe__wrapper"></div>
+      <h3>Payment</h3>
       <div className="form-group">
-        <div>
-          <label htmlFor="">Name on Card</label>
-          <input
-            type="text"
-            name="name"
-            className="form-control"
-            placeholder="John Doe"
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Card number</label>
-          <input
-            type="text"
-            name="cardNumber"
-            className="form-control"
-            placeholder="1111 2222 3333 4444"
-            onChange={handleFieldChange}
-          />
-        </div>
+        <input
+          type="text"
+          name="name"
+          className="form-control"
+          placeholder="Name"
+          onChange={handleFieldChange}
+        />
+        <input
+          type="text"
+          name="email"
+          className="form-control"
+          placeholder="Email"
+        />
       </div>
       <div className="form-group">
-        <div>
-          <label htmlFor="">Expiration date</label>
-          <input
-            type="text"
-            name="expirationDate"
-            className="form-control"
-            placeholder="10/2022"
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="">CVV</label>
-          <input
-            type="text"
-            name="cvv"
-            className="form-control"
-            placeholder="123"
-            onChange={handleFieldChange}
-          />
-        </div>
+        <input
+          type="text"
+          name="line1"
+          className="form-control"
+          placeholder="Address"
+        />
+        <input
+          type="text"
+          name="city"
+          className="form-control"
+          placeholder="City"
+        />
       </div>
-      <Button onClick={handleProceed} disabled={!stripe}>
-        Proceed
+      <div className="form-group">
+        <input
+          type="text"
+          name="state"
+          className="form-control"
+          placeholder="State"
+        />
+        <input
+          type="text"
+          name="postal_code"
+          className="form-control"
+          placeholder="Postal Code"
+        />
+      </div>
+
+      <div className="stripe__wrapper">
+        <CardElement
+          options={{
+            // iconStyle: 'solid',
+            style: {
+              base: {
+                color: '#666',
+                fontSize: '16px',
+                fontWeight: 300,
+                iconColor: '#aaa',
+                '::placeholder': {
+                  color: '#aaa',
+                },
+              },
+              invalid: {
+                iconColor: '#ff5722',
+                color: '#ff5722',
+              },
+              complete: {
+                iconColor: '#89b24a',
+              },
+            },
+            hidePostalCode: true,
+          }}
+          onChange={handleCardDetailsChange}
+        />
+      </div>
+      <Button
+        disabled={!stripe}
+        onClick={handleSubmit}
+        type="submit"
+        style={{ marginBottom: 0, width: 200 }}
+      >
+        {isProcessing ? 'Processing...' : `Pay $${ORDER.total}`}
       </Button>
     </div>
   )
 }
-
-const PaymentMethods = styled.div`
-  display: flex;
-  margin-bottom: 24px;
-  & > div {
-    margin-right: 12px;
-  }
-`
-
-const PaymentMethod = styled.div`
-  position: relative;
-  height: 32px;
-  width: 44px;
-  svg {
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-    transition: opacity 0.3s ease-in-out;
-  }
-  input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 3;
-    &:checked + svg {
-      opacity: 1;
-    }
-  }
-`
 
 export default CheckoutPayment
