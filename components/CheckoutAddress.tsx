@@ -1,4 +1,6 @@
 import { ChangeEvent, useState } from 'react'
+import { useToast } from '../hooks'
+import { ToastType } from '../models'
 import { Button } from './Button'
 
 type Props = { onProceed: () => void }
@@ -15,15 +17,30 @@ const CheckoutAddress = ({ onProceed }: Props) => {
     country: '',
   })
 
+  const showToast = useToast()
+
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setAddress((s) => ({ ...s, [name]: value }))
   }
 
   const handleProceed = () => {
-    // TODO: Form validation
-    console.log(address)
-    onProceed()
+    try {
+      const fields = Object.entries(address)
+      for (let [key, value] of fields) {
+        if (!value) {
+          const field = (key.charAt(0).toUpperCase() + key.slice(1))
+            .match(/[A-Z][a-z]+/g)
+            ?.map((s) => s.toLowerCase())
+            ?.join(' ')
+          throw new Error(`Please enter a valid ${field}!`)
+        }
+      }
+      onProceed()
+    } catch (error: any) {
+      const { message } = error
+      showToast({ message, type: ToastType.ERROR })
+    }
   }
 
   return (
@@ -33,7 +50,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
     >
       <div className="form-group">
         <div>
-          <label htmlFor="">Firstname</label>
+          <label htmlFor="">First name</label>
           <input
             type="text"
             name="firstName"
@@ -43,7 +60,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
           />
         </div>
         <div>
-          <label htmlFor="">Lastname</label>
+          <label htmlFor="">Last name</label>
           <input
             type="text"
             name="lastName"
@@ -64,7 +81,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
       <label htmlFor="">Street</label>
       <input
         type="text"
-        name="address"
+        name="street"
         className="form-control"
         placeholder="GH98 Lot Palmiers"
         onChange={handleFieldChange}

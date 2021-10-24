@@ -1,5 +1,4 @@
 import { ORDER } from '@/constants/dummy'
-import { formatDate } from '../utils'
 import { Button } from './Button'
 
 type Props = { onProceed: () => void }
@@ -13,21 +12,10 @@ const OrderSummary = ({ onProceed }: Props) => {
 
   return (
     <div
-      className="checkout__address"
+      className="checkout__summary"
       style={{ maxWidth: 800, margin: '0 auto' }}
     >
       <h3>Summary</h3>
-      <div className="order__details" style={{ marginBottom: 32 }}>
-        <div className="card">
-          <p>
-            <b>Order number:</b> {order.orderNumber}
-          </p>
-          <p>
-            <b>Date:</b> {formatDate(order.billingDate)}
-          </p>
-        </div>
-      </div>
-      <h3>Items</h3>
       <div className="card" style={{ marginBottom: 24 }}>
         <table>
           <thead>

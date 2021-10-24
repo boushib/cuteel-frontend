@@ -268,7 +268,7 @@ const GlobalStyle = createGlobalStyle`
     &s {
       display: flex;
       max-width: 800px;
-      margin: 0 auto 36px;
+      margin: 0 auto 48px;
     }
     &__number {
       width: 28px;
