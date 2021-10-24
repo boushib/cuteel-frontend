@@ -90,6 +90,8 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
         throw new Error(error.message)
       }
       console.log('Done!!')
+      // Use correct order data
+      // TODO -- tell the backend to create the order
       // onSuccessfulCheckout()
     } catch (error: any) {
       console.log('Payment error: ', error.message)
@@ -117,6 +119,7 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
           name="email"
           className="form-control"
           placeholder="Email"
+          onChange={handleFieldChange}
         />
       </div>
       <div className="form-group">
@@ -125,12 +128,14 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
           name="line1"
           className="form-control"
           placeholder="Address"
+          onChange={handleFieldChange}
         />
         <input
           type="text"
           name="city"
           className="form-control"
           placeholder="City"
+          onChange={handleFieldChange}
         />
       </div>
       <div className="form-group">
@@ -139,12 +144,14 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
           name="state"
           className="form-control"
           placeholder="State"
+          onChange={handleFieldChange}
         />
         <input
           type="text"
           name="postal_code"
           className="form-control"
           placeholder="Postal Code"
+          onChange={handleFieldChange}
         />
       </div>
 

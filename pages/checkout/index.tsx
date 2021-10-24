@@ -47,7 +47,10 @@ const Checkout = () => {
               <OrderSummary order={ORDER} onProceed={handleProceed} />
             )}
             {currentStep === 3 && (
-              <CheckoutPayment amount={ORDER.total} onProceed={handleProceed} />
+              <CheckoutPayment
+                amount={ORDER.total * 100}
+                onProceed={handleProceed}
+              />
             )}
             {currentStep > 4 && <CheckoutDone />}
           </div>
