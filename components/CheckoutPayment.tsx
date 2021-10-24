@@ -1,5 +1,7 @@
+import { CartAT } from '@/store/actions'
+import { CartContext } from '@/store/providers'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import api, { setToken } from '../api'
 import { CreatedOrder } from '../models'
 import { Button } from './Button'
@@ -32,6 +34,10 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
       postal_code: '',
     },
   })
+
+  const { dispatch: cartDispatch } = useContext(CartContext) as {
+    dispatch: Function
+  }
 
   const stripe = useStripe()
   const elements = useElements()
@@ -66,7 +72,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
       const token = localStorage.getItem('token')
       setToken(`${token}`)
       const { data } = await api.post('/payment/create', {
-        amount: order.total * 100,
+        amount: Math.round(order.total * 100),
       })
       const { clientSecret } = data
       const billing_details = { ...billingDetails }
@@ -89,6 +95,8 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
       }
       await api.post('/orders/create', { ...order })
       localStorage.removeItem('cart')
+      cartDispatch({ type: CartAT.SET, payload: { items: [], total: 0 } })
+
       onProceed()
     } catch (error: any) {
       console.log('Payment error: ', error.message)
