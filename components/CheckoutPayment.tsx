@@ -1,11 +1,11 @@
-import { ORDER } from '@/constants/dummy'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { ChangeEvent, useState } from 'react'
 import api, { setToken } from '../api'
+import { CreatedOrder } from '../models'
 import { Button } from './Button'
 
 type Props = {
-  amount: number
+  order: CreatedOrder
   onProceed: () => void
 }
 
@@ -20,7 +20,7 @@ type BillingDetails = {
   }
 }
 
-const CheckoutPayment = ({ amount, onProceed }: Props) => {
+const CheckoutPayment = ({ order, onProceed }: Props) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [billingDetails, setBillingDetails] = useState<BillingDetails>({
     name: '',
@@ -32,8 +32,6 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
       postal_code: '',
     },
   })
-
-  const order = ORDER
 
   const stripe = useStripe()
   const elements = useElements()
@@ -68,7 +66,7 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
       const token = localStorage.getItem('token')
       setToken(`${token}`)
       const { data } = await api.post('/payment/create', {
-        amount: order.total,
+        amount: order.total * 100,
       })
       const { clientSecret } = data
       const billing_details = { ...billingDetails }
@@ -89,10 +87,9 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
       if (error) {
         throw new Error(error.message)
       }
-      console.log('Done!!')
-      // Use correct order data
-      // TODO -- tell the backend to create the order
-      // onSuccessfulCheckout()
+      await api.post('/orders/create', { ...order })
+      localStorage.removeItem('cart')
+      onProceed()
     } catch (error: any) {
       console.log('Payment error: ', error.message)
     }
@@ -188,7 +185,7 @@ const CheckoutPayment = ({ amount, onProceed }: Props) => {
         type="submit"
         style={{ marginBottom: 0, width: 200 }}
       >
-        {isProcessing ? 'Processing...' : `Pay $${ORDER.total}`}
+        {isProcessing ? 'Processing...' : `Pay $${order.total}`}
       </Button>
     </div>
   )

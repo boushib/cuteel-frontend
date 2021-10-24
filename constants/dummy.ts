@@ -1,5 +1,4 @@
 export const ORDER = {
-  _id: '613bfd334340066e8260d95e',
   shipping: {
     name: 'El Hassane Boushib',
     address: 'Haj Fateh 456',

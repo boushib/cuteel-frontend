@@ -1,7 +1,10 @@
-import { Order } from '../models'
+import { CreatedOrder } from '../models'
 import { Button } from './Button'
 
-type Props = { order: Order; onProceed: () => void }
+type Props = {
+  order: CreatedOrder
+  onProceed: () => void
+}
 
 const OrderSummary = ({ order, onProceed }: Props) => {
   return (

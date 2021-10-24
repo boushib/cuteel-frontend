@@ -1,19 +1,18 @@
 import { ChangeEvent, useState } from 'react'
 import { useToast } from '../hooks'
-import { ToastType } from '../models'
+import { ShippingAddress, ToastType } from '../models'
 import { Button } from './Button'
 
-type Props = { onProceed: () => void }
+type Props = { onProceed: (address: ShippingAddress) => void }
 
 const CheckoutAddress = ({ onProceed }: Props) => {
-  const [address, setAddress] = useState({
-    firstName: '',
-    lastName: '',
+  const [address, setAddress] = useState<ShippingAddress>({
+    name: '',
     email: '',
-    street: '',
+    address: '',
     city: '',
     state: '',
-    postalCode: '',
+    postalCode: 0,
     country: '',
   })
 
@@ -36,7 +35,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
           throw new Error(`Please enter a valid ${field}!`)
         }
       }
-      onProceed()
+      onProceed(address)
     } catch (error: any) {
       const { message } = error
       showToast({ message, type: ToastType.ERROR })
@@ -50,20 +49,20 @@ const CheckoutAddress = ({ onProceed }: Props) => {
     >
       <div className="form-group">
         <div>
-          <label htmlFor="">First name</label>
+          <label htmlFor="">Name</label>
           <input
             type="text"
-            name="firstName"
+            name="name"
             className="form-control"
-            placeholder="John"
+            placeholder="Smith"
             onChange={handleFieldChange}
           />
         </div>
         <div>
-          <label htmlFor="">Last name</label>
+          <label htmlFor="">Email</label>
           <input
             type="text"
-            name="lastName"
+            name="email"
             className="form-control"
             placeholder="Smith"
             onChange={handleFieldChange}
@@ -78,10 +77,10 @@ const CheckoutAddress = ({ onProceed }: Props) => {
         placeholder="johnsmith@domain.com"
         onChange={handleFieldChange}
       />
-      <label htmlFor="">Street</label>
+      <label htmlFor="">Address</label>
       <input
         type="text"
-        name="street"
+        name="address"
         className="form-control"
         placeholder="GH98 Lot Palmiers"
         onChange={handleFieldChange}

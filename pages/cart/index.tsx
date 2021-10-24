@@ -43,7 +43,10 @@ const Cart = () => {
                 ))}
               </div>
               <aside>
-                <div className="card">
+                <div
+                  className="card"
+                  style={{ padding: '24px 28px', boxShadow: 'none' }}
+                >
                   <Amount>
                     <span>Subtotal</span>
                     <span>${total.toFixed(2)}</span>
@@ -56,9 +59,11 @@ const Cart = () => {
                     <span>Total</span>
                     <span>${(total + SHIPPING_COST).toFixed(2)}</span>
                   </Amount>
+                  <br />
+                  <Button onClick={handleCheckout} style={{ marginBottom: 0 }}>
+                    Checkout
+                  </Button>
                 </div>
-                <br />
-                <Button onClick={handleCheckout}>Checkout</Button>
               </aside>
             </CartGrid>
           )}
@@ -74,7 +79,7 @@ const CartGrid = styled.div`
   display: flex;
   justify-content: space-between;
   aside {
-    width: 320px;
+    width: 400px;
   }
   .cart__products {
     flex-grow: 1;
@@ -91,7 +96,9 @@ const Amount = styled.div`
     font-size: 15px;
     color: #999;
     &:last-child {
-      font-weight: bold;
+      font-weight: 500;
+      font-size: 18px;
+      color: #aaa;
     }
   }
 `

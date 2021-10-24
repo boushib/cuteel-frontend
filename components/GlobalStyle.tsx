@@ -292,7 +292,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  // 
   .checkout__done {
     max-width: 800px;
     margin: 0 auto;
@@ -301,9 +300,9 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 320px;
-    font-family: 'Anonymous Pro';
-    font-size: 17px;
+    flex-direction: column;
+    height: 300px;
+    font-size: 18px;
     color: #999;
   }
 

@@ -1,23 +1,81 @@
 import { Elements } from '@stripe/react-stripe-js'
-import CheckoutAddress from '@/components/CheckoutAddress'
-import CheckoutPayment from '@/components/CheckoutPayment'
+import Link from 'next/link'
+import { useContext, useEffect, useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
+import { AuthContext } from '@/store/providers'
+import { AuthState, CartState } from '@/models/'
+import { CreatedOrder } from '@/models/orders'
 import Head from '@/components/Head'
+import CheckoutPayment from '@/components/CheckoutPayment'
+import CheckoutAddress from '@/components/CheckoutAddress'
 import OrderSummary from '@/components/OrderSummary'
 import Checkmark from '@/icons/Checkmark'
-import { useState } from 'react'
-import { loadStripe } from '@stripe/stripe-js'
-import { ORDER } from '@/constants/dummy'
+import { Button } from '@/components/Button'
 
 const STEPS = ['Order details', 'Shipping address', 'Summary', 'Payment method']
 
 const Checkout = () => {
-  // TODO - Revert this!
-  // const [currentStep, setCurrentStep] = useState(1)
-  const [currentStep, setCurrentStep] = useState(2)
+  const [currentStep, setCurrentStep] = useState(4)
+
+  const date = new Date().toISOString()
+
+  const [order, setOrder] = useState<CreatedOrder>({
+    shipping: {
+      name: '',
+      address: '',
+      city: '',
+      state: '',
+      country: '',
+      postalCode: 0,
+    },
+    userId: '',
+    items: [],
+    currency: '$',
+    subtotal: 0,
+    total: 0,
+    billingDate: date,
+    dueDate: date,
+  })
+
+  const { state: authState } = useContext(AuthContext) as { state: AuthState }
+  const { user } = authState
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart')
+    if (!storedCart) return
+    const cart: CartState = JSON.parse(storedCart)
+    const { total, items: cartItems } = cart
+    const subtotal = total // TODO: calculate accurate value
+    const items = cartItems.map((item) => {
+      const { product, quantity } = item
+      const { _id: productId, name, description, price } = product
+      return {
+        productId,
+        tax: 0,
+        name: name,
+        description: description,
+        quantity: quantity,
+        price: price,
+      }
+    })
+    setOrder((s) => ({ ...s, items, total, subtotal }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      setOrder((s) => ({ ...s, userId: user._id }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
+  const stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
+
   const handleProceed = () => {
     setCurrentStep((s) => s + 1)
   }
-  const stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
+
+  console.log(currentStep)
 
   return (
     <>
@@ -42,17 +100,21 @@ const Checkout = () => {
                 </div>
               ))}
             </div>
-            {currentStep === 1 && <CheckoutAddress onProceed={handleProceed} />}
-            {currentStep === 2 && (
-              <OrderSummary order={ORDER} onProceed={handleProceed} />
-            )}
-            {currentStep === 3 && (
-              <CheckoutPayment
-                amount={ORDER.total * 100}
-                onProceed={handleProceed}
+            {currentStep === 1 && (
+              <CheckoutAddress
+                onProceed={(shipping) => {
+                  setOrder((s) => ({ ...s, shipping }))
+                  handleProceed()
+                }}
               />
             )}
-            {currentStep > 4 && <CheckoutDone />}
+            {currentStep === 2 && (
+              <OrderSummary order={order} onProceed={handleProceed} />
+            )}
+            {currentStep === 3 && (
+              <CheckoutPayment order={order} onProceed={handleProceed} />
+            )}
+            {currentStep >= 4 && <CheckoutDone />}
           </div>
         </div>
       </Elements>
@@ -61,8 +123,13 @@ const Checkout = () => {
 }
 
 const CheckoutDone = () => (
-  <div className="card checkout__done">
-    Congratulations! Your order is placed successfully!
+  <div className="checkout__done">
+    <p style={{ marginBottom: 24 }}>
+      Congratulations! Your order is placed successfully!
+    </p>
+    <Link href="/catalog" passHref>
+      <Button>Back to products page</Button>
+    </Link>
   </div>
 )
 
