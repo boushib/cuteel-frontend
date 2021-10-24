@@ -12,7 +12,7 @@ const Cart = () => {
   const { items, total } = cartState
   const router = useRouter()
 
-  const SHIPPING_COST = 20
+  const SHIPPING_COST = 0
 
   const handleCheckout = () => {
     router.push('/checkout')
