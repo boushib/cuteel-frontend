@@ -123,7 +123,9 @@ const Dashboard = ({ products, orders, customers }: Props) => {
             </div>
             <div>
               <div className={styles.overview__item__label}>Icome</div>
-              <div className={styles.overview__item__value}>${income}</div>
+              <div className={styles.overview__item__value}>
+                ${income.toFixed(2)}
+              </div>
             </div>
           </div>
           <div
