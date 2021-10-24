@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Mastercard from '@/icons/Mastercard'
 import Visa from '@/icons/Visa'
 import Amex from '@/icons/Amex'
@@ -19,15 +20,35 @@ const CheckoutPayment = ({ onProceed }: Props) => {
     cvv: '',
   })
 
+  const stripe = useStripe()
+  const stripeElements = useElements()
+
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setPaymentInfo((p) => ({ ...p, [name]: value }))
   }
 
-  const handleProceed = () => {
-    // TODO: Form validation
-    console.log(paymentInfo)
-    onProceed()
+  const handleProceed = async () => {
+    if (!stripe || !stripeElements) return
+
+    const result = await stripe.confirmPayment({
+      //`Elements` instance that was used to create the Payment Element
+      elements: stripeElements,
+      confirmParams: {
+        return_url: '/order/complete',
+      },
+    })
+
+    if (result.error) {
+      // Show error to your customer (e.g., payment details incomplete)
+      console.log(result.error.message)
+    } else {
+      // Your customer will be redirected to your `return_url`. For some payment
+      // methods like iDEAL, your customer will be redirected to an intermediate
+      // site first to authorize the payment, then redirected to the `return_url`.
+    }
+
+    //onProceed()
   }
 
   return (
@@ -98,6 +119,7 @@ const CheckoutPayment = ({ onProceed }: Props) => {
           <Maestro />
         </PaymentMethod>
       </PaymentMethods>
+      <div className="stripe__wrapper"></div>
       <div className="form-group">
         <div>
           <label htmlFor="">Name on Card</label>
@@ -142,7 +164,9 @@ const CheckoutPayment = ({ onProceed }: Props) => {
           />
         </div>
       </div>
-      <Button onClick={handleProceed}>Proceed</Button>
+      <Button onClick={handleProceed} disabled={!stripe}>
+        Proceed
+      </Button>
     </div>
   )
 }

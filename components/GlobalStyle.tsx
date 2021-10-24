@@ -160,10 +160,12 @@ const GlobalStyle = createGlobalStyle`
   .form-group {
     display: flex;
     flex-wrap: wrap;
-    margin: -6px;
-    div {
+    margin: 0 -6px;
+    & > div, & > input {
       margin: 6px;
       flex-grow: 1;
+      flex-basis: calc(50% - 12px);
+      /* TODO: add media query */
     }
   }
 
@@ -333,6 +335,17 @@ const GlobalStyle = createGlobalStyle`
   button:disabled {
     opacity: .6;
     cursor: not-allowed;
+  }
+
+  .stripe__wrapper {
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    background-color: #fff;
+    color: #666;
+    font-size: 15px;
+    border: 1px solid #efefef;
+    margin: 6px 0 24px;
   }
 `
 
