@@ -15,7 +15,7 @@ import { Button } from '@/components/Button'
 const STEPS = ['Order details', 'Shipping address', 'Summary', 'Payment method']
 
 const Checkout = () => {
-  const [currentStep, setCurrentStep] = useState(4)
+  const [currentStep, setCurrentStep] = useState(1)
 
   const date = new Date().toISOString()
 
