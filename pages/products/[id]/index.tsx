@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 import api from '@/api'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext, WishlistContext } from '@/store/providers'
 import { Product } from '@/models'
 import { CartAT, WishlistAT } from '@/store/actions'
+import { getRating } from '@/utils/'
 import Head from '@/components/Head'
 import { Button } from '@/components/Button'
 import Back from '@/components/Back'
 import Rating from '@/components/Rating'
-import { getRating } from '@/utils/'
+import RateProduct from '@/components/RateProduct'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -24,6 +25,8 @@ export const getServerSideProps = async ({ params }: any) => {
 type Props = { product: Product }
 
 const ProductPage: React.FC<Props> = ({ product }) => {
+  const [isRatingDialogOpen, setIsRatingDialogOpen] = useState(false)
+
   const { dispatch: cartDispatch } = useContext(CartContext) as {
     dispatch: Function
   }
@@ -37,10 +40,6 @@ const ProductPage: React.FC<Props> = ({ product }) => {
 
   const handleAddToWishlist = () => {
     wishlistDispatch({ type: WishlistAT.ADD, payload: product })
-  }
-
-  const handleRate = () => {
-    console.log('Rate!')
   }
 
   const { rating, totalRatings } = getRating(product.rating)
@@ -74,13 +73,22 @@ const ProductPage: React.FC<Props> = ({ product }) => {
               <Button color="#3f51b5" onClick={handleAddToWishlist}>
                 Add to Wishlist
               </Button>
-              <Button color="#9c27b0" onClick={handleRate}>
+              <Button
+                color="#9c27b0"
+                onClick={() => setIsRatingDialogOpen(true)}
+              >
                 Rate
               </Button>
             </div>
           </div>
         </ProductContainer>
       </div>
+      {isRatingDialogOpen && (
+        <RateProduct
+          productId={product._id}
+          onClose={() => setIsRatingDialogOpen(false)}
+        />
+      )}
     </div>
   )
 }

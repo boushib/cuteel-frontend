@@ -7,7 +7,7 @@ type Props = {
 
 const Rating = ({ rating, totalRatings }: Props) => (
   <div className={styles.rating}>
-    {[1, 2, 4, 4, 5].map((r) => (
+    {[1, 2, 3, 4, 5].map((r) => (
       <Star isActive={r <= rating} key={`s-${r}`} />
     ))}
     <div className={styles.rating__count}>{totalRatings} reviews</div>

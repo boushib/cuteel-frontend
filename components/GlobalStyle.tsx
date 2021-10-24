@@ -308,6 +308,32 @@ const GlobalStyle = createGlobalStyle`
   .active {
     opacity: 1;
   }
+
+  .dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(40, 40, 40, .9);
+    z-index: 1000;
+    &__inner{
+      width: 500px;
+      max-width: 100%;
+      padding: 48px;
+      background-color: #fff;
+      border-radius: 6px;
+      text-align: center;
+    }
+  }
+
+  button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+  }
 `
 
 export default GlobalStyle
