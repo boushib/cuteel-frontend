@@ -8,6 +8,7 @@ import Head from '@/components/Head'
 import { Button } from '@/components/Button'
 import Back from '@/components/Back'
 import Rating from '@/components/Rating'
+import { getRating } from '@/utils/'
 
 const getProduct = async (id: string) => {
   const { data } = await api.get(`/products/${id}`)
@@ -38,6 +39,12 @@ const ProductPage: React.FC<Props> = ({ product }) => {
     wishlistDispatch({ type: WishlistAT.ADD, payload: product })
   }
 
+  const handleRate = () => {
+    console.log('Rate!')
+  }
+
+  const { rating, totalRatings } = getRating(product.rating)
+
   return (
     <div className="product page">
       <Head title={product.name ?? 'Product'} />
@@ -61,11 +68,14 @@ const ProductPage: React.FC<Props> = ({ product }) => {
                 </>
               )}
             </ProductPrice>
-            <Rating />
+            <Rating rating={rating} totalRatings={totalRatings} />
             <div className="btn-group">
               <Button onClick={handleAddToCart}>Add to Cart</Button>
               <Button color="#3f51b5" onClick={handleAddToWishlist}>
                 Add to Wishlist
+              </Button>
+              <Button color="#9c27b0" onClick={handleRate}>
+                Rate
               </Button>
             </div>
           </div>

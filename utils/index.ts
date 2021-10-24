@@ -153,3 +153,24 @@ export const nFormat = (num: number, digits: number) => {
         .replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + item.symbol
     : '0'
 }
+
+type GetRating = (rating: Object) => { rating: number; totalRatings: number }
+
+export const getRating: GetRating = (r: Object) => {
+  const ratings = Object.entries(r)
+
+  let rating = 0
+  let sum = 0
+  let totalRatings = 0
+
+  for (let [key, value] of ratings) {
+    totalRatings += value
+    sum += parseInt(key) * value
+  }
+
+  if (totalRatings > 0) {
+    rating = Math.round(sum / totalRatings)
+  }
+
+  return { rating, totalRatings }
+}

@@ -19,6 +19,7 @@ export type Product = {
   category: string
   quantity: number
   discount: number
+  rating: { string: number }
   createdAt: string
   updatedAt: string
 }
