@@ -4,6 +4,7 @@ import Store from './Store'
 import Dashboard from '@/components/dashboard/Dashboard'
 import { useRouteChange } from '@/hooks'
 import Toast from './Toast'
+import DashboardLogin from './DashboardLogin'
 
 type Props = {
   pageProps: any
@@ -13,18 +14,23 @@ type Props = {
 const Layout: React.FC<Props> = ({ Component, pageProps }) => {
   const { isLoading } = useRouteChange()
   const router = useRouter()
+  const isDashboardLogin = router.pathname === '/dashboard/login'
   const isDashboard = router.pathname.substring(0, 10) === '/dashboard'
+  console.log({ isDashboardLogin })
   return (
     <>
       <Toast />
-      {isDashboard && (
+      {isDashboardLogin && (
+        <DashboardLogin pageProps={pageProps} Component={Component} />
+      )}
+      {isDashboard && !isDashboardLogin && (
         <Dashboard
           pageProps={pageProps}
           Component={Component}
           isLoading={isLoading}
         />
       )}
-      {!isDashboard && (
+      {!isDashboard && !isDashboardLogin && (
         <Store
           isLoading={isLoading}
           pageProps={pageProps}

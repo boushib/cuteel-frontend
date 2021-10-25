@@ -39,7 +39,7 @@ const Login = () => {
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
       Cookies.set('token', token)
-      router.push('/profile')
+      router.push('/dashboard')
     } catch (error: any) {
       const message = error.response?.data?.error ?? error.message
       showToast({ type: ToastType.ERROR, message })
@@ -50,7 +50,10 @@ const Login = () => {
   return (
     <>
       <Head title="Login" />
-      <div className="login page">
+      <div
+        className="login page"
+        style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      >
         <FormContainer>
           <h1>Login</h1>
           <input
