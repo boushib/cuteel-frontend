@@ -33,7 +33,7 @@ const Login = () => {
         throw new Error(`Please enter a valid ${field}!`)
       }
       authDispatch({ type: AuthAT.PENDING })
-      const { data } = await api.post('/auth/signin', { email, password })
+      const { data } = await api.post('/auth/admin-signin', { email, password })
       const { user, token } = data
       authDispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)

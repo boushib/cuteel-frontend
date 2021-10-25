@@ -16,7 +16,6 @@ const Layout: React.FC<Props> = ({ Component, pageProps }) => {
   const router = useRouter()
   const isDashboardLogin = router.pathname === '/dashboard/login'
   const isDashboard = router.pathname.substring(0, 10) === '/dashboard'
-  console.log({ isDashboardLogin })
   return (
     <>
       <Toast />
