@@ -49,12 +49,12 @@ const Tickets: React.FC<Props> = ({ tickets }) => (
                     <Link href={`/dashboard/tickets/${ticket._id}`} passHref>
                       <ButtonSmall color="#3f51b5">View</ButtonSmall>
                     </Link>
-                    {ticket.status === 'open' && (
+                    {/* {ticket.status === 'open' && (
                       <ButtonSmall>Resolve</ButtonSmall>
                     )}
                     {ticket.status === 'resolved' && (
                       <ButtonSmall color="#f44336">Delete</ButtonSmall>
-                    )}
+                    )} */}
                   </td>
                 </tr>
               ))}
