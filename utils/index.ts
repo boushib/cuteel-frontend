@@ -174,3 +174,11 @@ export const getRating: GetRating = (r: Object) => {
 
   return { rating, totalRatings }
 }
+
+export const sleep = async (timeout: number = 3000) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Deleted')
+    }, 4000)
+  })
+}
