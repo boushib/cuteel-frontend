@@ -4,8 +4,8 @@ import api, { setToken } from '@/api'
 import { ButtonSmall } from '@/components/Button'
 import { Order } from '@/models/'
 import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+// import { useRouter } from 'next/router'
+// import { useState } from 'react'
 import { formatTime } from '@/utils/'
 
 const getOrders = async () => {
@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 type Props = { orders: Array<Order> }
 
-const Orders: React.FC<Props> = ({ orders }) => {
-  const [isDeletingCategory, setIsDeletingCategory] = useState(false)
-  const [categoryIdToDelete, setCategoryIdToDelete] = useState('')
-  const router = useRouter()
+const Orders = ({ orders }: Props) => {
+  // const [isDeletingCategory, setIsDeletingCategory] = useState(false)
+  // const [categoryIdToDelete, setCategoryIdToDelete] = useState('')
+  // const router = useRouter()
 
   // const handleDelete = async (categoryId: string) => {
   //   try {
