@@ -37,10 +37,10 @@ const DashboardNavbar = () => {
         />
       </Link>
       <div className={styles.dashboard__navbar__tail}>
-        <div className={styles.dashboard__navbar__notifications}>
+        {/* <div className={styles.dashboard__navbar__notifications}>
           <NotificationsIcon />
           <span></span>
-        </div>
+        </div> */}
         <div className={styles.dashboard__navbar__user}>
           <div
             className={styles.dashboard__navbar__avatar}
