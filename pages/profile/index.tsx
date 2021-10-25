@@ -84,6 +84,7 @@ const Profile = ({ orders }: Props) => {
             </div>
           </div>
           <h2>Orders history</h2>
+          {orders.length === 0 && <p>No orders yet!</p>}
           {orders.length > 0 && (
             <div className="card">
               <table>
