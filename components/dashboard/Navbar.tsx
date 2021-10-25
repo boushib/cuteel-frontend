@@ -24,7 +24,7 @@ const DashboardNavbar = () => {
     authDispatch({ type: AuthAT.LOGOUT })
     localStorage.clear()
     Cookies.remove('token')
-    router.push('/login')
+    router.push('/dashboard/login')
   }
 
   return (
