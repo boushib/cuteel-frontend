@@ -1,4 +1,5 @@
 export * from './orders'
+export * from './notifications'
 
 export type User = {
   _id: string

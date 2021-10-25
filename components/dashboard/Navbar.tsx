@@ -4,11 +4,11 @@ import styles from './Dashboard.module.scss'
 import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models/'
 import { DEFAULT_AVATAR } from '@/constants/'
-import NotificationsIcon from '@/icons/Notifications'
 import api from '@/api/'
 import { AuthAT } from '@/store/actions'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import NotificationBox from '../NotificationBox'
 
 const DashboardNavbar = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
@@ -37,10 +37,7 @@ const DashboardNavbar = () => {
         />
       </Link>
       <div className={styles.dashboard__navbar__tail}>
-        {/* <div className={styles.dashboard__navbar__notifications}>
-          <NotificationsIcon />
-          <span></span>
-        </div> */}
+        <NotificationBox />
         <div className={styles.dashboard__navbar__user}>
           <div
             className={styles.dashboard__navbar__avatar}

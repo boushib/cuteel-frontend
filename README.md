@@ -19,6 +19,7 @@ Create an `.env` file in your root directory and add theses entries to it:
 ```lang-none
 API_URL=http://localhost:8080 # adjust to use the backend API port if needed
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=...
+NEXT_PUBLIC_SOCKET_IO_URL=http://localhost:8081/
 ```
 
 Install the dependencies
@@ -40,4 +41,3 @@ To build the app for production:
 ```lang-none
 yarn build
 ```
-
