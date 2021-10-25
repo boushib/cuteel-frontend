@@ -5,10 +5,28 @@ import { AuthContext } from '@/store/providers'
 import { AuthState } from '@/models/'
 import { DEFAULT_AVATAR } from '@/constants/'
 import NotificationsIcon from '@/icons/Notifications'
+import api from '@/api/'
+import { AuthAT } from '@/store/actions'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 const DashboardNavbar = () => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
+  const { dispatch: authDispatch } = useContext(AuthContext) as {
+    state: AuthState
+    dispatch: Function
+  }
   const { user } = authState
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await api.post('/auth/signout')
+    authDispatch({ type: AuthAT.LOGOUT })
+    localStorage.clear()
+    Cookies.remove('token')
+    router.push('/login')
+  }
+
   return (
     <div className={styles.dashboard__navbar}>
       <Link href="/dashboard" passHref={true}>
@@ -23,12 +41,21 @@ const DashboardNavbar = () => {
           <NotificationsIcon />
           <span></span>
         </div>
-        <div
-          className={styles.dashboard__navbar__avatar}
-          style={{
-            backgroundImage: `url('${user?.avatar ?? DEFAULT_AVATAR}')`,
-          }}
-        ></div>
+        <div className={styles.dashboard__navbar__user}>
+          <div
+            className={styles.dashboard__navbar__avatar}
+            style={{
+              backgroundImage: `url('${user?.avatar ?? DEFAULT_AVATAR}')`,
+            }}
+          >
+            <div className={styles.dashboard__navbar__user__dropdown}>
+              <Link href="/catalog" passHref>
+                <li>Store</li>
+              </Link>
+              <li onClick={handleLogout}>Logout</li>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

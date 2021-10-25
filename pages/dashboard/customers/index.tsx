@@ -55,7 +55,7 @@ const Customers: React.FC<Props> = ({ customers }) => (
                   <td>{customer.name}</td>
                   <td>{customer.email}</td>
                   <td>
-                    <ButtonSmall color="#3f51b5">View</ButtonSmall>
+                    {/* <ButtonSmall color="#3f51b5">View</ButtonSmall> */}
                     <ButtonSmall color="#f44336">Delete</ButtonSmall>
                   </td>
                 </tr>
