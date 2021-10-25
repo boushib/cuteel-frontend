@@ -18,6 +18,7 @@ export type OrderItem = {
 }
 
 export type Order = {
+  _id: string
   userId: string
   shipping: ShippingAddress
   items: Array<OrderItem>

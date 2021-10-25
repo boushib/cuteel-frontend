@@ -72,8 +72,8 @@ const Orders: React.FC<Props> = ({ orders }) => {
                       <Link href={`/dashboard/orders/${order._id}`} passHref>
                         <ButtonSmall color="#673ab7">View</ButtonSmall>
                       </Link>
-                      <ButtonSmall>Approve</ButtonSmall>
-                      <ButtonSmall color="#f44336">Delete</ButtonSmall>
+                      {/* <ButtonSmall>Approve</ButtonSmall>
+                      <ButtonSmall color="#f44336">Delete</ButtonSmall> */}
                     </td>
                   </tr>
                 ))}
