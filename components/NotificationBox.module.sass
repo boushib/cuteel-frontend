@@ -14,17 +14,36 @@
       top: -3px
       z-index: 2
   &__list
-    width: 280px
+    width: 320px
     min-height: 220px
     max-height: 280px
     background-color: #171a2e
     border: 1px solid #2c2c2c
-    padding: 18px 24px
+    padding: 12px 0
     position: absolute
     top: 24px
     right: 0
     border-radius: 4px
+    p
+      padding: 8px 16px
     &__item
       list-style-type: none
-      &:not(:last-child)
-        margin-bottom: 12px
+      display: flex
+      align-items: center
+      padding: 8px 16px
+      cursor: pointer
+      &__icon
+        width: 44px
+        height: 44px
+        background-color: rgba(#fff, .05)
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-right: 16px
+      &__message
+        font-size: 15px
+        margin-bottom: 4px
+      &__date
+        font-size: 13px
+        opacity: .7

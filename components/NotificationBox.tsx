@@ -3,6 +3,8 @@ import { io } from 'socket.io-client'
 import NotificationsIcon from '@/icons/Notifications'
 import styles from './NotificationBox.module.sass'
 import { Notification } from '../models'
+import ShoppingCartIcon from '@/icons/ShoppingCart'
+import { formatTime } from '../utils'
 
 const NotificationBox = () => {
   const [notifications, setNotifications] = useState<Array<Notification>>([])
@@ -36,14 +38,32 @@ const NotificationBox = () => {
           {notifications.length === 0 && <p>No new notifications!</p>}
           {notifications.length > 0 &&
             notifications.map((n) => (
-              <li key={n._id} className={styles.notification__box__list__item}>
-                {n.message}
-              </li>
+              <NotificationItem notification={n} key={n._id} />
             ))}
         </ul>
       )}
     </div>
   )
 }
+
+type NotificationItemProps = {
+  notification: Notification
+}
+
+const NotificationItem = ({ notification }: NotificationItemProps) => (
+  <li className={styles.notification__box__list__item}>
+    <div className={styles.notification__box__list__item__icon}>
+      <ShoppingCartIcon size={18} />
+    </div>
+    <div>
+      <div className={styles.notification__box__list__item__message}>
+        {notification.message}
+      </div>
+      <div className={styles.notification__box__list__item__date}>
+        {formatTime(notification.date)}
+      </div>
+    </div>
+  </li>
+)
 
 export default NotificationBox
