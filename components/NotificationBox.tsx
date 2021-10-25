@@ -5,6 +5,7 @@ import styles from './NotificationBox.module.sass'
 import { Notification } from '../models'
 import ShoppingCartIcon from '@/icons/ShoppingCart'
 import { formatTime } from '../utils'
+import Link from 'next/link'
 
 const NotificationBox = () => {
   const [notifications, setNotifications] = useState<Array<Notification>>([])
@@ -51,19 +52,21 @@ type NotificationItemProps = {
 }
 
 const NotificationItem = ({ notification }: NotificationItemProps) => (
-  <li className={styles.notification__box__list__item}>
-    <div className={styles.notification__box__list__item__icon}>
-      <ShoppingCartIcon size={18} />
-    </div>
-    <div>
-      <div className={styles.notification__box__list__item__message}>
-        {notification.message}
+  <Link href={notification.url} passHref>
+    <li className={styles.notification__box__list__item}>
+      <div className={styles.notification__box__list__item__icon}>
+        <ShoppingCartIcon size={18} />
       </div>
-      <div className={styles.notification__box__list__item__date}>
-        {formatTime(notification.date)}
+      <div>
+        <div className={styles.notification__box__list__item__message}>
+          {notification.message}
+        </div>
+        <div className={styles.notification__box__list__item__date}>
+          {formatTime(notification.date)}
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  </Link>
 )
 
 export default NotificationBox

@@ -69,14 +69,14 @@ const CheckoutAddress = ({ onProceed }: Props) => {
           />
         </div>
       </div>
-      <label htmlFor="">Email Address</label>
+      {/* <label htmlFor="">Email Address</label>
       <input
         type="text"
         name="email"
         className="form-control"
         placeholder="johnsmith@domain.com"
         onChange={handleFieldChange}
-      />
+      /> */}
       <label htmlFor="">Address</label>
       <input
         type="text"
