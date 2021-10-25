@@ -5,7 +5,7 @@ export type ShippingAddress = {
   city: string
   state: string
   country: string
-  postalCode: number
+  postalCode: string
 }
 
 export type OrderItem = {
@@ -34,14 +34,7 @@ export type Order = {
 
 export type CreatedOrder = {
   userId: string
-  shipping: {
-    name: string
-    address: string
-    city: string
-    state: string
-    country: string
-    postalCode: number
-  }
+  shipping: ShippingAddress
   items: Array<{
     productId: string
     name: string

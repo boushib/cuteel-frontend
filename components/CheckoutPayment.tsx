@@ -1,7 +1,7 @@
 import { CartAT } from '@/store/actions'
 import { CartContext } from '@/store/providers'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import api, { setToken } from '../api'
 import { CreatedOrder } from '../models'
 import { Button } from './Button'
@@ -39,6 +39,24 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
     dispatch: Function
   }
 
+  useEffect(() => {
+    console.log({ order })
+    const {
+      name,
+      email,
+      city,
+      address: line1,
+      state,
+      postalCode: postal_code,
+    } = order.shipping
+    setBillingDetails({
+      name,
+      email,
+      address: { city, line1, state, postal_code },
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const stripe = useStripe()
   const elements = useElements()
 
@@ -59,9 +77,6 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
   }
 
   const handleSubmit = async () => {
-    console.log(billingDetails)
-    // TODO - validate form fields
-
     if (!(stripe && elements)) return
 
     setIsProcessing(true)
@@ -71,9 +86,9 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
     try {
       const token = localStorage.getItem('token')
       setToken(`${token}`)
-      const { data } = await api.post('/payment/create', {
+      const { data } = (await api.post('/payment/create', {
         amount: Math.round(order.total * 100),
-      })
+      })) as any
       const { clientSecret } = data
       const billing_details = { ...billingDetails }
       const paymentMethodReq = await stripe.createPaymentMethod({
@@ -118,6 +133,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="Name"
           onChange={handleFieldChange}
+          value={billingDetails.name}
         />
         <input
           type="text"
@@ -125,6 +141,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="Email"
           onChange={handleFieldChange}
+          value={billingDetails.email}
         />
       </div>
       <div className="form-group">
@@ -134,6 +151,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="Address"
           onChange={handleFieldChange}
+          value={billingDetails.address.line1}
         />
         <input
           type="text"
@@ -141,6 +159,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="City"
           onChange={handleFieldChange}
+          value={billingDetails.address.city}
         />
       </div>
       <div className="form-group">
@@ -150,6 +169,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="State"
           onChange={handleFieldChange}
+          value={billingDetails.address.state}
         />
         <input
           type="text"
@@ -157,6 +177,7 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
           className="form-control"
           placeholder="Postal Code"
           onChange={handleFieldChange}
+          value={billingDetails.address.postal_code}
         />
       </div>
 

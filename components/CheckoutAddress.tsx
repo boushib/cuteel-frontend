@@ -12,7 +12,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
     address: '',
     city: '',
     state: '',
-    postalCode: 0,
+    postalCode: '',
     country: '',
   })
 
@@ -54,7 +54,7 @@ const CheckoutAddress = ({ onProceed }: Props) => {
             type="text"
             name="name"
             className="form-control"
-            placeholder="Smith"
+            placeholder="John Smith"
             onChange={handleFieldChange}
           />
         </div>
@@ -64,19 +64,11 @@ const CheckoutAddress = ({ onProceed }: Props) => {
             type="text"
             name="email"
             className="form-control"
-            placeholder="Smith"
+            placeholder="name@domain.com"
             onChange={handleFieldChange}
           />
         </div>
       </div>
-      {/* <label htmlFor="">Email Address</label>
-      <input
-        type="text"
-        name="email"
-        className="form-control"
-        placeholder="johnsmith@domain.com"
-        onChange={handleFieldChange}
-      /> */}
       <label htmlFor="">Address</label>
       <input
         type="text"
