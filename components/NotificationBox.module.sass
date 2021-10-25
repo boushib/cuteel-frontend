@@ -1,7 +1,9 @@
 .notification__box
+  position: relative
   &__icon
     margin-right: 20px
     position: relative
+    cursor: pointer
     span
       height: 8px
       width: 8px
@@ -11,3 +13,18 @@
       right: -1px
       top: -3px
       z-index: 2
+  &__list
+    width: 280px
+    min-height: 220px
+    max-height: 280px
+    background-color: #171a2e
+    border: 1px solid #2c2c2c
+    padding: 18px 24px
+    position: absolute
+    top: 24px
+    right: 0
+    border-radius: 4px
+    &__item
+      list-style-type: none
+      &:not(:last-child)
+        margin-bottom: 12px
