@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import api from '@/api'
 import { Button } from '@/components/Button'
 import Head from '@/components/Head'
 import { validateEmail } from '@/utils/'
-import { ToastType } from '@/models/'
+import { AuthState, ToastType } from '@/models/'
 import { useToast } from '@/hooks/'
+import { AuthContext } from '@/store/providers'
+import { AuthAT } from '@/store/actions'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = async () => {
   return { props: {} }
@@ -18,6 +22,14 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const showToast = useToast()
+  const [isProcessing, setIsProcessing] = useState(false)
+
+  const { dispatch: authDispatch } = useContext(AuthContext) as {
+    state: AuthState
+    dispatch: Function
+  }
+
+  const router = useRouter()
 
   const handleSubmit = async () => {
     try {
@@ -32,12 +44,22 @@ const Signup = () => {
       if (password !== passwordConfirmation) {
         throw new Error('Password & confirmation do not match!')
       }
-
-      await api.post('/auth/signup', { name, email, password })
+      setIsProcessing(true)
+      authDispatch({ type: AuthAT.PENDING })
+      const { data } = await api.post('/auth/signup', { name, email, password })
+      console.log(data)
+      const { user, token } = data
+      console.log({ user, token })
+      authDispatch({ type: AuthAT.SUCCESS, payload: user })
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
+      Cookies.set('token', token)
+      router.push('/dashboard')
     } catch (error: any) {
       const message = error.response?.data?.error ?? error.message
       showToast({ type: ToastType.ERROR, message })
     }
+    setIsProcessing(false)
   }
 
   return (
@@ -72,7 +94,9 @@ const Signup = () => {
             placeholder="Confirm password"
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
-          <Button onClick={handleSubmit}>Signup</Button>
+          <Button onClick={handleSubmit} disabled={isProcessing}>
+            {isProcessing ? 'Processing...' : 'Sign up'}
+          </Button>
           <LoginLink>
             Already have an account? <Link href="/login">Login</Link>
           </LoginLink>
