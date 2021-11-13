@@ -101,7 +101,6 @@ const Products: React.FC<Props> = ({ products, categories }) => {
 
   const handlePriceRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const [min, max] = e.target.value.split(',').map((s) => +s)
-    console.log({ min, max })
     setFilters({ ...filters, priceRange: { min, max } })
   }
 

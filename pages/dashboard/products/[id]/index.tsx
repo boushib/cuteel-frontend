@@ -8,9 +8,10 @@ import { Button } from '@/components/Button'
 import Back from '@/components/Back'
 import Rating from '@/components/Rating'
 import { useState } from 'react'
+import { getRating } from '@/utils/'
 
 const getProduct = async (id: string) => {
-  const { data } = await api.get(`/products/${id}`)
+  const { data } = (await api.get(`/products/${id}`)) as any
   return data.product
 }
 
@@ -22,7 +23,7 @@ export const getServerSideProps = async ({ params }: any) => {
 
 type Props = { product: Product }
 
-const ProductPage: React.FC<Props> = ({ product }) => {
+const ProductPage = ({ product }: Props) => {
   const [isDeletingProduct, setIsDeletingProduct] = useState(false)
   const router = useRouter()
 
@@ -39,6 +40,8 @@ const ProductPage: React.FC<Props> = ({ product }) => {
     setIsDeletingProduct(false)
   }
 
+  const { rating, totalRatings } = getRating(product.rating)
+
   return (
     <div className="product page">
       <Head title={product.name ?? 'Product'} />
@@ -50,7 +53,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
-            <Rating />
+            <Rating rating={rating} totalRatings={totalRatings} />
             <div className="btn-group">
               <Link href={`/dashboard/products/${product._id}/edit`} passHref>
                 <Button color="#3f51b5">Edit</Button>

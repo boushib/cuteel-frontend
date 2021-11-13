@@ -11,13 +11,7 @@ const CreateCategory = () => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await api.post(
-        '/categories/create',
-        { name },
-        { headers: {} }
-      )
-      const { category } = data
-      console.log(category)
+      await api.post('/categories/create', { name }, { headers: {} })
       router.push('/dashboard')
     } catch (error: any) {
       console.log(error.response.data.error)

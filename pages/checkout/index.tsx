@@ -21,12 +21,13 @@ const Checkout = () => {
 
   const [order, setOrder] = useState<CreatedOrder>({
     shipping: {
+      email: '',
       name: '',
       address: '',
       city: '',
       state: '',
       country: '',
-      postalCode: 0,
+      postalCode: '',
     },
     userId: '',
     items: [],
@@ -74,8 +75,6 @@ const Checkout = () => {
   const handleProceed = () => {
     setCurrentStep((s) => s + 1)
   }
-
-  console.log(currentStep)
 
   return (
     <>

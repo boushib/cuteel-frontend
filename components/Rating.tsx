@@ -10,7 +10,9 @@ const Rating = ({ rating, totalRatings }: Props) => (
     {[1, 2, 3, 4, 5].map((r) => (
       <Star isActive={r <= rating} key={`s-${r}`} />
     ))}
-    <div className={styles.rating__count}>{totalRatings} reviews</div>
+    <div className={styles.rating__count}>
+      {totalRatings} {totalRatings === 1 ? 'review' : 'reviews'}
+    </div>
   </div>
 )
 

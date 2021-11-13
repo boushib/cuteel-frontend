@@ -154,7 +154,7 @@ export const nFormat = (num: number, digits: number) => {
     : '0'
 }
 
-type GetRating = (rating: Object) => { rating: number; totalRatings: number }
+type GetRating = (r: Object) => { rating: number; totalRatings: number }
 
 export const getRating: GetRating = (r: Object) => {
   const ratings = Object.entries(r)

@@ -47,9 +47,7 @@ const Signup = () => {
       setIsProcessing(true)
       authDispatch({ type: AuthAT.PENDING })
       const { data } = await api.post('/auth/signup', { name, email, password })
-      console.log(data)
-      const { user, token } = data
-      console.log({ user, token })
+      const { user, token } = data as any
       authDispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))

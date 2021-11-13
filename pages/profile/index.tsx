@@ -15,7 +15,7 @@ import { GetServerSideProps } from 'next'
 
 const getOrders = async () => {
   try {
-    const { data } = await api.get('/user-orders')
+    const { data } = (await api.get('/user-orders')) as any
     return data.orders
   } catch (error: any) {
     console.log(error.response)

@@ -12,7 +12,7 @@ import Rating from '@/components/Rating'
 import RateProduct from '@/components/RateProduct'
 
 const getProduct = async (id: string) => {
-  const { data } = await api.get(`/products/${id}`)
+  const { data } = (await api.get(`/products/${id}`)) as any
   return data.product
 }
 
@@ -24,7 +24,7 @@ export const getServerSideProps = async ({ params }: any) => {
 
 type Props = { product: Product }
 
-const ProductPage: React.FC<Props> = ({ product }) => {
+const ProductPage = ({ product }: Props) => {
   const [isRatingDialogOpen, setIsRatingDialogOpen] = useState(false)
 
   const { dispatch: cartDispatch } = useContext(CartContext) as {
