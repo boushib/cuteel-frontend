@@ -23,14 +23,16 @@ const OrderSummary = ({ order, onProceed }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {order.items.map((item, index) => (
-            <tr key={`item-${index}`}>
-              <td>{item.name}</td>
-              <td>${item.price}</td>
-              <td>{item.quantity}</td>
-              <td>${item.quantity * item.price}</td>
-            </tr>
-          ))}
+          {order.items.map((item, index) => {
+            return (
+              <tr key={`item-${index}`}>
+                <td>{item.name}</td>
+                <td>${item.price}</td>
+                <td>{item.quantity}</td>
+                <td>${item.quantity * item.price}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
       <br />

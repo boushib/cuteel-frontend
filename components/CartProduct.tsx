@@ -46,7 +46,7 @@ const CartProduct = ({ product, quantity }: Props) => {
         <CartProductQuantity>{quantity}</CartProductQuantity>
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
-      <CartProductPrice>${((1 - discount) * price).toFixed()}</CartProductPrice>
+      <CartProductPrice>${price.toFixed()}</CartProductPrice>
       <RemoveIcon className="remove-icon" onClick={removeFromCart}>
         <Remove />
       </RemoveIcon>

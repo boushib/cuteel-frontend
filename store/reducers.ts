@@ -30,8 +30,10 @@ export const cartReducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case CartAT.ADD:
       let items = [...state.items]
-      const product = action.payload
-      const total = state.total + (1 - product.discount) * product.price
+      let product = { ...action.payload }
+      const price = (1 - product.discount) * product.price
+      product = { ...product, price }
+      const total = state.total + product.price
       const index = items.findIndex((i) => i.product._id === product._id)
 
       if (index > -1) {
