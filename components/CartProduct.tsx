@@ -37,6 +37,7 @@ const CartProduct = ({ product, quantity }: Props) => {
     })
     dispatch({ type: CartAT.SET, payload: { items, total } })
   }
+  console.log({ price })
   return (
     <CartProductContainer>
       <CartProductImage img={image} />
@@ -46,7 +47,7 @@ const CartProduct = ({ product, quantity }: Props) => {
         <CartProductQuantity>{quantity}</CartProductQuantity>
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
-      <CartProductPrice>${price.toFixed()}</CartProductPrice>
+      <CartProductPrice>${price.toFixed(2)}</CartProductPrice>
       <RemoveIcon className="remove-icon" onClick={removeFromCart}>
         <Remove />
       </RemoveIcon>

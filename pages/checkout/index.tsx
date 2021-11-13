@@ -11,6 +11,7 @@ import CheckoutAddress from '@/components/CheckoutAddress'
 import OrderSummary from '@/components/OrderSummary'
 import Checkmark from '@/icons/Checkmark'
 import { Button } from '@/components/Button'
+import router from 'next/router'
 
 const STEPS = ['Order details', 'Shipping address', 'Summary', 'Payment method']
 
@@ -69,6 +70,11 @@ const Checkout = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
+
+  if (!user) {
+    router.push('/login')
+    return null
+  }
 
   const stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 
