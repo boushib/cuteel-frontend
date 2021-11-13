@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
 import NotificationsIcon from '@/icons/Notifications'
 import styles from './NotificationBox.module.sass'
@@ -10,6 +10,7 @@ import Link from 'next/link'
 const NotificationBox = () => {
   const [notifications, setNotifications] = useState<Array<Notification>>([])
   const [isNotificationBoxOpen, setIsNotificationBoxOpen] = useState(false)
+  const ref = useRef<any>()
 
   useEffect(() => {
     const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL!)
@@ -18,15 +19,27 @@ const NotificationBox = () => {
       _notifications.push(notification)
       setNotifications(_notifications)
     })
+
+    document.addEventListener('click', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const handleOutsideClick = (e: any) => {
+    if (!ref.current?.contains(e.target)) {
+      setIsNotificationBoxOpen(false)
+    }
+  }
 
   const handleToggleNotificationBox = () => {
     setIsNotificationBoxOpen(!isNotificationBoxOpen)
   }
 
   return (
-    <div className={styles.notification__box}>
+    <div className={styles.notification__box} ref={ref}>
       <div
         className={styles.notification__box__icon}
         onClick={handleToggleNotificationBox}
