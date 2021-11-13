@@ -7,7 +7,7 @@ import Remove from '@/icons/Remove'
 
 type Props = { product: Product; quantity: number }
 
-const CartProduct: React.FC<Props> = ({ product, quantity }) => {
+const CartProduct = ({ product, quantity }: Props) => {
   const { dispatch, state: cartState } = useContext(CartContext) as {
     dispatch: Function
     state: CartState
@@ -46,7 +46,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
         <CartProductQuantity>{quantity}</CartProductQuantity>
         <span onClick={incrementQuantity}>+</span>
       </CartProductQuantityContainer>
-      <CartProductPrice>${price.toFixed()}</CartProductPrice>
+      <CartProductPrice>${((1 - discount) * price).toFixed()}</CartProductPrice>
       <RemoveIcon className="remove-icon" onClick={removeFromCart}>
         <Remove />
       </RemoveIcon>
