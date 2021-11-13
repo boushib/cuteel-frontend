@@ -12,7 +12,7 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
     dispatch: Function
     state: CartState
   }
-  const { image, name, price, _id } = product
+  const { image, name, price, _id, discount } = product
 
   const removeFromCart = () => {
     dispatch({ type: CartAT.REMOVE, payload: _id })
@@ -31,7 +31,10 @@ const CartProduct: React.FC<Props> = ({ product, quantity }) => {
     let total = 0
     const index = items.findIndex((i) => i.product._id === _id)
     items[index].quantity = q
-    items.forEach((i) => (total += i.product.price * i.quantity))
+    items.forEach((i) => {
+      const p = (1 - i.product.discount) * i.product.price
+      total += p * i.quantity
+    })
     dispatch({ type: CartAT.SET, payload: { items, total } })
   }
   return (

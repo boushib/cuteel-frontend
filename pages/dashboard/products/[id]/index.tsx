@@ -52,7 +52,9 @@ const ProductPage = ({ product }: Props) => {
           <div>
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>
-            <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
+            <ProductPrice>
+              ${(1 - product.discount) * product.price}
+            </ProductPrice>
             <Rating rating={rating} totalRatings={totalRatings} />
             <div className="btn-group">
               <Link href={`/dashboard/products/${product._id}/edit`} passHref>

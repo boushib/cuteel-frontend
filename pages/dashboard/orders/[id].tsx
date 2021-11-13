@@ -6,7 +6,7 @@ import { formatDate } from '@/utils/'
 import styles from './order.module.sass'
 
 const getOrder = async (id: string) => {
-  const { data } = await api.get(`/orders/${id}`)
+  const { data } = (await api.get(`/orders/${id}`)) as any
   return data.order
 }
 

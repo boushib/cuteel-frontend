@@ -9,7 +9,7 @@ import Spinner from '@/components/Spinner'
 import styles from '../add.module.scss'
 
 const getProduct = async (id: string) => {
-  const { data } = await api.get(`/products/${id}`)
+  const { data } = (await api.get(`/products/${id}`)) as any
   return data.product
 }
 

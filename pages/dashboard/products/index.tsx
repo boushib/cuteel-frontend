@@ -9,7 +9,7 @@ import { Button, ButtonSmall } from '@/components/Button'
 
 const getProducts = async () => {
   try {
-    const { data } = await api.get('/products')
+    const { data } = (await api.get('/products')) as any
     return data.products
   } catch (error: any) {
     console.log(error.response)
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 type Props = { products: Array<Product> }
 
-const Products: React.FC<Props> = ({ products }) => {
+const Products = ({ products }: Props) => {
   const [isDeletingProduct, setIsDeletingProduct] = useState(false)
   const router = useRouter()
 
@@ -40,6 +40,7 @@ const Products: React.FC<Props> = ({ products }) => {
     }
     setIsDeletingProduct(false)
   }
+
   return (
     <>
       <Head title="Products" />
@@ -73,7 +74,9 @@ const Products: React.FC<Props> = ({ products }) => {
                       ></div>
                     </td>
                     <td>{product.name}</td>
-                    <td>${product.price.toFixed(2)}</td>
+                    <td>
+                      ${((1 - product.discount) * product.price).toFixed(2)}
+                    </td>
                     <td>{product.quantity}</td>
                     <td>
                       <Link
