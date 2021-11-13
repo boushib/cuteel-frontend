@@ -156,16 +156,20 @@ export const nFormat = (num: number, digits: number) => {
 
 type GetRating = (r: Object) => { rating: number; totalRatings: number }
 
-export const getRating: GetRating = (r: Object) => {
-  const ratings = Object.entries(r)
+export const getRating: GetRating = (r: any) => {
+  delete r._id
+  const ratings: Array<Array<string>> = Object.entries(r)
+
+  if (ratings === undefined) return { rating: 0, totalRatings: 0 }
 
   let rating = 0
   let sum = 0
-  let totalRatings = 0
+  let totalRatings: number = 0
 
   for (let [key, value] of ratings) {
-    totalRatings += value
-    sum += parseInt(key) * value
+    const v = parseInt(value)
+    totalRatings += v
+    sum += parseInt(key) * v
   }
 
   if (totalRatings > 0) {
