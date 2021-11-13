@@ -3,9 +3,10 @@ import { Ticket } from '@/models'
 import Head from '@/components/Head'
 import Back from '@/components/Back'
 import styles from './ticket.module.sass'
+import { formatTime } from '@/utils/'
 
 const getTicket = async (id: string) => {
-  const { data } = await api.get(`/tickets/${id}`)
+  const { data } = (await api.get(`/tickets/${id}`)) as any
   return data.ticket
 }
 
@@ -37,7 +38,7 @@ const TicketPage = ({ ticket }: Props) => {
               <b>Description:</b> {ticket.description}
             </p>
             <p>
-              <b>Created at:</b> {ticket.createdAt}
+              <b>Created at:</b> {formatTime(ticket.createdAt)}
             </p>
           </div>
         </div>

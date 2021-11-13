@@ -34,7 +34,7 @@ const Login = () => {
       }
       authDispatch({ type: AuthAT.PENDING })
       const { data } = await api.post('/auth/signin', { email, password })
-      const { user, token } = data
+      const { user, token } = data as any
       authDispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))

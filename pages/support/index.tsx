@@ -1,21 +1,25 @@
 import { useState, useContext } from 'react'
-import api from '@/api'
+import api, { setToken } from '@/api'
 import { AuthContext } from '@/store/providers'
-import { AuthState } from '@/models'
+import { AuthState, ToastType } from '@/models'
 import { Button } from '@/components/Button'
 import Head from '@/components/Head'
 import Link from 'next/link'
+import { useToast } from '@/hooks/'
 
 const Support = () => {
   const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
   const [isTicketCreated, setIsTicketCreated] = useState(false)
+  const showToast = useToast()
 
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { user } = authState
 
   const createTicket = async () => {
     try {
+      const token = localStorage.getItem('token')
+      setToken(`${token}`)
       await api.post('/tickets/create', {
         subject,
         description,
@@ -23,7 +27,8 @@ const Support = () => {
       })
       setIsTicketCreated(true)
     } catch (error: any) {
-      console.log(error.response.data.error)
+      const message = error.response?.data?.error ?? error.message
+      showToast({ type: ToastType.ERROR, message })
     }
   }
 
