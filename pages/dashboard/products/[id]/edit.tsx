@@ -134,8 +134,24 @@ const EditProduct: React.FC<Props> = ({ product }) => {
                   onChange={(e) => setQuantity(+e.target.value)}
                 />
               </div>
+
               <div>
-                <label htmlFor="discount">Discount (-{discount}%)</label>
+                <label htmlFor="description">Description</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  placeholder="Product description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+
+              <FileUpload onChange={setImage} />
+
+              <div>
+                <label htmlFor="discount">
+                  Discount {discount ? `(-${discount}%)` : ''}
+                </label>
                 <input
                   type="number"
                   id="discount"
@@ -148,17 +164,6 @@ const EditProduct: React.FC<Props> = ({ product }) => {
                   onChange={(e) => setDiscount(+e.target.value)}
                 />
               </div>
-              <div>
-                <label htmlFor="description">Description</label>
-                <textarea
-                  className="form-control"
-                  id="description"
-                  placeholder="Product description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <FileUpload onChange={setImage} />
             </div>
             <Button onClick={handleSubmit}>Submit</Button>
           </>
