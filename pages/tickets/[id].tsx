@@ -1,12 +1,10 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 import api, { setToken } from '@/api'
 import { Ticket } from '@/models'
 import Head from '@/components/Head'
 import Back from '@/components/Back'
 
 const getTicket = async (id: string) => {
-  const { data } = await api.get(`/tickets/${id}`)
+  const { data } = (await api.get(`/tickets/${id}`)) as any
   return data.ticket
 }
 
