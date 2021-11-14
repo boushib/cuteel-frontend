@@ -53,7 +53,17 @@ const ProductPage = ({ product }: Props) => {
             <h1>{product.name}</h1>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>
-              ${(1 - product.discount) * product.price}
+              {product.discount === 0 && <>${product.price}</>}
+              {product.discount > 0 && (
+                <>
+                  <span
+                    style={{ marginRight: 12, textDecoration: 'line-through' }}
+                  >
+                    ${product.price}
+                  </span>
+                  ${product.price * (1 - product.discount)}
+                </>
+              )}
             </ProductPrice>
             <Rating rating={rating} totalRatings={totalRatings} />
             <div className="btn-group">
@@ -82,10 +92,13 @@ const ProductContainer = styled.div`
 `
 
 const ProductPrice = styled.div`
-  /* font-family: 'Syne'; */
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 16px;
+  span {
+    font: inherit;
+    color: #ff5722;
+  }
 `
 
 const ProductImage = styled.div`

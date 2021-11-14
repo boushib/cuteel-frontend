@@ -60,6 +60,7 @@ const Products = ({ products }: Props) => {
                   <th>Image</th>
                   <th>Name</th>
                   <th>Price</th>
+                  <th>Discount</th>
                   <th>In Stock</th>
                   <th>Action</th>
                 </tr>
@@ -76,6 +77,9 @@ const Products = ({ products }: Props) => {
                     <td>{product.name}</td>
                     <td>
                       ${((1 - product.discount) * product.price).toFixed(2)}
+                    </td>
+                    <td>
+                      {product.discount ? `${product.discount * 100}%` : '--'}
                     </td>
                     <td>{product.quantity}</td>
                     <td>

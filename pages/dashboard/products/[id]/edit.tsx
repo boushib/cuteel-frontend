@@ -30,6 +30,7 @@ const EditProduct: React.FC<Props> = ({ product }) => {
   const [category, setCategory] = useState('6105b8e4dd93b34f227b51ca')
   const [image, setImage] = useState<any>()
   const [quantity, setQuantity] = useState(100)
+  const [discount, setDiscount] = useState(0)
   const [isBusy, setIsBusy] = useState(false)
   const router = useRouter()
 
@@ -40,6 +41,7 @@ const EditProduct: React.FC<Props> = ({ product }) => {
       setPrice(product.price)
       setCategory(product.category)
       setQuantity(product.quantity)
+      setDiscount(product.discount * 100)
     }
   }, [product])
 
@@ -60,6 +62,9 @@ const EditProduct: React.FC<Props> = ({ product }) => {
       }
       if (quantity && quantity !== product.quantity) {
         fd.append('quantity', quantity.toString())
+      }
+      if (discount / 100 !== product.discount) {
+        fd.append('discount', (discount / 100).toString())
       }
       if (image) {
         fd.append('image', image)
@@ -127,6 +132,20 @@ const EditProduct: React.FC<Props> = ({ product }) => {
                   placeholder="Product quantity"
                   value={quantity}
                   onChange={(e) => setQuantity(+e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="discount">Discount (-{discount}%)</label>
+                <input
+                  type="number"
+                  id="discount"
+                  className="form-control"
+                  placeholder="Product discount"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={discount}
+                  onChange={(e) => setDiscount(+e.target.value)}
                 />
               </div>
               <div>
