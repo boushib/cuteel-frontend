@@ -25,21 +25,30 @@ const TicketPage = ({ ticket }: Props) => {
       <Head title="Ticket" />
       <div className="container" style={{ maxWidth: 1024 }}>
         <Back page="Tickets" />
-        <h3>Ticket {ticket._id}</h3>
-        <div className={styles.ticket__details}>
-          <div className="card">
-            <p>
-              <b>Subject:</b> {ticket.subject}
-            </p>
-            <p>
-              <b>Status:</b> {ticket.status}
-            </p>
-            <p>
-              <b>Description:</b> {ticket.description}
-            </p>
-            <p>
-              <b>Created at:</b> {formatTime(ticket.createdAt)}
-            </p>
+        <div className="card">
+          <h3>Ticket</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Created at</th>
+                <th>Subject</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{ticket._id}</td>
+                <td>{formatTime(ticket.createdAt)}</td>
+                <td>{ticket.subject}</td>
+                <td>{ticket.status}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <div className={styles.ticket__message}>
+            <div className={styles.ticket__message__heading}>Message</div>
+            <p className={styles.ticket__message__body}>{ticket.description}</p>
           </div>
         </div>
       </div>
