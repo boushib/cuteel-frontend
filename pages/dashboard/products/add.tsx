@@ -11,7 +11,7 @@ import { Category } from '@/models/'
 
 const getCategories = async () => {
   try {
-    const { data } = await api.get('/categories')
+    const { data } = (await api.get('/categories')) as any
     return data.categories
   } catch (error: any) {
     console.log(error.response)
@@ -28,10 +28,11 @@ type Props = { categories: Array<Category> }
 const AddProduct: React.FC<Props> = ({ categories }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState(29.99)
+  const [price, setPrice] = useState(50)
   const [category, setCategory] = useState('6105b8e4dd93b34f227b51ca')
   const [image, setImage] = useState<any>()
   const [quantity, setQuantity] = useState(100)
+  const [discount, setDiscount] = useState(10)
   const [isBusy, setIsBusy] = useState(false)
 
   const router = useRouter()
@@ -45,6 +46,7 @@ const AddProduct: React.FC<Props> = ({ categories }) => {
       fd.append('category', category)
       fd.append('image', image)
       fd.append('quantity', quantity.toString())
+      fd.append('discount', (discount / 100).toString())
       const headers = { 'Content-Type': 'multipart/form-data' }
       setIsBusy(true)
       const token = localStorage.getItem('token')
@@ -126,6 +128,22 @@ const AddProduct: React.FC<Props> = ({ categories }) => {
                 />
               </div>
               <FileUpload onChange={setImage} />
+              <div>
+                <label htmlFor="discount">
+                  Discount {discount ? `(-${discount}%)` : ''}
+                </label>
+                <input
+                  type="number"
+                  id="discount"
+                  className="form-control"
+                  placeholder="Product discount"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={discount}
+                  onChange={(e) => setDiscount(+e.target.value)}
+                />
+              </div>
             </div>
             <Button onClick={handleSubmit}>Submit</Button>
           </>
