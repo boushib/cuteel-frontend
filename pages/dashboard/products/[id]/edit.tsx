@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Product } from '@/models'
+import { Category, Product } from '@/models'
 import api, { setToken } from '@/api'
 import { Button } from '@/components/Button'
 import FileUpload from '@/components/FileUpload'
@@ -9,21 +9,35 @@ import Spinner from '@/components/Spinner'
 import styles from '../add.module.scss'
 
 const getProduct = async (id: string) => {
-  const { data } = (await api.get(`/products/${id}`)) as any
-  return data.product
+  return api.get(`/products/${id}`)
+}
+
+const getCategories = async () => {
+  return api.get('/categories')
 }
 
 export const getServerSideProps = async ({ params }: any) => {
-  const { id } = params
-  const product: Product = await getProduct(id)
-  return { props: { product } }
+  let props = { product: [], categories: [] }
+  try {
+    const productPromise = getProduct(params.id)
+    const categoriesPromise = getCategories()
+    const [{ data: productData }, { data: categoriesData }]: any =
+      await Promise.all([productPromise, categoriesPromise])
+    const { product } = productData
+    const { categories } = categoriesData
+    props = { product, categories }
+  } catch (error: any) {
+    console.log(error.response)
+  }
+  return { props }
 }
 
 type Props = {
   product: Product
+  categories: Array<Category>
 }
 
-const EditProduct: React.FC<Props> = ({ product }) => {
+const EditProduct = ({ product, categories }: Props) => {
   const [name, setName] = useState('Product 100')
   const [description, setDescription] = useState('Just testing..')
   const [price, setPrice] = useState(19.99)
@@ -114,14 +128,19 @@ const EditProduct: React.FC<Props> = ({ product }) => {
               </div>
               <div>
                 <label htmlFor="category">Category</label>
-                <input
-                  type="text"
+                <select
+                  name="category"
                   id="category"
-                  className="form-control"
-                  placeholder="Product category"
                   value={category}
+                  className="form-control"
                   onChange={(e) => setCategory(e.target.value)}
-                />
+                >
+                  {categories.map((c) => (
+                    <option value={c._id} key={c._id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label htmlFor="quantity">Quantity</label>
