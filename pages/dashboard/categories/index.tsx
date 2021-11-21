@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 const getCategories = async () => {
   try {
-    const { data } = await api.get('/categories')
+    const { data } = (await api.get('/categories')) as any
     return data.categories
   } catch (error: any) {
     console.log(error.response)
@@ -68,6 +68,12 @@ const Categories: React.FC<Props> = ({ categories }) => {
                     <td>{c.description}</td>
                     <td>
                       {/* <ButtonSmall color="#3f51b5">Edit</ButtonSmall> */}
+                      <Link
+                        href={`/dashboard/categories/${c._id}/edit`}
+                        passHref
+                      >
+                        <ButtonSmall color="#3f51b5">Edit</ButtonSmall>
+                      </Link>
                       <ButtonSmall
                         disabled={
                           isDeletingCategory && categoryIdToDelete === c._id
