@@ -40,7 +40,6 @@ const CheckoutPayment = ({ order, onProceed }: Props) => {
   }
 
   useEffect(() => {
-    console.log({ order })
     const {
       name,
       email,

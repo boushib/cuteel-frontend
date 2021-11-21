@@ -37,7 +37,6 @@ const CartProduct = ({ product, quantity }: Props) => {
     })
     dispatch({ type: CartAT.SET, payload: { items, total } })
   }
-  console.log({ price })
   return (
     <CartProductContainer>
       <CartProductImage img={image} />
