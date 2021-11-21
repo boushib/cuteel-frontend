@@ -11,6 +11,7 @@ import { Button } from '@/components/Button'
 import Head from '@/components/Head'
 import { useToast } from '@/hooks/'
 import { validateEmail } from '@/utils/'
+import styles from './login.module.sass'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -33,7 +34,10 @@ const Login = () => {
         throw new Error(`Please enter a valid ${field}!`)
       }
       authDispatch({ type: AuthAT.PENDING })
-      const { data } = await api.post('/auth/admin-signin', { email, password })
+      const { data } = (await api.post('/auth/admin-signin', {
+        email,
+        password,
+      })) as any
       const { user, token } = data
       authDispatch({ type: AuthAT.SUCCESS, payload: user })
       localStorage.setItem('token', token)
@@ -50,10 +54,7 @@ const Login = () => {
   return (
     <>
       <Head title="Login" />
-      <div
-        className="login page"
-        style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}
-      >
+      <div className={styles.login}>
         <FormContainer>
           <h1>Login</h1>
           <input
@@ -80,6 +81,10 @@ const Login = () => {
 }
 
 export default Login
+
+const LoginPageContainer = styled.div`
+  background-color: #161a2f;
+`
 
 const FormContainer = styled.div`
   width: 360px;

@@ -11,7 +11,7 @@ type Props = {
   Component: any
 }
 
-const Layout: React.FC<Props> = ({ Component, pageProps }) => {
+const Layout = ({ Component, pageProps }: Props) => {
   const { isLoading } = useRouteChange()
   const router = useRouter()
   const isDashboardLogin = router.pathname === '/dashboard/login'

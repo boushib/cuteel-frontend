@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { AuthState } from '@/models/'
 import { AuthContext } from '@/store/providers'
 import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
 
 type Props = {
   pageProps: any
@@ -13,7 +14,7 @@ type Props = {
   isLoading: boolean
 }
 
-const Dashboard: React.FC<Props> = ({ pageProps, Component, isLoading }) => {
+const Dashboard = ({ pageProps, Component, isLoading }: Props) => {
   const { state: authState } = useContext(AuthContext) as { state: AuthState }
   const { user } = authState
   const router = useRouter()
