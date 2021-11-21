@@ -61,7 +61,7 @@ const ProductPage = ({ product }: Props) => {
                   >
                     ${product.price}
                   </span>
-                  ${product.price * (1 - product.discount)}
+                  ${(product.price * (1 - product.discount)).toFixed(2)}
                 </>
               )}
             </ProductPrice>
