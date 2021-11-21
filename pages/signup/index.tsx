@@ -11,6 +11,7 @@ import { AuthContext } from '@/store/providers'
 import { AuthAT } from '@/store/actions'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import styles from './signup.module.sass'
 
 export const getServerSideProps = async () => {
   return { props: {} }
@@ -63,7 +64,7 @@ const Signup = () => {
   return (
     <>
       <Head title="Signup" />
-      <div className="signup page">
+      <div className={`${styles.signup} page`}>
         <FormContainer>
           <h1>Signup</h1>
           <input

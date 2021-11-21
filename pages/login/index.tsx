@@ -11,6 +11,7 @@ import { Button } from '@/components/Button'
 import Head from '@/components/Head'
 import { useToast } from '@/hooks/'
 import { validateEmail } from '@/utils/'
+import styles from './login.module.sass'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -50,7 +51,7 @@ const Login = () => {
   return (
     <>
       <Head title="Login" />
-      <div className="login page">
+      <div className={`${styles.login} page`}>
         <FormContainer>
           <h1>Login</h1>
           <input
