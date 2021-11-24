@@ -102,7 +102,7 @@ const ProductCard: React.FC<Props> = ({
                 >
                   ${price}
                 </span>
-                ${price * (1 - discount)}
+                ${(price * (1 - discount)).toFixed(2)}
               </div>
             )}
           </div>
