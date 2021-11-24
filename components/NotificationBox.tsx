@@ -14,6 +14,11 @@ const NotificationBox = () => {
 
   useEffect(() => {
     const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL!)
+    socket.emit('joinRoom', 'notifications')
+
+    socket.on('roomHistory', (notificationHistory) => {
+      setNotifications(notificationHistory)
+    })
     socket.on('notification', (notification) => {
       const _notifications = [...notifications]
       _notifications.push(notification)
