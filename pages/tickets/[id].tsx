@@ -23,7 +23,18 @@ const TicketPage = ({ ticket }: Props) => {
       <Head title="Ticket" />
       <div className="container" style={{ maxWidth: 1024 }}>
         <Back page="Tickets" />
-        <p>Subject: {ticket.subject}</p>
+        <div className="card">
+          <p>
+            <b>Subject:</b>
+            <br />
+            {ticket.subject}
+          </p>
+          <br />
+          <p>
+            <b>Message:</b>
+            <br /> {ticket.description}
+          </p>
+        </div>
       </div>
     </div>
   )

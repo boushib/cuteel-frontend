@@ -19,10 +19,9 @@ const NotificationBox = () => {
     socket.on('roomHistory', (notificationHistory) => {
       setNotifications(notificationHistory)
     })
+
     socket.on('notification', (notification) => {
-      const _notifications = [...notifications]
-      _notifications.push(notification)
-      setNotifications(_notifications)
+      handleAppendNotification(notification)
     })
 
     document.addEventListener('click', handleOutsideClick)
@@ -32,6 +31,12 @@ const NotificationBox = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const handleAppendNotification = (notification: Notification) => {
+    const _notifications = [...notifications]
+    _notifications.push(notification)
+    setNotifications(_notifications)
+  }
 
   const handleOutsideClick = (e: any) => {
     if (!ref.current?.contains(e.target)) {
