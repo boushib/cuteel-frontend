@@ -5,8 +5,12 @@ import Hero from '@/components/home/Hero'
 import FeaturedProducts from '@/components/FeaturedProducts'
 
 const getProducts = async () => {
-  const { data } = await api.get('/products')
-  return data.products
+  try {
+    const { data } = await api.get('/products')
+    return data.products
+  } catch (err) {
+    return []
+  }
 }
 
 export const getServerSideProps = async () => {
